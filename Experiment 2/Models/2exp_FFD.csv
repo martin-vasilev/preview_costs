@@ -1,0 +1,17 @@
+"";"Estimate";"Std. Error";"t value"
+"(Intercept)";5,453;0,011;481,713
+"prev.PB";0,064;0,01;6,161
+"prev.Orth_PB";0,03;0,01;2,863
+"prev.Phon_PB";-0,005;0,01;-0,463
+"deg1";-0,019;0,004;-4,49
+"Experiment1";0,026;0,004;6,88
+"prev.PB:deg1";0,019;0,01;1,845
+"prev.Orth_PB:deg1";0,007;0,01;0,639
+"prev.Phon_PB:deg1";0,005;0,01;0,475
+"prev.PB:Experiment1";0,004;0,01;0,409
+"prev.Orth_PB:Experiment1";0,003;0,01;0,303
+"prev.Phon_PB:Experiment1";0,007;0,01;0,63
+"deg1:Experiment1";-0,008;0,004;-2,169
+"prev.PB:deg1:Experiment1";-0,02;0,01;-1,93
+"prev.Orth_PB:deg1:Experiment1";-0,019;0,01;-1,798
+"prev.Phon_PB:deg1:Experiment1";0,015;0,01;1,471

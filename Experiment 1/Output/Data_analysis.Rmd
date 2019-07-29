@@ -1,0 +1,48 @@
+---
+title: "Data Analysis"
+author: "Martin R. Vasilev"
+date: "July 20, 2017"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/Martin Vasilev/Documents/Phon_VisDeg")
+```
+
+
+```{r, echo= FALSE}
+load('data/means.Rda')
+
+N<- mF[,c(1,2,3,4,7,8,11,12,15,16)]
+N[,c(4,6,8,10)]<- round(N[,c(4,6,8,10)])
+colnames(N)<- c("Preview", "Degradation", "FFD", "FFD_SD", "SFD", "SFD_SD",   
+                "GD", "GD_SD", "TVT", "TVT_SD")
+
+N1<- mF[,c(1,2,5,6,9,10,13,14,17,18)]
+N1[,c(4,6,8,10)]<- round(N1[,c(4,6,8,10)])
+colnames(N1)<- c("Preview", "Degradation", "FFD", "FFD_SD", "SFD",
+                 "SFD_SD", "GD", "GD_SD", "TVT", "TVT_SD")
+
+library(knitr)
+
+load("Output/Dplot.Rda")
+load("Output/df.Rda")
+load("Output/Dplot2.Rda")
+```
+
+## Means (word N):
+
+`r kable(N)`
+
+
+
+## Means (word N+1):
+
+`r kable(N1)`
+
+
+## Word N+1 plot: First-pass reading
+
+
+## Word N+1 plot: second-pass reading
