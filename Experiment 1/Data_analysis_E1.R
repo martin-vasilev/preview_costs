@@ -6,6 +6,31 @@
 rm(list=ls())
 
 
+### MEANING OF DATA COLUMNS:
+
+# "seq" =         Trial sequence in the experiment
+# "subj"=         Subject number
+# "item"=         Item number
+# "cond"=         Condition number
+# "FFD_N"=        First fixation duration on the pre-target word (N)
+# "FFD_N1"=       First fixation duration on the target word (N+1)
+# "SFD_N"=        Single fixation duration on the pre-target word (N)
+# "SFD_N1"        Single fixation duration on the target word (N+1) 
+# "GD_N"=         Gaze duration on the pre-target word (N)
+# "GD_N1"=        Gaze duration on the target word (N+1)    
+# "TVT_N"=        Total viewing time on the pre-target word (N)
+# "TVT_N1"=       Total viewing time on the target word (N+1)
+# "nFix_N"=       Number of fixations on the pre-target word (N)
+# "nFix_N1"=      Number of fixations on the target word (N+1) 
+# "prev"=         Preview condition
+# "deg"=          Degradation condition 
+# "pRefixN"=      Probability of re-fixating the pre-target word (N)
+# "pRefixN1"=     Probability of re-fixating the target word (N+1)
+# "preBndFix"=    Duration of the fixation immediately before crossing the boundary
+# "preBndX"=      Location of the fixation immediately before crossing the boundary (in pixels)  
+# "dist_Bnd"=     Distance of the pre-boundary fixation from the boundary location (in letters) 
+
+
 ### MEANS:
 
 load('Experiment 1/data/means.Rda')
@@ -66,8 +91,6 @@ ggsave("Experiment 1/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
 E1plot<- Dplot
 save(E1plot, file= "Experiment 1/Plots/TW.Rda")
 
-#ggsave("Plots/TW.tiff", Dplot, width= 15, height=7, units= "in")
-
 
 ### Preview costs (size):
 dfN<- mF[, c('prev', 'deg', 'FFD_N1_M', 'SFD_N1_M', 'GD_N1_M')]
@@ -112,6 +135,7 @@ dfB<- subset(dfB, prev== "valid")
 # Statistical analysis:
 #----------------------
 
+# set-up contrast coding:
 library(lme4)
 
 data$prev<- as.factor(data$prev)
@@ -231,97 +255,10 @@ if(!file.exists("Experiment 1/Models/GDN1.Rda")){
 write.csv(SGD, file= "Experiment 1/Models/TW_GD.csv")
 
 
-## SFD doesn't converge with all random slopes; we remove the prev slope for items
-#summary(SFDN1<-lmer(log(SFD_N1)~prev*deg+ (deg+prev|subj)+ (deg|item), REML = T, data=data))
-
-
-
-
-
-#data$GD_N_c<- scale(data$GD_N)
-
-#summary(FFDN1ph<- lmer(log(FFD_N1)~prev*deg*GD_N_c+ (deg+prev|subj)+ (deg|item), REML = T, data=data))
-#summary(GDN1ph<- lmer(log(GD_N1)~prev*deg*GD_N_c+ (deg+prev|subj)+ (deg|item), REML = T, data=data))
-
-
-# Skipping probability:
-
-data$skip<- NA
-for(i in 1:nrow(data)){
-  if(data$nFix_N1[i]==0){
-    data$skip[i]<- 1
-  }else{
-    data$skip[i]<- 0
-  }
-}
-
-
-library(reshape)
-
-DesSkip<- melt(data, id=c('subj', 'item', 'cond', 'prev', 'deg'), 
-                measure=c("skip") , na.rm=TRUE)
-
-mSkip<- cast(DesSkip, prev+deg ~ variable
-              , function(x) c(M=signif(mean(x),3)
-                              , SD= sd(x) ))
-
-if(!file.exists("Experiment 1/Models/GMskip.Rda")){
-  summary(GMskip<- glmer(skip ~ prev*deg+ (prev|subj)+ (prev|item), family= binomial, data=data))
-  save(GMskip, file= "Experiment 1/Models/GMskip.Rda")
-}else{
-  load("Experiment 1/Models/GMskip.Rda")
-  summary(GMskip)
-}
-
-
-
-########## Post-hoc analysis:
-# Preview benefit as a function of distance from boundary:
-
-# GD:
-if(!file.exists("Experiment 1/Models/PGDN1.Rda")){
-  summary(PGDN1<-lmer(log(GD_N1)~prev*deg*dist_Bnd+ (prev+deg|subj)+ (prev+deg|item), REML = T, data=data))
-  save(PGDN1, file= "Experiment 1/Models/PGDN1.Rda")
-}else{
-  load("Experiment 1/Models/PGDN1.Rda")
-}
-
-
-library(effects)
-plot(effect('prev:dist_Bnd', PGDN1))
-plot(effect('prev:deg', PGDN1))
-
-# FFD:
-summary(PFFDN1<- lmer(log(FFD_N1)~prev*deg*dist_Bnd+ (1|subj)+ (1|item), REML = T, data=data))
-
-
-
-
-##########################################################
-data2<- subset(data, prev=="orth"| prev== "invalid")
-data2$prev<- droplevels(data2$prev)
-contrasts(data2$deg)
-contrasts(data2$prev)<- c(-1,1)
-
-
-summary(lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data2))
-summary(lmer(log(SFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data2))
-summary(lmer(log(FFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data2))
-
-
-data3<- subset(data, deg!='20')
-data3<- subset(data3, prev=="orth"| prev== "phon")
-data3$prev<- droplevels(data3$prev)
-(contrasts(data3$prev)<- c(-1,1))
-
-
-summary(lmer(log(GD_N1)~prev+ (prev|subj)+ (prev|item), REML = T, data=data3))
-summary(lmer(log(SFD_N1)~prev+ (1|subj)+ (1|item), REML = T, data=data3))
-summary(lmer(log(FFD_N1)~prev+ (1|subj)+ (1|item), REML = T, data=data3))
 
 
 ######################################################
-#               Global reading measures:             #
+#               Global reading analysis:             #
 ######################################################
 
 #------------------------------------------------------
@@ -475,287 +412,3 @@ Dplot<- ggplot(data= db, aes(x=Degradation, y= Mean, fill= Degradation, group=De
   position=position_dodge(width=0.6), width=0.2, color= "#737373")
 
 ggsave("Experiment 1/Plots/Gen.png", Dplot, width= 12, height=5, units= "in", dpi=300)
-
-
-#################################################################################################################
-#                                           Prediction graph                                                    #
-#################################################################################################################
-
-#------------------------#
-#  Prediction - Panel 1  #
-#------------------------#
-
-library(pBrackets)
-colours<- c('darkred', 'darkblue', '#8a8a8a', '#decfa0')
-
-pdf('Experiment 1/Plots/pred_plot.pdf', width = 10, height = 10, paper='special')
-layout(mat = matrix(c(1,2,3,4,5,6),nrow = 3,ncol = 2,byrow = TRUE), heights = c(0.4,0.2, 0.4))
-par(mar=c(4,4,4,4))
-
-plot(NA, type= 'l', ylab= "", xlab= "Preview", lwd=2, cex.main=2,family="serif",
-     xlim = c(1, 2), ylim = c(200, 265), yaxt='n', xaxt='n', main= 'Predicted [Exp.1]', cex.main=2, cex.lab=2)
-
-axis(1, at= c( 1.2, 1.8), labels = c('valid', 'invalid'), cex.axis=2, family="serif")
-
-mtext(text= 'FFD', side = 2, line = 0.5, family="serif", cex = 2)
-
-
-# Plot data points
-deg0<- c(220, 250)
-deg20<- c(240, 240)
-
-# 0% degradation:
-lines(y = deg0, x= c(1.2, 1.8), lwd=3, lty= 1, col= colours[1])
-points(y = deg0, x= c(1.2, 1.8), pch= 16, cex=2, col= colours[1])
-
-# 20% degradation:
-lines(y = deg20, x= c(1.2, 1.8), lwd=3, lty= 2, col= colours[2])
-points(y = deg20, x= c(1.2, 1.8), pch= 17, cex=2, col= colours[2])
-
-# Cost & benefit labels:
-# benefit:
-brackets(x1 = 1.165, y1 = deg0[1], x2 = 1.165, y2 = deg20[1], h = 0.08, lwd=2, col = colours[3])
-text(x = 1.05, y = 230, labels= 'preview benefit', srt= 90, family="serif", cex = 1.85, col = colours[3])
-
-# cost:
-brackets(x1 = 1.835, y1 = deg0[2], x2 = 1.835, y2 = deg20[2], h = 0.06, lwd=2, col = colours[3])
-text(x = 1.925, y = mean(c(deg0[2], deg20[2])), labels= 'preview cost', srt= -90, family="serif", cex = 1.85, col = colours[3])
-
-# legend:
-op <- par(family = "serif")
-legend(x = 1.7, y = 220, title = expression(bold('Degradation')), legend=c("0 %", "20 %"), col = colours[1:2], lwd= 2,
-       lty = c(1,2), pch = c(16, 17), seg.len=2.5, cex = 1.6, box.col = "white")
-
-#------------------------#
-#  Obserced - Panel 1    #
-#------------------------#
-plot(NA, type= 'l', ylab= "", xlab= "Preview", lwd=2, cex.main=2,family="serif",
-     xlim = c(1, 2), ylim = c(200, 275), yaxt='n', xaxt='n', main= 'Observed [Exp.1]', cex.main=2, cex.lab=2)
-axis(1, at= c( 1.2, 1.8), labels = c('valid', 'invalid'), cex.axis=2, family="serif")
-#------------------------#
-#  Prediction - Panel 2  #
-#------------------------#
-
-plot(NA, type= 'n', ylab= "", xlab= "", lwd=2, cex.main=2,family="serif",
-     xlim = c(1, 2), ylim = c(200, 275), axes=FALSE,ann=FALSE, main= '+', cex.main=2, cex.lab=2)
-#axis(1, at= c( 1.2, 1.8), labels = c('valid', 'invalid'), cex.axis=2, family="serif")
-
-# Draw Uniform preview cost
-rect(xleft = 1.2, ybottom = 210, xright = 1.8, ytop = 260, col = colours[4])
-#text(x = 1.5, y = 245, labels= 'display change awareness cost', srt= 0, family="serif", cex = 1.85, col = colours[3])
-
-mtext(text= '+', side = 3, line = 0, family="serif", cex = 2, font = 2)
-par(xpd = TRUE) 
-text(x = 1.5, y = 190, labels= '=', srt= 90, family="serif", cex = 3.5, font=2)
-
-brackets(x1 = 1.17, y1 = 210, x2 = 1.17, y2 = 260, h = 0.06, lwd=2, col = colours[3])
-
-text(x = 1.02, y = mean(c(210, 260)), labels= 'display change', srt= 90, family="serif", cex = 1.85, col = colours[3])
-text(x = 1.08, y = mean(c(210, 260)), labels= 'awareness cost', srt= 90, family="serif", cex = 1.85, col = colours[3])
-
-#------------------------#
-#  Observed - Panel 2    #
-#------------------------#
-# blank plot:
-plot.new()
-
-
-#------------------------#
-#  Predicted - Panel 3   #
-#------------------------#
-plot(NA, type= 'l', ylab= "", xlab= "Preview", lwd=2, cex.main=2,family="serif",
-     xlim = c(1, 2), ylim = c(200, 265), yaxt='n', xaxt='n', main= 'Predicted [Exp.2]', cex.main=2, cex.lab=2)
-
-axis(1, at= c( 1.2, 1.8), labels = c('valid', 'invalid'), cex.axis=2, family="serif")
-
-mtext(text= 'FFD', side = 2, line = 0.5, family="serif", cex = 2)
-
-rect(xleft = 1.2, ybottom = deg20[1], xright = 1.8, ytop = deg20[1]+15, col = colours[4], border = NA)
-arrows(x0 = 1.5, y0 = deg20[1], x1 = 1.5, y1 = deg20[1]+10, length = 0.1, angle = 30, col = colours[2], lty = 1, lwd=1)
-lines(x = c(1.2, 1.8), y= c(deg20[1], deg20[1]), lty= 2, col= colours[2])
-
-
-# 0% degradation:
-lines(y = deg0, x= c(1.2, 1.8), lwd=3, lty= 1, col= colours[1])
-points(y = deg0, x= c(1.2, 1.8), pch= 16, cex=2, col= colours[1])
-
-# 20% degradation:
-lines(y = deg20+15, x= c(1.2, 1.8), lwd=3, lty= 2, col= colours[2])
-points(y = deg20+15, x= c(1.2, 1.8), pch= 17, cex=2, col= colours[2])
-
-
-
-dev.off()
-
-
-
-##########################################################################################################
-#                                             OLD STUFF:                                                 #
-##########################################################################################################
-
-# #-----------
-# # TVT alone:
-# #-----------
-# 
-# limits <- aes(ymax = dT$Mean + dT$SE, ymin=dT$Mean - dT$SE)
-# 
-# 
-# Dplot2<- ggplot(data= dT, aes(x=Preview, y= Mean, color=Degradation, fill= Degradation, group=Degradation, shape=Degradation, linetype=Degradation))+ 
-#   #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
-#   scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
-#   theme_bw() + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
-#                      axis.line = element_line(colour = "black", size=1),
-#                      panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-#   geom_line(size=2)+
-#   geom_point(size=7)+ ggtitle("TVT")+
-#   xlab("\n Parafoveal preview of word N+1")+ ylab("Mean fixation duration")+ 
-#   theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=20, face="bold", family="serif"), legend.text=element_text(size=20,family="serif"),legend.key.width=unit(2,"cm"),
-#         legend.key.height=unit(1,"cm"), strip.text=element_text(size=20, family="serif"),
-#         title=element_text(size=20, family="serif"),
-#         axis.title.x = element_text(size=20, face="bold", family="serif"), axis.title.y = element_text(size=20, face="bold", family="serif"), 
-#         axis.text=element_text(size=20, family="serif"), 
-#         panel.border = element_rect(linetype = "solid", colour = "black"), 
-#         legend.key = element_rect(colour = "#000000", size=1))+
-#         geom_ribbon(limits, alpha=0.10, colour=NA)
-# 
-# ggsave("Experiment 1/Plots/TVT.png", Dplot2, width= 8, height=8, units= "in", dpi=600)
-# 
-# save(Dplot, file= "Experiment 1/Output/Dplot.Rda")
-# save(Dplot2, file= "Experiment 1/Output/Dplot2.Rda")
-# save(df, file= "Experiment 1/Output/df.Rda")
-# 
-# 
-# 
-# library(reshape)
-# 
-# DesRefix<- melt(data, id=c('subj', 'item', 'cond', 'prev', 'deg'), 
-#                 measure=c("pRefixN1") , na.rm=TRUE)
-# 
-# mRefix<- cast(DesRefix, prev+deg ~ variable
-#               , function(x) c(M=signif(mean(x),3)
-#                               , SD= sd(x) ))
-# 
-# write.table(mRefix, file= 'Experiment 1/RefixN1.txt', sep = "\t")
-# 
-# 
-# ### N+1 refixation graph:
-# colnames(mRefix)<- c('Parafoveal preview', 'Degradation', 'Mean', 'SD')
-# mRefix$SE<- mRefix$SD/sqrt(length(unique(data$subj)))
-# mRefix$`Parafoveal preview`<- as.factor(mRefix$`Parafoveal preview`)
-# mRefix$`Parafoveal preview`<- factor(mRefix$`Parafoveal preview`, levels= c('valid', 'phon', 'orth', 'invalid'))
-# 
-# 
-# limits <- aes(ymax = mRefix$Mean + mRefix$SE, ymin=mRefix$Mean - mRefix$SE)
-# 
-# 
-# Dplot3<- ggplot(data= mRefix, aes(x=`Parafoveal preview`, y= Mean, color=Degradation, fill= Degradation,
-#                                   group=Degradation, shape=Degradation, linetype=Degradation))+ 
-#   #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
-#   scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
-#   theme_bw() + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
-#                      axis.line = element_line(colour = "black", size=1),
-#                      panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-#   geom_line(size=2)+
-#   geom_point(size=7)+ 
-#   xlab("\n Parafoveal preview of word N+1")+ ylab("Mean re-fixation probability (1st-pass)")+ 
-#   theme(legend.position=c(0.18, 0.85), legend.title=element_text(size=20, face="bold", family="serif"),
-#         legend.text=element_text(size=20,family="serif"),legend.key.width=unit(2,"cm"),
-#         legend.key.height=unit(1,"cm"), strip.text=element_text(size=20, family="serif"),
-#         title=element_text(size=20, family="serif"),
-#         axis.title.x = element_text(size=20, face="bold", family="serif"), axis.title.y = element_text(size=20, face="bold", family="serif"), 
-#         axis.text=element_text(size=20, family="serif"), 
-#         panel.border = element_rect(linetype = "solid", colour = "black"), 
-#         legend.key = element_rect(colour = "#000000", size=1))+
-#   geom_ribbon(limits, alpha=0.10, colour=NA)
-# 
-# ggsave("Experiment 1/Plots/pRefix.png", Dplot3, width= 8, height=8, units= "in", dpi=200)
-
-# 
-# #-----------------------
-# # Pre-boundary fixation:
-# #-----------------------
-# 
-# library(reshape)
-# 
-# DesPbnd<- melt(data, id=c('subj', 'item', 'cond', 'prev', 'deg'), 
-#                measure=c("preBndFix") , na.rm=TRUE)
-# 
-# mPbnd<- cast(DesPbnd, prev+deg ~ variable
-#              , function(x) c(M=signif(mean(x),3)
-#                              , SD= sd(x) ))
-# colnames(mPbnd)<- c('Parafoveal preview', 'Degradation', 'Mean', 'SD')
-# mPbnd$SE<- mPbnd$SD/sqrt(length(unique(data$subj)))
-# mPbnd$`Parafoveal preview`<- as.factor(mPbnd$`Parafoveal preview`)
-# mPbnd$`Parafoveal preview`<- factor(mPbnd$`Parafoveal preview`, levels= c('valid', 'phon', 'orth', 'invalid'))
-# 
-# 
-# limits <- aes(ymax = mPbnd$Mean + mPbnd$SE, ymin=mPbnd$Mean - mPbnd$SE)
-# 
-# 
-# Dplot4<- ggplot(data= mPbnd, aes(x=`Parafoveal preview`, y= Mean, color=Degradation, fill= Degradation,
-#                                  group=Degradation, shape=Degradation, linetype=Degradation))+ 
-#   #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
-#   scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
-#   theme_bw() + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
-#                      axis.line = element_line(colour = "black", size=1),
-#                      panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-#   geom_line(size=2)+
-#   geom_point(size=7)+ 
-#   xlab("\n Parafoveal preview of word N+1")+ ylab("Mean Pre-boundary fixation duration")+ 
-#   theme(legend.position=c(0.18, 0.85), legend.title=element_text(size=20, face="bold", family="serif"),
-#         legend.text=element_text(size=20,family="serif"),legend.key.width=unit(2,"cm"),
-#         legend.key.height=unit(1,"cm"), strip.text=element_text(size=20, family="serif"),
-#         title=element_text(size=20, family="serif"),
-#         axis.title.x = element_text(size=20, face="bold", family="serif"), axis.title.y = element_text(size=20, face="bold", family="serif"), 
-#         axis.text=element_text(size=20, family="serif"), 
-#         panel.border = element_rect(linetype = "solid", colour = "black"), 
-#         legend.key = element_rect(colour = "#000000", size=1))+
-#   geom_ribbon(limits, alpha=0.10, colour=NA)
-# 
-# ggsave("Experiment 1/Plots/Pre-boundary_fix.png", Dplot4, width= 8, height=8, units= "in", dpi=200)
-# 
-# 
-# #-----------------------
-# # Pre-boundary location:
-# #-----------------------
-# library(reshape)
-# 
-# DesPbndLoc<- melt(subset(data, dist_Bnd>0), id=c('subj', 'item', 'cond', 'prev', 'deg'), 
-#                   measure=c("dist_Bnd") , na.rm=TRUE)
-# 
-# mPbndLoc<- cast(DesPbndLoc, prev+deg ~ variable
-#                 , function(x) c(M=signif(mean(x),3)
-#                                 , SD= sd(x) ))
-# 
-# colnames(mPbndLoc)<- c('Parafoveal preview', 'Degradation', 'Mean', 'SD')
-# mPbndLoc$SE<- mPbndLoc$SD/sqrt(length(unique(data$subj)))
-# mPbndLoc$`Parafoveal preview`<- as.factor(mPbndLoc$`Parafoveal preview`)
-# mPbndLoc$`Parafoveal preview`<- factor(mPbndLoc$`Parafoveal preview`, levels= c('valid', 'phon', 'orth', 'invalid'))
-# 
-# 
-# limits <- aes(ymax = mPbndLoc$Mean + mPbndLoc$SE, ymin=mPbndLoc$Mean - mPbndLoc$SE)
-# 
-# 
-# Dplot5<- ggplot(data= mPbndLoc, aes(x=`Parafoveal preview`, y= Mean, color=Degradation, fill= Degradation,
-#                                     group=Degradation, shape=Degradation, linetype=Degradation))+ 
-#   #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
-#   scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
-#   theme_bw() + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
-#                      axis.line = element_line(colour = "black", size=1),
-#                      panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-#   geom_line(size=2)+
-#   geom_point(size=7)+ 
-#   xlab("\n Parafoveal preview of word N+1")+ ylab("Mean distance (in letters) before crossing boundary")+ 
-#   theme(legend.position=c(0.18, 0.85), legend.title=element_text(size=20, face="bold", family="serif"),
-#         legend.text=element_text(size=20,family="serif"),legend.key.width=unit(2,"cm"),
-#         legend.key.height=unit(1,"cm"), strip.text=element_text(size=20, family="serif"),
-#         title=element_text(size=20, family="serif"),
-#         axis.title.x = element_text(size=20, face="bold", family="serif"), axis.title.y = element_text(size=20, face="bold", family="serif"), 
-#         axis.text=element_text(size=20, family="serif"), 
-#         panel.border = element_rect(linetype = "solid", colour = "black"), 
-#         legend.key = element_rect(colour = "#000000", size=1))+
-#   geom_ribbon(limits, alpha=0.10, colour=NA)
-# 
-# ggsave("Experiment 1/Plots/Pre-boundary_loc.png", Dplot5, width= 8, height=8, units= "in", dpi=200)
-# 
-

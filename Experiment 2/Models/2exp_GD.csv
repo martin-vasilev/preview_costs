@@ -1,17 +1,17 @@
-"";"Estimate";"Std. Error";"t value"
-"(Intercept)";5,553;0,014;387,548
-"prev.PB";0,109;0,012;9,451
-"prev.Orth_PB";0,058;0,012;5,025
-"prev.Phon_PB";0,002;0,012;0,2
-"deg1";-0,013;0,005;-2,71
-"Experiment1";0,031;0,004;7,485
-"prev.PB:deg1";0,036;0,012;3,076
-"prev.Orth_PB:deg1";0,009;0,012;0,797
-"prev.Phon_PB:deg1";0,019;0,012;1,597
-"prev.PB:Experiment1";-0,005;0,012;-0,458
-"prev.Orth_PB:Experiment1";-0,009;0,012;-0,749
-"prev.Phon_PB:Experiment1";0,001;0,012;0,052
-"deg1:Experiment1";-0,011;0,004;-2,663
-"prev.PB:deg1:Experiment1";-0,002;0,012;-0,175
-"prev.Orth_PB:deg1:Experiment1";0,001;0,012;0,061
-"prev.Phon_PB:deg1:Experiment1";0;0,012;-0,029
+"","Estimate","Std. Error","t value"
+"(Intercept)",5.553,0.014,387.548
+"prev.PB",0.109,0.012,9.451
+"prev.Orth_PB",0.058,0.012,5.025
+"prev.Phon_PB",0.002,0.012,0.2
+"deg1",-0.013,0.005,-2.71
+"Experiment1",0.031,0.004,7.485
+"prev.PB:deg1",0.036,0.012,3.076
+"prev.Orth_PB:deg1",0.009,0.012,0.797
+"prev.Phon_PB:deg1",0.019,0.012,1.597
+"prev.PB:Experiment1",-0.005,0.012,-0.458
+"prev.Orth_PB:Experiment1",-0.009,0.012,-0.749
+"prev.Phon_PB:Experiment1",0.001,0.012,0.052
+"deg1:Experiment1",-0.011,0.004,-2.663
+"prev.PB:deg1:Experiment1",-0.002,0.012,-0.175
+"prev.Orth_PB:deg1:Experiment1",0.001,0.012,0.061
+"prev.Phon_PB:deg1:Experiment1",0,0.012,-0.029

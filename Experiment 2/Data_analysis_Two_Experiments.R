@@ -57,7 +57,7 @@ if(!file.exists('Experiment 2/Models/Comb_FFD.Rda')){
 summary(Comb_FFD)
 
 SFFD<- round(coef(summary(Comb_FFD)),3)
-write.csv2(SFFD, "Experiment 2/Models/2exp_FFD.csv")
+write.csv(SFFD, "Experiment 2/Models/2exp_FFD.csv")
 
 
 ## SFD:
@@ -70,7 +70,7 @@ if(!file.exists('Experiment 2/Models/Comb_SFD.Rda')){
 summary(Comb_SFD)
 
 SSFD<- round(coef(summary(Comb_SFD)),3)
-write.csv2(SSFD, "Experiment 2/Models/2exp_SFD.csv")
+write.csv(SSFD, "Experiment 2/Models/2exp_SFD.csv")
 
 ## GD:
 if(!file.exists('Experiment 2/Models/Comb_GD.Rda')){
@@ -82,63 +82,12 @@ if(!file.exists('Experiment 2/Models/Comb_GD.Rda')){
 summary(Comb_GD)
 
 SGD<- round(coef(summary(Comb_GD)),3)
-write.csv2(SGD, "Experiment 2/Models/2exp_GD.csv")
+write.csv(SGD, "Experiment 2/Models/2exp_GD.csv")
 
 
 library(effects)
 
-plot(effect('Experiment', SFD_comp))
-plot(effect('deg:Experiment', SFD_comp))
-plot(effect('prev:Experiment', SFD_comp))
-
-
-########################################
-# Post-hoc analyses of phonological PB #
-########################################
-
-# # Experiment 1:
-# # do the contrast coding again:
-# 
-# datE1<- subset(datE1, prev!= "valid" & prev!= "invalid")
-# 
-# datE1$prev<- as.factor(datE1$prev)
-# contrasts(datE1$prev)<- c(-1, 1)
-# 
-# #datE1$prev<- factor(datE1$prev, levels= c("valid", "invalid", "phon", "orth"))
-# datE1$deg<- as.factor(datE1$deg)
-# 
-# contrasts(datE1$deg)<- c(1,-1)
-# 
-# # let's check contrast coding
-# contrasts(datE1$prev)
-# contrasts(datE1$deg)
-# 
-# 
-# summary(GD_PH_E1<- lmer(log(GD_N1)~prev*deg*scale(GD_N)+ (1|subj)+ (1|item), REML = T, data=datE1))
-# 
-# 
-# # Experiment 2:
-# # do the contrast coding again:
-# 
-# datE2<- subset(datE2, prev!= "valid" & prev!= "invalid")
-# 
-# datE2$prev<- as.factor(datE2$prev)
-# contrasts(datE2$prev)<- c(-1, 1)
-# 
-# datE2$deg<- as.factor(datE2$deg)
-# 
-# contrasts(datE2$deg)<- c(1,-1)
-# 
-# # let's check contrast coding
-# contrasts(datE2$prev)
-# contrasts(datE2$deg)
-# 
-# 
-# summary(GD_PH_E2<- lmer(log(GD_N1)~prev*deg*GD_N+ (1|subj)+ (1|item), REML = T, data=datE2))
-# 
-# library(effects)
-# plot(effect('prev:GD_N', GD_PH_E2))
-# 
-# summary(FFD_PH_E2<- lmer(log(SFD_N1)~prev*deg*scale(GD_N)+ (1|subj)+ (1|item), REML = T, data=datE2))
-
-
+plot(effect('deg', Comb_SFD))
+plot(effect('Experiment', Comb_SFD))
+plot(effect('deg:Experiment', Comb_SFD))
+plot(effect('prev:Experiment', Comb_SFD))
