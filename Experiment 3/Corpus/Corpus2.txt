@@ -1,0 +1,139 @@
+item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	Length_chars	Length_words	Fits_on_screen	Word_N 	Word_N_length	Word_N1_length	Question	Answer	Has_quest	N_pos	N1_pos
+1	Old	hurt	hort	iomk	4	4	4	The reporter announced that no people were hurt in the car accident this morning.	81	14	Yes	were	4	4	Were any people injured in the accident?	0	1	7	8
+2	Old	type	tepe	djya	4	4	4	The client asked for another type of dress that is more suitable for a wedding.	79	15	Yes	another	7	4	Did the customer want a dress for a wedding?	1	1	5	6
+3	Old	dirt	dort	tkuh	4	4	4	Jesse had to remove dirt from his clothes after he cycled home in the rain.	75	15	Yes	remove	6	4	Did Jesse cycle in the rain?	1	1	4	5
+4	Old	purse	porse	yezou	5	5	5	John surprised his wife with a designer purse that he bought on his trip to Italy.	82	16	Yes	designer	8	5	Did John buy his wife a coat?	0	1	7	8
+5	Old	stern	storn	efoma	5	5	5	In the past year, the local police took stern measures to improve safety on the roads.	86	16	Yes	took	4	5	Did the police try to improve the security of prisons?	0	1	8	9
+6	Old	merge	morge	novyu	5	5	5	The painting depicted how the two streams merge to form the magnificent river.	78	13	Yes	streams	7	5	Did the painting show the ocean?	0	1	7	8
+7	Old	surge	sorge	romja	5	5	5	The government tried to support the recent surge of interest in solar power technology.	87	14	Yes	recent	6	5	Is there more interest in solar power technology these days?	1	1	7	8
+8	Old	church	charch	edavab	6	6	6	The money for a new library was raised by the local church and members of the public.	85	17	Yes	local	5	6	Was the money raised by private companies?	0	1	11	12
+9	Old	burp	borp	havg	4	4	4	The speaker tried to make a joke after he let out a loud burp during his presentation.	86	17	Yes	loud	4	4	Did the speaker try to tell a joke?	1	1	13	14
+10	Old	noun	noin	zusm	4	4	4	In their lesson, the students were taught what a proper noun was and how to spell it.	85	17	Yes	proper	6	4	Were the students taught how to spell the alphabet?	0	1	10	11
+11	Old	skirt	skart	utlul	5	5	5	Jessica bought a fancy skirt that she wanted to wear to the beach party.	72	14	Yes	fancy	5	5	Did Jessica buy a new shirt?	0	1	4	5
+12	Old	serve	sorve	zasoa	5	5	5	By joining the army, the young man hoped he could serve and protect his country.	80	15	Yes	could	5	5	Did the man join the army to make money?	0	1	10	11
+13	Old	worst	warst	sawal	5	5	5	Not long after their worst rain storm in the mountain, the campers decided to go home.	86	16	Yes	their	5	5	Did the campers return home?	1	1	4	5
+14	Old	purge	parge	gomyo	5	5	5	For Sam, getting a well-paid job helped purge the guilt of buying an expensive car.	83	15	Yes	helped	6	5	Did Sam feel guilty for buying an expensive car?	1	1	7	8
+15	Old	term	tarm	fuwa	4	4	4	After the summer term ended, the students went on a holiday in Spain.	69	13	Yes	summer	6	4	Did the students go on a holiday?	1	1	3	4
+16	Old	twirl	tworl	iuloi	5	5	5	Katy put on her new dress and did a quick twirl to show it to her mother.	73	17	Yes	quick	5	5	Did Katy show her new dress to her sister?	0	1	10	11
+17	Old	plea	pler	qdam	4	4	4	The teen made a dramatic plea to the judge in hopes of avoiding a severe sentence.	82	16	Yes	dramatic	8	4	Did the teen make a plea?	1	1	5	6
+18	Old	sleeve	slerve	eiusro	6	6	6	The tailor repaired the ripped sleeve of the expensive leather jacket.	70	11	Yes	ripped	6	6	Did the tailor repair a pair of jeans?	0	1	5	6
+19	Old	sweep	swerp	euocg	5	5	5	The couple ordered a chimney sweep before they moved into their new house.	74	13	Yes	chimney	7	5	Did the couple want to sweep the chimney?	1	1	5	6
+20	Old	jerk	jark	yasb	4	4	4	While on the road, the car made a strange jerk before the engine died.	70	14	Yes	strange	7	4	Did the car have problems with the engine?	1	1	9	10
+21	Old	sneak	snerk	auavd	5	5	5	Despite the security, the youngsters managed to quietly sneak into the movie theatre.	85	13	Yes	quietly	7	5	Did the youngsters make it into the movie theatre?	1	1	8	9
+22	Old	steam	sterm	okanw	5	5	5	Michael made a mental note to bring the broken steam hoover to the repair shop.	79	15	Yes	broken	6	5	Was the hoover broken?	1	1	9	10
+23	Old	beef	berf	tuvl	4	4	4	The restaurant offered tender beef steak as a meal of the day.	62	12	Yes	tender	6	4	Was the meal of the day omelette?	0	1	4	5
+24	Old	burst	barst	fecoh	5	5	5	The astronomer investigated the strange burst of energy that was detected from Earth.	85	13	Yes	strange	7	5	Did the astronomer investigate a new star?	0	1	5	6
+25	Old	bleak	blerk	kiaml	5	5	5	Because the weather seemed bleak and uninviting, the old man decided to stay at home.	85	15	Yes	seemed	6	5	Did the old man go out for a walk?	0	1	4	5
+26	Old	sleek	slerk	etozb	5	5	5	Thanks to her long sleek hair, the actress was often invited to be in commercials.	82	15	Yes	long	4	5	Did the actress frequently appear in commercials?	1	1	4	5
+27	Old	steep	sterp	okonj	5	5	5	Because the road looked steep and difficult to climb, the cyclists pushed their bikes.	86	14	Yes	looked	6	5	Did the cyclists ride their bikes?	0	1	4	5
+28	Old	veal	verl	nusf	4	4	4	Jane liked the crisp veal pie that her grandmother prepared for the holidays.	77	13	Yes	crisp	5	4	Did Jane's grandmother prepare a cheesecake for the holidays?	0	1	4	5
+29	Old	cleave	clerve	okazsa	6	6	6	The skillful camper was able to quickly cleave the logs with his hatchet.	73	13	Yes	quickly	7	6	Did the camper have a hatchet?	1	1	7	8
+30	Old	bleach	blerch	dfomzt	6	6	6	Unfortunately, the large bleach stains had completely ruined the new clothes.	77	11	Yes	large	5	6	Were the clothes ruined?	1	1	3	4
+31	Old	shrew	shree	akeuv	5	5	5	The cat chased the brown shrew that had strayed from the forest looking for food.	81	15	Yes	brown	5	5	Did the cat chase a bird?	0	1	5	6
+32	Old	slur	slar	ukaz	4	4	4	The man spoke with a distinct slur which made the police suspicious that he was drunk.	86	16	Yes	distinct	8	4	Did the police suspect that the man was drunk?	1	1	6	7
+33	New	bush	bish	denl	4	4	4	The new gardener forgot to trim the green bush near the front door of the manor.	80	16	Yes	green	5	4	Did the gardener forget to trim his beard?	0	1	8	9
+34	New	cold	colc	mebh	4	4	4	Susan could not believe the record cold weather they had been having all week.	78	14	Yes	record	6	4	Did the cold weather last longer than a day?	1	1	6	7
+35	New	part	parl	jonb	4	4	4	The students were happy that the first part of the exam had multiple-choice questions.	86	14	Yes	first	5	4	Was the first part of the exam composed of essay questions?	0	1	7	8
+36	New	lisp	losp	kbeq	4	4	4	The comedian spoke with a funny lisp during all his stand-up acts.	66	12	Yes	funny	5	4	Did the comedian use a funny lisp in his act?	1	1	6	7
+37	New	herd	herf	lumh	4	4	4	The tourists scrambled to escape the path of the charging herd of water buffalo.	80	14	Yes	charging	8	4	Were the tourists in danger?	1	1	10	11
+38	New	wild	wilk	ahbf	4	4	4	The couple got to see zebras running wild during their safari holiday.	70	12	Yes	running	7	4	Did the couple see dolphins during their holiday?	0	1	7	8
+39	New	talc	tilc	duhu	4	4	4	The barber was trying a new scented talc and his customers liked it.	68	13	Yes	scented	7	4	Did the customers like the new talc?	1	1	7	8
+40	New	team	teap	bovn	4	4	4	Tommy had placed a large bet on the losing team and didn’t have the money to cover it.	86	18	Yes	losing	6	4	Did Tommy have the money to cover his losses?	0	1	9	10
+41	New	step	slep	akoj	4	4	4	Susan slipped on the bottom step of the spiral staircase and twisted her ankle.	79	14	Yes	bottom	6	4	Did Susan injure herself riding a bike?	0	1	5	6
+42	New	blunt	blunk	ibacf	5	5	5	The newly forged sword's edge was still blunt and needed to be sharpened.	73	13	Yes	still	5	5	Was the sword newly forged?	1	1	7	8
+43	New	chain	chaim	utolu	5	5	5	The very strong chain was made by the most expert blacksmith.	61	11	Yes	strong	6	5	Was the chain very weak?	0	1	3	4
+44	New	death	deach	iockd	5	5	5	The book ended with the sudden death of one of the main protagonists.	69	13	Yes	sudden	6	5	Did somebody die in the book?	1	1	6	7
+45	New	draft	drafs	luohb	5	5	5	The old woman complained that the cold draft was making her back ache.	70	13	Yes	cold	4	5	Did the old woman complain?	1	1	7	8
+46	New	fifth	fefth	tldbb	5	5	5	George had only come fifth in the horse race but was still happy with his result.	81	16	Yes	come	4	5	Was George very unsatisfied with his result?	0	1	4	5
+47	New	ghost	ghist	pbazk	5	5	5	Harriet was frightened by the evil ghost she thought lived in her house.	72	13	Yes	evil	4	5	Was Harriet afraid of a ghost?	1	1	6	7
+48	New	trust	trost	boawk	5	5	5	Karl knew he couldn't trust anyone with his secret.	51	9	Yes	couldn't	8	5	Could Karl share his secret with everyone?	0	1	4	5
+49	New	spoon	spoot	eguzv	5	5	5	Joe was upset that he had lost his special spoon which had been gifted to him.	78	16	Yes	special	7	5	Did Joe lose his jacket?	0	1	9	10
+50	New	clone	clome	udavu	5	5	5	Dolly the sheep was the world's first clone of a mammal to survive infancy.	75	14	Yes	first	5	5	Did Dolly survive infancy? 	1	1	7	8
+51	New	knife	knike	dohtu	5	5	5	The TV chef always made sure to sharpen his carving knife before the show.	74	14	Yes	carving	7	5	Did the chef sharpen his pencil? 	0	1	10	11
+52	New	crack	creck	eouwh	5	5	5	The inspector noticed a small crack in the building's foundation that needed repairing.	87	13	Yes	small	5	5	Did the crack need to be repaired?	1	1	5	6
+53	New	flask	flosk	hiomb	5	5	5	The police found an empty flask beneath the front seat that smelled of liquor.	78	14	Yes	empty	5	5	Did the police find a gun in the car?	0	1	5	6
+54	New	cruise	cruive	saodoa	6	6	6	The married couple decided to go on a luxury cruise for their second honeymoon.	79	14	Yes	luxury	6	6	Did the couple go on a cruise for their honeymoon?	1	1	9	10
+55	Old	flirt	flort	ldfeh	5	5	5	Sarah always found it embarrassing to see people flirt on the street.	69	12	Yes	people	6	5			0	8	9
+56	Old	mirth	morth	ufalk	5	5	5	The children told their story in mutual mirth while sitting next to the camp fire.	82	15	Yes	mutual	6	5			0	7	8
+57	Old	swerve	sworve	ueuneo	6	6	6	The lorry driver made a sudden swerve as he was about to miss the motorway exit.	80	16	Yes	sudden	6	6			0	6	7
+58	Old	swirl	sworl	eebot	5	5	5	The shaky boat made Carla's head swirl as she struggled to keep her balance.	76	14	Yes	head	4	5			0	6	7
+59	Old	smirk	smark	euboi	5	5	5	The boy had a tiny smirk on his face after he saw his mother scold his brother.	79	17	Yes	tiny	4	5			0	5	6
+60	Old	speak	sperk	oqosb	5	5	5	The admiral would never speak badly of his superiors even if he didn't agree with them.	87	16	Yes	never	5	5			0	4	5
+61	Old	fleece	fleeme	bhuzzu	6	6	6	Before her morning run, Ana put on a thick fleece jacket to keep herself warm.	78	15	Yes	thick	5	6			0	9	10
+62	Old	third	thard	hdkah	5	5	5	The young athlete was happy after he finished third in the international competition.	85	13	Yes	finished	8	5			0	8	9
+63	Old	heave	herve	iuvwu	5	5	5	The workers gave the sofa a good heave and moved it up the staircase.	69	14	Yes	good	4	5			0	7	8
+64	Old	turf	tarf	hozi	4	4	4	The fact that the next competition was on their home turf raised the swimmers' morale.	86	15	Yes	home	4	4			0	10	11
+65	Old	teeth	terth	hasfk	5	5	5	The new type of toothpaste promised white teeth just after a few days of use.	77	15	Yes	white	5	5			0	7	8
+66	Old	hurl	harl	kewf	4	4	4	The instructor demonstrated how to properly hurl a cricket ball to the children.	80	13	Yes	properly	8	4			0	6	7
+67	Old	glee	gler	qtom	4	4	4	The little girl danced with utter glee to the sounds of pop music.	66	13	Yes	utter	5	4			0	6	7
+68	Old	gleam	glerm	jkawn	5	5	5	After Nick finished the race first, there was a small gleam of triumph in his eyes.	83	16	Yes	small	5	5			0	10	11
+69	Old	tweed	twerd	kuamk	5	5	5	The man decided to wear a blue tweed jacket for his job interview.	66	13	Yes	blue	4	5			0	7	8
+70	Old	lynch	lanch	bpook	5	5	5	The laws in the 20th century meant that people could no longer lynch suspects of crime.	87	16	Yes	longer	6	5			0	12	13
+71	Old	nerve	narve	cuzoa	5	5	5	The surgeon was careful to avoid nerve tissue while performing the operation.	77	12	Yes	avoid	5	5			0	6	7
+72	Old	youth	yoath	guwkt	5	5	5	The possibility of eternal youth has fascinated mankind for centuries.	70	10	Yes	eternal	7	5			0	4	5
+73	Old	sleet	slert	ubork	5	5	5	According to the announcement, the expected sleet may cause disturbances on the road.	85	13	Yes	expected	8	5			0	6	7
+74	Old	coil	hoil	wabk	4	4	4	The climber used a short coil of rope to secure his tent in the mountain.	73	15	Yes	short	5	4			0	5	6
+75	Old	dean	dern	tarw	4	4	4	The recently hired dean made a commitment to improve the diversity in the department.	85	14	Yes	hired	5	4			0	3	4
+76	Old	glean	glern	jionv	5	5	5	The students were expected to somehow glean the information for their class report.	83	13	Yes	somehow	7	5			0	6	7
+77	Old	tech	tece	domk	4	4	4	The client was advised to contact tech support if the software is not working properly.	87	15	Yes	tech	4	4			0	7	8
+78	Old	thirst	thorst	ldbaeb	6	6	6	Rob's teachers were impressed by his constant thirst for knowledge.	67	10	Yes	constant	8	6			0	7	8
+79	Old	clean	clern	edasz	5	5	5	The landlady asked the tenants to keep the house clean and tidy after they move in.	83	16	Yes	house	5	5			0	9	10
+80	Old	nurse	narse	zawaa	5	5	5	The old lady thanked the friendly nurse who was checking on her every other week.	81	15	Yes	friendly	8	5			0	6	7
+81	Old	cheat	chert	adomh	5	5	5	Dan challenged his bigger brother to finish the game without cheat codes of any kind.	85	15	Yes	without	7	5			0	10	11
+82	Old	cheek	cherk	otami	5	5	5	Karen got a small scar on her right cheek after she fell off her bike.	70	15	Yes	right	5	5			0	8	9
+83	Old	cleat	clert	akusb	5	5	5	The sailor secured his boat to the brass cleat on the dock and then headed home.	80	16	Yes	brass	5	5			0	8	9
+84	Old	terse	tarse	baceu	5	5	5	The CEO gave his secretary several terse instructions and then left the office.	79	13	Yes	several	7	5			0	6	7
+85	Old	fern	farn	kaza	4	4	4	The cottage was surrounded by dense fern vegetation that was not trimmed in years.	82	14	Yes	dense	5	4			0	6	7
+86	Old	deal	derl	famb	4	4	4	Jasmine found a great deal online and treated herself to a spa holiday.	71	13	Yes	great	5	4			0	4	5
+87	Old	sheen	shern	adozc	5	5	5	The artist wore a satin dress with a slight sheen that was made for the performance.	84	16	Yes	slight	6	5			0	9	10
+88	Old	lynx	lonx	bgae	4	4	4	The children's most vivid memory of the zoo was the wild lynx sitting on a tree.	80	16	Yes	wild	4	4			0	11	12
+89	Old	cease	cerse	rovwu	5	5	5	The report warned that without protection the species would cease to exist in a decade.	87	15	Yes	would	5	5			0	9	10
+90	Old	weep	werp	nacg	4	4	4	Marina had a good weep after watching the sad movie drama last night.	69	13	Yes	good	4	4			0	4	5
+91	Old	meek	meck	vowf	4	4	4	Brad was a very meek person who never got into arguments with his colleagues.	77	14	Yes	very	4	4			0	4	5
+92	Old	keep	kerp	iamy	4	4	4	Mary's children were old enough to earn their keep and decided to rent their own flat.	86	16	Yes	their	5	4			0	8	9
+93	Old	neat	nert	zawb	4	4	4	The girl always tried to keep her clothes neat and clean when playing outside.	78	14	Yes	clothes	7	4			0	8	9
+94	Old	gross	grosh	paune	5	5	5	The news of the rising gross sales inspired confidence in the future of the company.	84	15	Yes	rising	6	5			0	5	6
+95	Old	whirl	wharl	akdei	5	5	5	Lisa spent her holiday in a social whirl of activities that freed her mind from work.	85	16	Yes	social	6	5			0	7	8
+96	Old	teal	terl	lozt	4	4	4	Betty thought that the light teal curtains would be a good addition to her bedroom.	83	15	Yes	light	5	4			0	5	6
+97	Old	worth	warth	cusbt	5	5	5	According to some people, investing in real estate is well worth the money.	75	13	Yes	well	4	5			0	10	11
+98	Old	seethe	serthe	cosifu	6	6	6	The children were afraid when they saw the ocean seethe restlessly beneath them.	80	13	Yes	ocean	5	6			0	9	10
+99	Old	work	wark	muzb	4	4	4	After he left work on Friday, Alex headed to the pub to catch up with his friends.	82	17	Yes	left	4	4			0	3	4
+100	Old	dwarf	dwerf	kauwb	5	5	5	The new movie features a peaceful dwarf who tries to unite his kingdom.	71	13	Yes	peaceful	8	5			0	6	7
+101	Old	prove	prive	yeemo	5	5	5	The scientists could finally prove that the newly discovered substance is not toxic.	84	13	Yes	finally	7	5			0	4	5
+102	Old	churn	charn	ebano	5	5	5	Visiting the dentist always made Zoe's stomach churn for the whole morning.	75	12	Yes	stomach	7	5			0	7	8
+103	New	bump	bemp	dosj	4	4	4	Johan gave his younger brother a fist bump after he won the swimming competition.	81	14	Yes	fist	4	4			0	7	8
+104	New	nine	nipe	ofoa	4	4	4	The team needs to play much better during the last nine minutes if they want to win.	84	17	Yes	last	4	4			0	10	11
+105	New	horn	harn	kuca	4	4	4	The sound from the large horn echoed through the green valley.	62	11	Yes	large	5	4			0	5	6
+106	New	sash	sush	zuwk	4	4	4	The beauty queen wore a gorgeous sash over her elegant red gown.	64	12	Yes	gorgeous	8	4			0	6	7
+107	New	spit	spim	aqld	4	4	4	When Jack finally spit his gum out it had lost all its fruity flavour.	70	14	Yes	finally	7	4			0	3	4
+108	New	rake	ruke	voiu	4	4	4	He bought a large plastic rake to gather the fallen leaves in his front garden.	79	15	Yes	plastic	7	4			0	5	6
+109	New	reap	reat	zovy	4	4	4	The athlete believed she would reap the rewards of all her training when she competed.	86	15	Yes	would	5	4			0	5	6
+110	New	plum	prum	yfos	4	4	4	The child enjoyed eating the ripe plum she had picked from the tree.	68	13	Yes	ripe	4	4			0	6	7
+111	New	noon	noom	serz	4	4	4	The CEO arrived just before noon and took the seat at the head of the table.	76	16	Yes	before	6	4			0	5	6
+112	New	musk	musp	ravh	4	4	4	The man applied musk to the collar of his shirt before his date.	64	13	Yes	applied	7	4			0	3	4
+113	New	blast	blask	kdevi	5	5	5	The engineers made sure the dynamite would blast straight through the rock.	75	12	Yes	would	5	5			0	7	8
+114	New	brawl	blawl	feumb	5	5	5	James loved a tavern brawl despite having often landed in hospital afterwards.	78	12	Yes	tavern	6	5			0	4	5
+115	New	chalk	chalf	ubufh	5	5	5	The boy knew he shouldn't have eaten chalk again and began to cry.	66	13	Yes	eaten	5	5			0	7	8
+116	New	claim	claic	udedo	5	5	5	The prospector knew that his land claim would require a lot of paperwork.	73	13	Yes	land	4	5			0	6	7
+117	New	faint	failt	leduk	5	5	5	The stranger began to feel faint at the sight of his own blood.	63	13	Yes	feel	4	5			0	5	6
+118	New	flake	flate	bhodu	5	5	5	Jenny saw the first snow flake of winter and braced herself for the cold weather.	81	15	Yes	snow	4	5			0	5	6
+119	New	flood	floop	hiezi	5	5	5	All the town people knew about the great flood that had destroyed the town in 1912.	83	16	Yes	great	5	5			0	8	9
+120	New	frame	frape	tuosu	5	5	5	The fraudster knew that he could frame his brother for his many crimes.	71	13	Yes	could	5	5			0	6	7
+121	New	glade	glane	ptobo	5	5	5	The deer were grazing in the grassy glade in the middle of the woods.	69	14	Yes	grassy	6	5			0	7	8
+122	New	truth	treth	boekb	5	5	5	The detective found the horrible truth when he opened the door.	63	11	Yes	horrible	8	5			0	5	6
+123	New	trunk	trenk	laomh	5	5	5	The sailor fastened his large trunk so that it would not shift when the boat swayed.	84	16	Yes	large	5	5			0	5	6
+124	New	sweet	sweec	aouzk	5	5	5	Carmen thought her husband’s gift was very sweet and she thanked him for it.	76	14	Yes	very	4	5			0	7	8
+125	New	slate	swate	okufu	5	5	5	The quarry produced slate to be used in the construction of houses.	67	12	Yes	produced	8	5			0	3	4
+126	New	strut	strot	ekoob	5	5	5	The roof had fallen in after a support strut had been damaged by termites.	74	14	Yes	support	7	5			0	8	9
+127	New	speed	speeb	ujark	5	5	5	The car raced around the corner with great speed and roared up the road.	72	14	Yes	great	5	5			0	8	9
+128	New	pulse	pulve	yatau	5	5	5	The accident victim's pulse was shallow but steady when he was put in the ambulance.	84	15	Yes	victim's	8	5			0	3	4
+129	New	prone	pryne	yauza	5	5	5	The bandit was lying prone so that the police would not see him.	64	13	Yes	lying	5	5			0	4	5
+130	New	marsh	mersh	cenub	5	5	5	It was unwise to go out at night as the salt marsh around the house was dangerous.	82	17	Yes	salt	4	5			0	11	12
+131	New	shelf	shelk	abudk	5	5	5	Abby was going to take down the ugly shelf in the corner of her living room.	76	16	Yes	ugly	4	5			0	8	9
+132	New	plate	plafe	jdeku	5	5	5	The restaurant critic noted the clean plate and silverware on the table.	72	12	Yes	clean	5	5			0	6	7
+133	New	drive	drise	hufoa	5	5	5	Even though it was just a short drive to the store, Mike ran out of petrol.	75	16	Yes	short	5	5			0	7	8
+134	New	flinch	flince	kdtueb	6	6	6	The bully watched the child flinch when he acted like he was going to punch him.	80	16	Yes	child	5	6			0	5	6
+135	New	clench	clonch	atoxob	6	6	6	He kept a tight clench on the money in his hand so nobody could take it from him.	81	18	Yes	tight	5	6			0	4	5
+136	New	client	crient	akfusd	6	6	6	They lost millions when the wealthy client decided to take his business elsewhere.	82	13	Yes	wealthy	7	6			0	6	7
+137	New	slouch	slooch	aierwb	6	6	6	They saw the judge slouch in her chair just before she fell asleep.	67	13	Yes	judge	5	6			0	4	5
+138	New	groove	groose	quamsu	6	6	6	Edmond thought the music had a really funky groove that made him want to dance.	79	15	Yes	funky	5	6			0	8	9
