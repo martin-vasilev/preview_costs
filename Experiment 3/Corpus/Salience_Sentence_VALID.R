@@ -40,7 +40,7 @@ altern_value <- 0
 
 ## STIMS HERE ...
 wrds <- c("The reporter announced that no people were hurt in the car accident this morning.", 
-          "The client asked for another type of dress that is more suitable for a wedding.", 
+          "The client asked for another type of dress that would be more suitable for a wedding.", 
           "Jesse had to remove dirt from his clothes after he cycled home in the rain.", 
           "John surprised his wife with a designer purse that he bought on his trip to Italy.", 
           "In the past year, the local police took stern measures to improve safety on the roads.", 
@@ -53,9 +53,9 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "By joining the army, the young man hoped he could serve and protect his country.", 
           "Not long after their worst rain storm in the mountain, the campers decided to go home.", 
           "For Sam, getting a well-paid job helped purge the guilt of buying an expensive car.", 
-          "After the summer term ended, the students went on a holiday in Spain.", 
+          "After the summer term ended, the students went on holiday to Spain.", 
           "Katy put on her new dress and did a quick twirl to show it to her mother.", 
-          "The teen made a dramatic plea to the judge in hopes of avoiding a severe sentence.", 
+          "The teen made a dramatic plea to the judge in the hope of avoiding a severe sentence.", 
           "The tailor repaired the ripped sleeve of the expensive leather jacket.", 
           "The couple ordered a chimney sweep before they moved into their new house.", 
           "While on the road, the car made a strange jerk before the engine died.", 
@@ -88,7 +88,7 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "Harriet was frightened by the evil ghost she thought lived in her house.", 
           "Karl knew he couldn't trust anyone with his secret.", "Joe was upset that he had lost his special spoon which had been gifted to him.", 
           "Dolly the sheep was the world's first clone of a mammal to survive infancy.", 
-          "The TV chef always made sure to sharpen his carving knife before the show.", 
+          "The TV chef always made sure he sharpened his carving knife before the show.", 
           "The inspector noticed a small crack in the building's foundation that needed repairing.", 
           "The police found an empty flask beneath the front seat that smelled of liquor.", 
           "The married couple decided to go on a luxury cruise for their second honeymoon.", 
@@ -96,7 +96,7 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "The children told their story in mutual mirth while sitting next to the camp fire.", 
           "The lorry driver made a sudden swerve as he was about to miss the motorway exit.", 
           "The shaky boat made Carla's head swirl as she struggled to keep her balance.", 
-          "The boy had a tiny smirk on his face after he saw his mother scold his brother.", 
+          "The boy had a tiny smirk on his face when he saw his mother scold his brother.", 
           "The admiral would never speak badly of his superiors even if he didn't agree with them.", 
           "Before her morning run, Ana put on a thick fleece jacket to keep herself warm.", 
           "The young athlete was happy after he finished third in the international competition.", 
@@ -114,15 +114,15 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "The climber used a short coil of rope to secure his tent in the mountain.", 
           "The recently hired dean made a commitment to improve the diversity in the department.", 
           "The students were expected to somehow glean the information for their class report.", 
-          "The client was advised to contact tech support if the software is not working properly.", 
+          "The client was advised to contact tech support if the software was not working properly.", 
           "Rob's teachers were impressed by his constant thirst for knowledge.", 
           "The landlady asked the tenants to keep the house clean and tidy after they move in.", 
           "The old lady thanked the friendly nurse who was checking on her every other week.", 
-          "Dan challenged his bigger brother to finish the game without cheat codes of any kind.", 
+          "Dan challenged his older brother to finish the game without cheat codes of any kind.", 
           "Karen got a small scar on her right cheek after she fell off her bike.", 
           "The sailor secured his boat to the brass cleat on the dock and then headed home.", 
           "The CEO gave his secretary several terse instructions and then left the office.", 
-          "The cottage was surrounded by dense fern vegetation that was not trimmed in years.", 
+          "The cottage was surrounded by dense fern vegetation that had not been trimmed in years.", 
           "Jasmine found a great deal online and treated herself to a spa holiday.", 
           "The artist wore a satin dress with a slight sheen that was made for the performance.", 
           "The children's most vivid memory of the zoo was the wild lynx sitting on a tree.", 
@@ -144,7 +144,7 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "The team needs to play much better during the last nine minutes if they want to win.", 
           "The sound from the large horn echoed through the green valley.", 
           "The beauty queen wore a gorgeous sash over her elegant red gown.", 
-          "When Jack finally spit his gum out it had lost all its fruity flavour.", 
+          "The teacher told the child to first spit out his gum and then answer the question.", 
           "He bought a large plastic rake to gather the fallen leaves in his front garden.", 
           "The athlete believed she would reap the rewards of all her training when she competed.", 
           "The child enjoyed eating the ripe plum she had picked from the tree.", 
@@ -156,7 +156,7 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "The prospector knew that his land claim would require a lot of paperwork.", 
           "The stranger began to feel faint at the sight of his own blood.", 
           "Jenny saw the first snow flake of winter and braced herself for the cold weather.", 
-          "All the town people knew about the great flood that had destroyed the town in 1912.", 
+          "All the towns people knew about the great flood that had destroyed the town in 1912.", 
           "The fraudster knew that he could frame his brother for his many crimes.", 
           "The deer were grazing in the grassy glade in the middle of the woods.", 
           "The detective found the horrible truth when he opened the door.", 
@@ -172,7 +172,7 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
           "The restaurant critic noted the clean plate and silverware on the table.", 
           "Even though it was just a short drive to the store, Mike ran out of petrol.", 
           "The bully watched the child flinch when he acted like he was going to punch him.", 
-          "He kept a tight clench on the money in his hand so nobody could take it from him.", 
+          "When Jane saw the slow clench of his fists, she realised that the man is getting angry.", 
           "They lost millions when the wealthy client decided to take his business elsewhere.", 
           "They saw the judge slouch in her chair just before she fell asleep.", 
           "Edmond thought the music had a really funky groove that made him want to dance."
@@ -181,24 +181,19 @@ wrds <- c("The reporter announced that no people were hurt in the car accident t
 # NUMBER OF CHARACTERS (INCLUDING SPACES) PRIOR TO THE TARGET WORD:          
 Nchars <- rep(0, length(wrds))
 
-# Nchars<- c("43", "29", "20", "40", "40", "42", "43", "52", "57", "56", 
-#            "23", "50", "21", "40", "17", "42", "25", "31", "29", "42", "56", 
-#            "47", "30", "40", "27", "19", "24", "21", "40", "25", "25", "30", 
-#            "42", "35", "39", "32", "58", "37", "36", "43", "28", "40", "16", 
-#            "31", "39", "21", "35", "22", "43", "38", "52", "30", "26", "45", 
-#            "49", "40", "31", "33", "19", "24", "43", "46", "33", "53", "42", 
-#            "44", "34", "54", "31", "63", "33", "27", "44", "25", "19", "38", 
-#            "39", "46", "49", "34", "61", "36", "41", "35", "36", "22", "44", 
-#            "57", "60", "18", "16", "46", "42", "23", "35", "29", "59", "49", 
-#            "14", "34", "29", "47", "38", "51", "25", "33", "18", "26", "31", 
-#            "34", "28", "16", "43", "21", "37", "34", "27", "25", "41", "33", 
-#            "36", "33", "30", "43", "20", "39", "43", "22", "21", "45", "37", 
-#            "38", "32", "28", "16", "36", "19", "44")
-#Nchars<- as.numeric(Nchars)
+# Nchars<- c(43, 29, 20, 40, 40, 42, 43, 52, 57, 56, 23, 50, 21, 40, 17, 
+#            42, 25, 31, 29, 42, 56, 47, 30, 40, 27, 19, 24, 21, 40, 25, 25, 
+#            30, 42, 35, 39, 32, 58, 37, 36, 43, 28, 40, 16, 31, 39, 21, 35, 
+#            22, 43, 38, 54, 30, 26, 45, 49, 40, 31, 33, 19, 24, 43, 46, 33, 
+#            53, 42, 44, 34, 54, 31, 63, 33, 27, 44, 25, 19, 38, 39, 46, 49, 
+#            34, 60, 36, 41, 35, 36, 22, 44, 57, 60, 18, 16, 46, 42, 23, 35, 
+#            29, 59, 49, 14, 34, 29, 47, 38, 51, 25, 33, 36, 26, 31, 34, 28, 
+#            16, 43, 21, 37, 34, 27, 25, 42, 33, 36, 33, 30, 43, 20, 39, 43, 
+#            22, 21, 45, 37, 38, 32, 28, 23, 36, 19, 44)
 
   
 # HERE YOU MUST SPECIFY UNIQUE CODES FOR THE FILENAME OF THE PNG: 
-flnm <- paste(1:length(wrds), '_Valid', sep= '')
+flnm <- paste(1:length(wrds), '_valid', sep= '')
   
 
 for (i in (1:length(wrds))) {

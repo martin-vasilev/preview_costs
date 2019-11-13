@@ -1,6 +1,6 @@
 item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	Length_chars	Length_words	Fits_on_screen	Word_N 	Word_N_length	Word_N1_length	Question	Answer	Has_quest	N_pos	N1_pos
 1	Old	hurt	hort	iomk	4	4	4	The reporter announced that no people were hurt in the car accident this morning.	81	14	Yes	were	4	4	Were any people injured in the accident?	0	1	7	8
-2	Old	type	tepe	djya	4	4	4	The client asked for another type of dress that is more suitable for a wedding.	79	15	Yes	another	7	4	Did the customer want a dress for a wedding?	1	1	5	6
+2	Old	type	tepe	djya	4	4	4	The client asked for another type of dress that would be more suitable for a wedding.	85	16	Yes	another	7	4	Did the customer want a dress for a wedding?	1	1	5	6
 3	Old	dirt	dort	tkuh	4	4	4	Jesse had to remove dirt from his clothes after he cycled home in the rain.	75	15	Yes	remove	6	4	Did Jesse cycle in the rain?	1	1	4	5
 4	Old	purse	porse	yezou	5	5	5	John surprised his wife with a designer purse that he bought on his trip to Italy.	82	16	Yes	designer	8	5	Did John buy his wife a coat?	0	1	7	8
 5	Old	stern	storn	efoma	5	5	5	In the past year, the local police took stern measures to improve safety on the roads.	86	16	Yes	took	4	5	Did the police try to improve the security of prisons?	0	1	8	9
@@ -13,9 +13,9 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 12	Old	serve	sorve	zasoa	5	5	5	By joining the army, the young man hoped he could serve and protect his country.	80	15	Yes	could	5	5	Did the man join the army to make money?	0	1	10	11
 13	Old	worst	warst	sawal	5	5	5	Not long after their worst rain storm in the mountain, the campers decided to go home.	86	16	Yes	their	5	5	Did the campers return home?	1	1	4	5
 14	Old	purge	parge	gomyo	5	5	5	For Sam, getting a well-paid job helped purge the guilt of buying an expensive car.	83	15	Yes	helped	6	5	Did Sam feel guilty for buying an expensive car?	1	1	7	8
-15	Old	term	tarm	fuwa	4	4	4	After the summer term ended, the students went on a holiday in Spain.	69	13	Yes	summer	6	4	Did the students go on a holiday?	1	1	3	4
+15	Old	term	tarm	fuwa	4	4	4	After the summer term ended, the students went on holiday to Spain.	67	12	Yes	summer	6	4	Did the students go on a holiday?	1	1	3	4
 16	Old	twirl	tworl	iuloi	5	5	5	Katy put on her new dress and did a quick twirl to show it to her mother.	73	17	Yes	quick	5	5	Did Katy show her new dress to her sister?	0	1	10	11
-17	Old	plea	pler	qdam	4	4	4	The teen made a dramatic plea to the judge in hopes of avoiding a severe sentence.	82	16	Yes	dramatic	8	4	Did the teen make a plea?	1	1	5	6
+17	Old	plea	pler	qdam	4	4	4	The teen made a dramatic plea to the judge in the hope of avoiding a severe sentence.	85	17	Yes	dramatic	8	4	Did the teen make a plea?	1	1	5	6
 18	Old	sleeve	slerve	eiusro	6	6	6	The tailor repaired the ripped sleeve of the expensive leather jacket.	70	11	Yes	ripped	6	6	Did the tailor repair a pair of jeans?	0	1	5	6
 19	Old	sweep	swerp	euocg	5	5	5	The couple ordered a chimney sweep before they moved into their new house.	74	13	Yes	chimney	7	5	Did the couple want to sweep the chimney?	1	1	5	6
 20	Old	jerk	jark	yasb	4	4	4	While on the road, the car made a strange jerk before the engine died.	70	14	Yes	strange	7	4	Did the car have problems with the engine?	1	1	9	10
@@ -49,7 +49,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 48	New	trust	trost	boawk	5	5	5	Karl knew he couldn't trust anyone with his secret.	51	9	Yes	couldn't	8	5	Could Karl share his secret with everyone?	0	1	4	5
 49	New	spoon	spoot	eguzv	5	5	5	Joe was upset that he had lost his special spoon which had been gifted to him.	78	16	Yes	special	7	5	Did Joe lose his jacket?	0	1	9	10
 50	New	clone	clome	udavu	5	5	5	Dolly the sheep was the world's first clone of a mammal to survive infancy.	75	14	Yes	first	5	5	Did Dolly survive infancy? 	1	1	7	8
-51	New	knife	knike	dohtu	5	5	5	The TV chef always made sure to sharpen his carving knife before the show.	74	14	Yes	carving	7	5	Did the chef sharpen his pencil? 	0	1	10	11
+51	New	knife	knike	dohtu	5	5	5	The TV chef always made sure he sharpened his carving knife before the show.	76	14	Yes	carving	7	5	Did the chef sharpen his pencil? 	0	1	10	11
 52	New	crack	creck	eouwh	5	5	5	The inspector noticed a small crack in the building's foundation that needed repairing.	87	13	Yes	small	5	5	Did the crack need to be repaired?	1	1	5	6
 53	New	flask	flosk	hiomb	5	5	5	The police found an empty flask beneath the front seat that smelled of liquor.	78	14	Yes	empty	5	5	Did the police find a gun in the car?	0	1	5	6
 54	New	cruise	cruive	saodoa	6	6	6	The married couple decided to go on a luxury cruise for their second honeymoon.	79	14	Yes	luxury	6	6	Did the couple go on a cruise for their honeymoon?	1	1	9	10
@@ -57,7 +57,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 56	Old	mirth	morth	ufalk	5	5	5	The children told their story in mutual mirth while sitting next to the camp fire.	82	15	Yes	mutual	6	5			0	7	8
 57	Old	swerve	sworve	ueuneo	6	6	6	The lorry driver made a sudden swerve as he was about to miss the motorway exit.	80	16	Yes	sudden	6	6			0	6	7
 58	Old	swirl	sworl	eebot	5	5	5	The shaky boat made Carla's head swirl as she struggled to keep her balance.	76	14	Yes	head	4	5			0	6	7
-59	Old	smirk	smark	euboi	5	5	5	The boy had a tiny smirk on his face after he saw his mother scold his brother.	79	17	Yes	tiny	4	5			0	5	6
+59	Old	smirk	smark	euboi	5	5	5	The boy had a tiny smirk on his face when he saw his mother scold his brother.	78	17	Yes	tiny	4	5			0	5	6
 60	Old	speak	sperk	oqosb	5	5	5	The admiral would never speak badly of his superiors even if he didn't agree with them.	87	16	Yes	never	5	5			0	4	5
 61	Old	fleece	fleeme	bhuzzu	6	6	6	Before her morning run, Ana put on a thick fleece jacket to keep herself warm.	78	15	Yes	thick	5	6			0	9	10
 62	Old	third	thard	hdkah	5	5	5	The young athlete was happy after he finished third in the international competition.	85	13	Yes	finished	8	5			0	8	9
@@ -75,15 +75,15 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 74	Old	coil	hoil	wabk	4	4	4	The climber used a short coil of rope to secure his tent in the mountain.	73	15	Yes	short	5	4			0	5	6
 75	Old	dean	dern	tarw	4	4	4	The recently hired dean made a commitment to improve the diversity in the department.	85	14	Yes	hired	5	4			0	3	4
 76	Old	glean	glern	jionv	5	5	5	The students were expected to somehow glean the information for their class report.	83	13	Yes	somehow	7	5			0	6	7
-77	Old	tech	tece	domk	4	4	4	The client was advised to contact tech support if the software is not working properly.	87	15	Yes	tech	4	4			0	7	8
+77	Old	tech	tece	domk	4	4	4	The client was advised to contact tech support if the software was not working properly.	88	15	Yes	tech	4	4			0	7	8
 78	Old	thirst	thorst	ldbaeb	6	6	6	Rob's teachers were impressed by his constant thirst for knowledge.	67	10	Yes	constant	8	6			0	7	8
 79	Old	clean	clern	edasz	5	5	5	The landlady asked the tenants to keep the house clean and tidy after they move in.	83	16	Yes	house	5	5			0	9	10
 80	Old	nurse	narse	zawaa	5	5	5	The old lady thanked the friendly nurse who was checking on her every other week.	81	15	Yes	friendly	8	5			0	6	7
-81	Old	cheat	chert	adomh	5	5	5	Dan challenged his bigger brother to finish the game without cheat codes of any kind.	85	15	Yes	without	7	5			0	10	11
+81	Old	cheat	chert	adomh	5	5	5	Dan challenged his older brother to finish the game without cheat codes of any kind.	84	15	Yes	without	7	5			0	10	11
 82	Old	cheek	cherk	otami	5	5	5	Karen got a small scar on her right cheek after she fell off her bike.	70	15	Yes	right	5	5			0	8	9
 83	Old	cleat	clert	akusb	5	5	5	The sailor secured his boat to the brass cleat on the dock and then headed home.	80	16	Yes	brass	5	5			0	8	9
 84	Old	terse	tarse	baceu	5	5	5	The CEO gave his secretary several terse instructions and then left the office.	79	13	Yes	several	7	5			0	6	7
-85	Old	fern	farn	kaza	4	4	4	The cottage was surrounded by dense fern vegetation that was not trimmed in years.	82	14	Yes	dense	5	4			0	6	7
+85	Old	fern	farn	kaza	4	4	4	The cottage was surrounded by dense fern vegetation that had not been trimmed in years.	87	15	Yes	dense	5	4			0	6	7
 86	Old	deal	derl	famb	4	4	4	Jasmine found a great deal online and treated herself to a spa holiday.	71	13	Yes	great	5	4			0	4	5
 87	Old	sheen	shern	adozc	5	5	5	The artist wore a satin dress with a slight sheen that was made for the performance.	84	16	Yes	slight	6	5			0	9	10
 88	Old	lynx	lonx	bgae	4	4	4	The children's most vivid memory of the zoo was the wild lynx sitting on a tree.	80	16	Yes	wild	4	4			0	11	12
@@ -105,7 +105,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 104	New	nine	nipe	ofoa	4	4	4	The team needs to play much better during the last nine minutes if they want to win.	84	17	Yes	last	4	4			0	10	11
 105	New	horn	harn	kuca	4	4	4	The sound from the large horn echoed through the green valley.	62	11	Yes	large	5	4			0	5	6
 106	New	sash	sush	zuwk	4	4	4	The beauty queen wore a gorgeous sash over her elegant red gown.	64	12	Yes	gorgeous	8	4			0	6	7
-107	New	spit	spim	aqld	4	4	4	When Jack finally spit his gum out it had lost all its fruity flavour.	70	14	Yes	finally	7	4			0	3	4
+107	New	spit	spim	aqld	4	4	4	The teacher told the child to first spit out his gum and then answer the question.	82	16	Yes	first	5	4			0	7	8
 108	New	rake	ruke	voiu	4	4	4	He bought a large plastic rake to gather the fallen leaves in his front garden.	79	15	Yes	plastic	7	4			0	5	6
 109	New	reap	reat	zovy	4	4	4	The athlete believed she would reap the rewards of all her training when she competed.	86	15	Yes	would	5	4			0	5	6
 110	New	plum	prum	yfos	4	4	4	The child enjoyed eating the ripe plum she had picked from the tree.	68	13	Yes	ripe	4	4			0	6	7
@@ -117,7 +117,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 116	New	claim	claic	udedo	5	5	5	The prospector knew that his land claim would require a lot of paperwork.	73	13	Yes	land	4	5			0	6	7
 117	New	faint	failt	leduk	5	5	5	The stranger began to feel faint at the sight of his own blood.	63	13	Yes	feel	4	5			0	5	6
 118	New	flake	flate	bhodu	5	5	5	Jenny saw the first snow flake of winter and braced herself for the cold weather.	81	15	Yes	snow	4	5			0	5	6
-119	New	flood	floop	hiezi	5	5	5	All the town people knew about the great flood that had destroyed the town in 1912.	83	16	Yes	great	5	5			0	8	9
+119	New	flood	floop	hiezi	5	5	5	All the towns people knew about the great flood that had destroyed the town in 1912.	84	16	Yes	great	5	5			0	8	9
 120	New	frame	frape	tuosu	5	5	5	The fraudster knew that he could frame his brother for his many crimes.	71	13	Yes	could	5	5			0	6	7
 121	New	glade	glane	ptobo	5	5	5	The deer were grazing in the grassy glade in the middle of the woods.	69	14	Yes	grassy	6	5			0	7	8
 122	New	truth	treth	boekb	5	5	5	The detective found the horrible truth when he opened the door.	63	11	Yes	horrible	8	5			0	5	6
@@ -133,7 +133,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 132	New	plate	plafe	jdeku	5	5	5	The restaurant critic noted the clean plate and silverware on the table.	72	12	Yes	clean	5	5			0	6	7
 133	New	drive	drise	hufoa	5	5	5	Even though it was just a short drive to the store, Mike ran out of petrol.	75	16	Yes	short	5	5			0	7	8
 134	New	flinch	flince	kdtueb	6	6	6	The bully watched the child flinch when he acted like he was going to punch him.	80	16	Yes	child	5	6			0	5	6
-135	New	clench	clonch	atoxob	6	6	6	He kept a tight clench on the money in his hand so nobody could take it from him.	81	18	Yes	tight	5	6			0	4	5
+135	New	clench	clonch	atoxob	6	6	6	When Jane saw the slow clench of his fists, she realised that the man is getting angry.	87	17	Yes	slow	4	6			0	5	6
 136	New	client	crient	akfusd	6	6	6	They lost millions when the wealthy client decided to take his business elsewhere.	82	13	Yes	wealthy	7	6			0	6	7
 137	New	slouch	slooch	aierwb	6	6	6	They saw the judge slouch in her chair just before she fell asleep.	67	13	Yes	judge	5	6			0	4	5
 138	New	groove	groose	quamsu	6	6	6	Edmond thought the music had a really funky groove that made him want to dance.	79	15	Yes	funky	5	6			0	8	9
