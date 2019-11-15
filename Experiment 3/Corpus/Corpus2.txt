@@ -137,3 +137,9 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 136	New	client	crient	akfusd	6	6	6	They lost millions when the wealthy client decided to take his business elsewhere.	82	13	Yes	wealthy	7	6			0	6	7
 137	New	slouch	slooch	aierwb	6	6	6	They saw the judge slouch in her chair just before she fell asleep.	67	13	Yes	judge	5	6			0	4	5
 138	New	groove	groose	quamsu	6	6	6	Edmond thought the music had a really funky groove that made him want to dance.	79	15	Yes	funky	5	6			0	8	9
+139	Old							She is the author of a series of successful high school biology textbooks.							Does she write poetry books?	0	1		
+140	Old							In the end, the show had to be cancelled due to its sinking ratings.							Was the show cancelled?	1	1		
+141	Old							Last week, Anna spent hours on the phone with her friend.											
+142	Old							Recovering from the recession proved to be very challenging for the small country.							Was it easy to recover from the recession?	0	1		
+143	Old							The dangerous political situation forced many activists to emigrate.											
+144	Old							The castle attracted many visitors from abroad, even when it was still in ruins.											
