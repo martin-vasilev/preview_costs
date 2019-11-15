@@ -94,7 +94,7 @@ load("Experiment 1/Plots/TW.Rda")
 figure <- ggarrange(E1plot, E2plot, ncol = 1, nrow = 2,
                     common.legend = TRUE, legend = "bottom")
 ggsave("Experiment 2/Plots/Merged.pdf", figure, width= 14, height=16, units= "in")
-#ggsave("Experiment 2/Plots/Merged.eps", figure, width= 12, height=16, units= "in")
+ggsave("Experiment 2/Plots/Merged.eps", figure, width= 12, height=16, units= "in", device = "eps")
 
 
 
