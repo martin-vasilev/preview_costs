@@ -143,6 +143,3 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 142	Old							Recovering from the recession proved to be very challenging for the small country.				recession	9	0	Was it easy to recover from the recession?	0	1	4	5
 143	Old							The dangerous political situation forced many activists to emigrate.				forced	6	0			0	5	6
 144	Old							The castle attracted many visitors from abroad, even when it was still in ruins.				from	4	0			0	6	7
-																			
-					4.775362319	4.775362319				18			8	6					
-													1.270968215	0.616300665					
