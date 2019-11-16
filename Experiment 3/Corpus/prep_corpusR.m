@@ -82,3 +82,20 @@ end
 fclose(fid);
 
 
+% question:
+fid = fopen('quest.txt','wt');
+
+for i=1:height(sent)
+    string= sent.Question(i);
+
+    if i< height(sent)
+        fprintf(fid, string);
+        fprintf(fid, '\n');
+    else
+        fprintf(fid, string);
+    end
+end
+
+fclose(fid);
+
+
