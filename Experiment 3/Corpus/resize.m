@@ -2,14 +2,15 @@ cd('D:\R\preview_costs\Experiment 3\Corpus');
 
 files= dir('img'); 
 files(1:2)= []; %files(641)= [];
-ResX= 1360;
+ResX= 1024;
 ResY= 768;
 
 for i =1:length(files)
   %a= I(1,1);
   [I, map] = imread([cd '\img\' files(i).name]);
-  I= [I(:,1:2), I]; % make it start at 50-pixels
+  I= [I(:,1), I]; % make it start at 50-pixels
   add= repmat(I(:,1),1, ResX-length(I));
+  I(:, 1025)= [];
   I= [I, add];
   I1(1:364,1:ResX)= I(1,1); 
   I2(1:364,1:ResX)= I(1,1); 

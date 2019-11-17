@@ -18,8 +18,8 @@ crtv <- 0   # % pixles replaced
 pxpi <- 60   # pixles per inch (ppi) - treat me thoughtfully!!!!!!!
 wdth <- 1024  # width of the png
 hght <- 40   # height of the png
-pnts <- 20   # font size (pointsize)
-wsch <- 10    # width of a single character
+pnts <- 22   # font size (pointsize)
+wsch <- 11    # width of a single character
 
 ## maximal vertical and horizontal distance for replacing pixels
 ## only useful for PNGs with a reasonable high resolution, but
@@ -54,7 +54,7 @@ Nchars <- rep(0, length(wrds))
 
   
 # HERE YOU MUST SPECIFY UNIQUE CODES FOR THE FILENAME OF THE PNG: 
-flnm <- paste(1:length(wrds), '_pract', sep= '')
+flnm <- paste(139:144, '_pract', sep= '')
   
 
 for (i in (1:length(wrds))) {

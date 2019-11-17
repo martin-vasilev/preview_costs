@@ -75,7 +75,7 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 74	Old	coil	hoil	wabk	4	4	4	The climber used a short coil of rope to secure his tent in the mountain.	73	15	Yes	short	5	4			0	5	6
 75	Old	dean	dern	tarw	4	4	4	The recently hired dean made a commitment to improve the diversity in the department.	85	14	Yes	hired	5	4			0	3	4
 76	Old	glean	glern	jionv	5	5	5	The students were expected to somehow glean the information for their class report.	83	13	Yes	somehow	7	5			0	6	7
-77	Old	tech	tece	domk	4	4	4	The client was advised to contact tech support if the software was not working properly.	88	15	Yes	contact	7	4			0	6	7
+77	Old	tech	tece	domk	4	4	4	The client was advised to contact tech support if the program was not working properly.	87	15	Yes	contact	7	4			0	6	7
 78	Old	thirst	thorst	ldbaeb	6	6	6	Rob's teachers were impressed by his constant thirst for knowledge.	67	10	Yes	constant	8	6			0	7	8
 79	Old	clean	clern	edasz	5	5	5	The landlady asked the tenants to keep the house clean and tidy after they move in.	83	16	Yes	house	5	5			0	9	10
 80	Old	nurse	narse	zawaa	5	5	5	The old lady thanked the friendly nurse who was checking on her every other week.	81	15	Yes	friendly	8	5			0	6	7
@@ -137,9 +137,3 @@ item	Corpus	Word	PW	Mask	n_letters_trgt	n_letters_orth	n_letters_mask	Sentence	L
 136	New	client	crient	akfusd	6	6	6	They lost millions when the wealthy client decided to take his business elsewhere.	82	13	Yes	wealthy	7	6			0	6	7
 137	New	slouch	slooch	aierwb	6	6	6	They saw the judge slouch in her chair just before she fell asleep.	67	13	Yes	judge	5	6			0	4	5
 138	New	groove	groose	quamsu	6	6	6	Edmond thought the music had a really funky groove that made him want to dance.	79	15	Yes	funky	5	6			0	8	9
-139	Old							She is the author of a series of successful high school biology textbooks.				successful	10	0	Does she write poetry books?	0	1	9	10
-140	Old							In the end, the show had to be cancelled due to its sinking ratings.				be	2	0	Was the show cancelled?	1	1	8	9
-141	Old							Last week, Anna spent hours on the phone with her friend.				the	3	0			0	7	8
-142	Old							Recovering from the recession proved to be very challenging for the small country.				recession	9	0	Was it easy to recover from the recession?	0	1	4	5
-143	Old							The dangerous political situation forced many activists to emigrate.				forced	6	0			0	5	6
-144	Old							The castle attracted many visitors from abroad, even when it was still in ruins.				from	4	0			0	6	7

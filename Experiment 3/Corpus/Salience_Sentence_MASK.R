@@ -18,8 +18,8 @@ crtv <- 0   # % pixles replaced
 pxpi <- 60   # pixles per inch (ppi) - treat me thoughtfully!!!!!!!
 wdth <- 1024  # width of the png
 hght <- 40   # height of the png
-pnts <- 20   # font size (pointsize)
-wsch <- 10    # width of a single character
+pnts <- 22   # font size (pointsize)
+wsch <- 11    # width of a single character
 
 ## maximal vertical and horizontal distance for replacing pixels
 ## only useful for PNGs with a reasonable high resolution, but
@@ -114,7 +114,7 @@ wrds <- c("The reporter announced that no people were iomk in the car accident t
           "The climber used a short wabk of rope to secure his tent in the mountain.", 
           "The recently hired tarw made a commitment to improve the diversity in the department.", 
           "The students were expected to somehow jionv the information for their class report.", 
-          "The client was advised to contact domk support if the software was not working properly.", 
+          "The client was advised to contact domk support if the program was not working properly.", 
           "Rob's teachers were impressed by his constant ldbaeb for knowledge.", 
           "The landlady asked the tenants to keep the house edasz and tidy after they move in.", 
           "The old lady thanked the friendly zawaa who was checking on her every other week.", 
@@ -181,15 +181,15 @@ wrds <- c("The reporter announced that no people were iomk in the car accident t
 # NUMBER OF CHARACTERS (INCLUDING SPACES) PRIOR TO THE TARGET WORD:          
 Nchars <- rep(0, length(wrds))
 
-#  Nchars<- c(43, 29, 20, 40, 40, 42, 43, 52, 57, 56, 23, 50, 21, 40, 17, 
-# 42, 25, 31, 29, 42, 56, 47, 30, 40, 27, 19, 24, 21, 40, 25, 25, 
-# 30, 42, 35, 39, 32, 58, 37, 36, 43, 28, 40, 16, 31, 39, 21, 35, 
-# 22, 43, 38, 54, 30, 26, 45, 49, 40, 31, 33, 19, 24, 43, 46, 33, 
-# 53, 42, 44, 34, 54, 31, 63, 33, 27, 44, 25, 19, 38, 34, 46, 49, 
-# 34, 60, 36, 41, 35, 36, 22, 44, 57, 60, 18, 16, 46, 42, 23, 35, 
-# 29, 59, 49, 14, 34, 29, 47, 38, 51, 25, 33, 36, 26, 31, 34, 28, 
-# 16, 43, 21, 37, 34, 27, 25, 42, 33, 36, 33, 30, 43, 20, 39, 43, 
-# 22, 21, 45, 37, 38, 32, 28, 23, 36, 19, 44)
+# Nchars<- c(43, 29, 20, 40, 40, 42, 43, 52, 57, 56, 23, 50, 21, 40, 17, 
+#            42, 25, 31, 29, 42, 56, 47, 30, 40, 27, 19, 24, 21, 40, 25, 25, 
+#            30, 42, 35, 39, 32, 58, 37, 36, 43, 28, 40, 16, 31, 39, 21, 35, 
+#            22, 43, 38, 54, 30, 26, 45, 49, 40, 31, 33, 19, 24, 43, 46, 33, 
+#            53, 42, 44, 34, 54, 31, 63, 33, 27, 44, 25, 19, 38, 34, 46, 49, 
+#            34, 60, 36, 41, 35, 36, 22, 44, 57, 60, 18, 16, 46, 42, 23, 35, 
+#            29, 59, 49, 14, 34, 29, 47, 38, 51, 25, 33, 36, 26, 31, 34, 28, 
+#            16, 43, 21, 37, 34, 27, 25, 42, 33, 36, 33, 30, 43, 20, 39, 43, 
+#            22, 21, 45, 37, 38, 32, 28, 23, 36, 19, 44)
 
   
 # HERE YOU MUST SPECIFY UNIQUE CODES FOR THE FILENAME OF THE PNG: 
