@@ -4,9 +4,9 @@ rm(list= ls())
 library(simr)
 
 
-######### EXPERIMENT 2
+######### EXPERIMENT 1
 
-load("Experiment 2/data/data.Rda")
+load("Experiment 1/data/data.Rda")
 
 # set-up contrast coding:
 library(lme4)
@@ -85,6 +85,7 @@ contrasts(dat2$prev)
 ## FFD:
 summary(FFD_PB<- lmer(log(FFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat1))
 summary(FFD_Orth<- lmer(log(FFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat2))
+summary(FFD_Deg<- lmer(log(FFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
 
 
 
@@ -93,13 +94,13 @@ library(simr)
 
 SimData<- NULL
 NSim= 500 # number of simulations
-nsub= 48
+nsub= 60
 nitem= 17
 
 # parameters:
 b <- coef(summary(FFD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(FFD_PB) # random effects
-s <- 0.29492 # residual sd
+s <- 0.28296 # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -117,7 +118,7 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
 
@@ -128,7 +129,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(FFD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(FFD_Orth) # random effects
-s <- 0.30168 # residual sd
+s <- 0.28172  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -146,9 +147,40 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
+
+##### Deg:
+
+SimData<- NULL
+
+
+# parameters:
+b <- coef(summary(FFD_Deg))[,1] # fixed intercept and slope
+RE <- VarCorr(FFD_Orth) # random effects
+s <- 0.28325   # residual sd
+
+sub <- c(1:nsub)
+item<- c(1:nitem)
+prev <- c('valid', 'invalid', 'orth')
+deg<- c('0', '20')
+
+X <- expand.grid(prev=prev, deg=deg, sub= sub, item= item)
+
+X$prev<- as.factor(X$prev)
+contrasts(X$prev)<- inv.cmat
+X$deg<- as.factor(X$deg)
+contrasts(X$deg)<- c(1, -1)
+
+# make fake data:
+model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
+summary(model1)
+
+summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+
+
+
 
 ########################################################################
 # SFD:
@@ -157,13 +189,14 @@ summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
 ## SFD:
 summary(SFD_PB<- lmer(log(SFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat1))
 summary(SFD_Orth<- lmer(log(SFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat2))
+summary(SFD_Deg<- lmer(log(SFD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
 
 SimData<- NULL
 
 # parameters:
 b <- coef(summary(SFD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(SFD_PB) # random effects
-s <- 0.27956  # residual sd
+s <- 0.26094  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -181,7 +214,7 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
 
@@ -192,7 +225,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(SFD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(SFD_Orth) # random effects
-s <- 0.28771  # residual sd
+s <- 0.26667  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -210,25 +243,53 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
+
+##### Deg:
+
+SimData<- NULL
+
+
+# parameters:
+b <- coef(summary(SFD_Deg))[,1] # fixed intercept and slope
+RE <- VarCorr(SFD_Deg) # random effects
+s <- 0.26613   # residual sd
+
+sub <- c(1:nsub)
+item<- c(1:nitem)
+prev <- c('valid', 'invalid', 'orth')
+deg<- c('0', '20')
+
+X <- expand.grid(prev=prev, deg=deg, sub= sub, item= item)
+
+X$prev<- as.factor(X$prev)
+contrasts(X$prev)<- inv.cmat
+X$deg<- as.factor(X$deg)
+contrasts(X$deg)<- c(1, -1)
+
+# make fake data:
+model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
+summary(model1)
+
+summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 
 
 ########################################################################
 # GD:
 ########################################################################
 
-## SFD:
 summary(GD_PB<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat1))
 summary(GD_Orth<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat2))
+summary(GD_Deg<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
 
 SimData<- NULL
 
 # parameters:
 b <- coef(summary(GD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(GD_PB) # random effects
-s <- 0.33144   # residual sd
+s <- 0.31955  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -246,7 +307,7 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
 
@@ -257,7 +318,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(GD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(GD_Orth) # random effects
-s <- 0.33646   # residual sd
+s <- 0.32632   # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -275,8 +336,35 @@ contrasts(X$deg)<- c(1, -1)
 model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
 summary(model1)
 
-summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
+#summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 summary(pow2<- powerSim(model1, test = fixed('prev','anova'), nsim= NSim))
 summary(pow3<- powerSim(model1, test = fixed('prev:deg','lr'), nsim= NSim))
 
 
+##### Deg:
+
+SimData<- NULL
+
+
+# parameters:
+b <- coef(summary(GD_Deg))[,1] # fixed intercept and slope
+RE <- VarCorr(GD_Deg) # random effects
+s <- 0.32196     # residual sd
+
+sub <- c(1:nsub)
+item<- c(1:nitem)
+prev <- c('valid', 'invalid', 'orth')
+deg<- c('0', '20')
+
+X <- expand.grid(prev=prev, deg=deg, sub= sub, item= item)
+
+X$prev<- as.factor(X$prev)
+contrasts(X$prev)<- inv.cmat
+X$deg<- as.factor(X$deg)
+contrasts(X$deg)<- c(1, -1)
+
+# make fake data:
+model1 <- makeLmer(y ~ prev*deg + (1|sub) + (1|item), fixef=b, VarCorr= RE, sigma=s, data=X)
+summary(model1)
+
+summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
