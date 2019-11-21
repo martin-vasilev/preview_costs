@@ -178,4 +178,60 @@ save(N1, file= 'Experiment 3/data/target.Rda')
 write.csv(N1, 'Experiment 3/data/target.csv')
 
 
+###################################
+
+library(reshape)
+DesN1<- melt(N1, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+                measure=c("FFD", "SFD", "GD"), na.rm=TRUE)
+mF<- cast(DesN1, deg+prev ~ variable
+              ,function(x) c(M=signif(mean(x),3)
+                             , SD= sd(x) ))
+
+df<- data.frame(c(mF$FFD_M, mF$SFD_M, mF$GD_M),
+                c(mF$FFD_SD, mF$SFD_SD, mF$GD_SD),
+                c(rep(mF$prev,3)), c(rep(mF$deg,3)),
+                c(rep('FFD', 6), rep('SFD', 6), rep('GD', 6)))
+colnames(df)<- c('Mean', 'SD', 'Preview', 'Degradation', 'Measure')
+df$SE<- df$SD/sqrt(length(unique(N1$sub)))
+
+df$Preview<- as.factor(df$Preview)
+df$Preview<- factor(df$Preview, levels= c("valid", 'orth', 'mask'))
+#levels(df$Preview)<- c("valid", 'phon', 'orth', 'mask')
+df$Measure<- as.factor(df$Measure)
+df$Measure<- factor(df$Measure, levels= c('FFD', 'SFD', 'GD'))
+levels(df$Degradation)<- c(" 0 %", " 20 %")
+
+### graph:
+library(ggplot2)
+limits <- aes(ymax = df$Mean + df$SE, ymin=df$Mean - df$SE)
+
+
+Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
+                             fill= Degradation, group=Degradation, shape=Degradation,
+                             linetype=Degradation, ymax = Mean + SE, ymin= Mean - SE))+ 
+  #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
+  scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
+  theme_bw(24) + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
+                       axis.line = element_line(colour = "black", size=1),
+                       panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
+  geom_line(size=2)+ scale_y_continuous(limits = c(210, 320))+
+  geom_point(size=7)+ 
+  xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
+  theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
+        legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
+        legend.key.height=unit(1,"cm"), strip.text=element_text(size=26, family="serif"),
+        title=element_text(size=26, family="serif"),
+        axis.title.x = element_text(size=26, face="bold", family="serif"), 
+        axis.title.y = element_text(size=26, face="bold", family="serif"), 
+        axis.text=element_text(size=26, family="serif"), 
+        panel.border = element_rect(linetype = "solid", colour = "black"), 
+        legend.key = element_rect(colour = "#000000", size=1),
+        plot.title = element_text(hjust = 0.5))+
+  facet_grid(.~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
+                                 strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
+                                 legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
+                                                                                                      colour=NA) + ggtitle("Experiment 1")
+
+
+
 
