@@ -94,7 +94,7 @@ library(simr)
 
 SimData<- NULL
 NSim= 500 # number of simulations
-nsub= 48
+nsub= 60
 nitem= 17
 
 # parameters:
@@ -280,7 +280,6 @@ summary(pow1<- powerSim(model1, test = fixed('deg','anova'), nsim= NSim))
 # GD:
 ########################################################################
 
-## SFD:
 summary(GD_PB<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat1))
 summary(GD_Orth<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=dat2))
 summary(GD_Deg<- lmer(log(GD_N1)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))

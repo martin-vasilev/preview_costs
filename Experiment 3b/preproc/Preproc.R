@@ -27,8 +27,8 @@ data_dir= "D:/Data/E2DEG" # Martin
 
 #if(!file.exists("Experiment 3/data/Quest.Rda")){
   Quest<- Question(data_list = data_dir, maxtrial = 138)
-  save(Quest, file= "Experiment 3/data/Quest.Rda")
-  write.csv(Quest, "Experiment 3/data/Quest.csv")
+  save(Quest, file= "Experiment 3b/data/Quest.Rda")
+  write.csv(Quest, "Experiment 3b/data/Quest.csv")
 #} else{
 #  load("Experiment 3/data/Quest.Rda")
 #}
@@ -50,8 +50,8 @@ mQuest
 #if(!file.exists("Experiment 3/data/Trial_time.Rda")){
   
   Trialt<- trialTime(data_list = data_dir, maxtrial = 138)
-  save(Trialt, file= "Experiment 3/data/Trial_time.Rda")
-  write.csv(Trialt, "Experiment 3/data/Trial_time.csv")
+  save(Trialt, file= "Experiment 3b/data/Trial_time.Rda")
+  write.csv(Trialt, "Experiment 3b/data/Trial_time.csv")
 #}else{
 #  load("Experiment 3/data/Trial_time.Rda")
 #}
@@ -71,8 +71,8 @@ mTime
 #if(!file.exists("Experiment 3/preproc/raw_fix.Rda")){
   # extract raw data & merge it with da1 files:
   raw_fix<- SingleLine(data_list = data_dir, ResX = 1024, ResY = 768, maxtrial = 138, tBlink = 150)
-  save(raw_fix, file= "Experiment 3/preproc/raw_fix.Rda")
-  write.csv(raw_fix, file= "Experiment 3/preproc/raw_fix.csv")
+  save(raw_fix, file= "Experiment 3b/preproc/raw_fix.Rda")
+  write.csv(raw_fix, file= "Experiment 3b/preproc/raw_fix.csv")
 #}
 
 
@@ -84,8 +84,8 @@ DC<- Boundary(data_list = data_dir, maxtrial = 138)
 
 length(which(DC$tChangetoFixOnset>5))/nrow(DC)
   
-save(DC, file= 'Experiment 3/preproc/DC.Rda')
-write.csv(DC, file= 'Experiment 3/preproc/DC.csv')
+save(DC, file= 'Experiment 3b/preproc/DC.Rda')
+write.csv(DC, file= 'Experiment 3b/preproc/DC.csv')
 
 ##############################
 # Preprocessing of raw data: #
@@ -127,7 +127,7 @@ for(i in 1:nrow(FD)){
   
 }
 
-sent <- read.delim("D:/R/preview_costs/Experiment 3/Corpus/Corpus2.txt")
+sent <- read.delim("Experiment 3b/Corpus/Corpus2.txt")
 
 for(i in 1:nrow(sent)){
   s<- as.character(sent$Sentence[i])
@@ -171,11 +171,11 @@ N1<- N1[-out,]
 out2<- which(N$FFD>800 | N$SFD>800 |N$GD>1600)
 N<- N[-out2,]
 
-save(N, file= 'Experiment 3/data/pre-target.Rda')
-write.csv(N, 'Experiment 3/data/pre-target.csv')
+save(N, file= 'Experiment 3b/data/pre-target.Rda')
+write.csv(N, 'Experiment 3b/data/pre-target.csv')
 
-save(N1, file= 'Experiment 3/data/target.Rda')
-write.csv(N1, 'Experiment 3/data/target.csv')
+save(N1, file= 'Experiment 3b/data/target.Rda')
+write.csv(N1, 'Experiment 3b/data/target.csv')
 
 
 ###################################
@@ -214,7 +214,7 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
   theme_bw(24) + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
                        axis.line = element_line(colour = "black", size=1),
                        panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-  geom_line(size=2)+ scale_y_continuous(limits = c(210, 320))+
+  geom_line(size=2)+ #scale_y_continuous(limits = c(210, 320))+
   geom_point(size=7)+ 
   xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
   theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
@@ -230,8 +230,8 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
   facet_grid(.~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
-                                                                                                      colour=NA) + ggtitle("Experiment 1")
+                                                                                                      colour=NA) +
+  ggtitle("Experiment 3b")
 
-
-
+Dplot
 
