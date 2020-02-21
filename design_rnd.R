@@ -1,7 +1,7 @@
 
 rm(list= ls())
 
-design <- read.delim("Experiment 3/E2DEG/E2DEG/design/design_same.dat", header=FALSE, stringsAsFactors=FALSE)
+design <- read.delim("Experiment 3b/E2DEG/E2DEG/design/design_same.dat", header=FALSE, stringsAsFactors=FALSE)
 design$V1<- NULL
 
 
