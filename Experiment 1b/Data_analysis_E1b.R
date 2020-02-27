@@ -81,8 +81,8 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
                                  colour=NA) + ggtitle("Experiment 2")
-ggsave("Experiment 2/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
-ggsave("Experiment 2/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
+ggsave("Experiment 1b/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
+ggsave("Experiment 1b/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
 
 E2plot<- Dplot
 save(E2plot, file= "Experiment 1b/Plots/TW.Rda")
@@ -188,45 +188,79 @@ mQ3m20<- subset(mQ3, prev== 'invalid' & deg== '20') # mask 20 deg cond
 min(mQ3v$accuracy_M)
 
 # FFD:
-if(!file.exists("Experiment 2/Models/FFDN1.Rda")){
+if(!file.exists("Experiment 1b/Models/FFDN1.Rda")){
   summary(FFDN1<- lmer(log(FFD_N1)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
-  save(FFDN1, file= "Experiment 2/Models/FFDN1.Rda")
+  save(FFDN1, file= "Experiment 1b/Models/FFDN1.Rda")
 }else{
-  load("Experiment 2/Models/FFDN1.Rda")
+  load("Experiment 1b/Models/FFDN1.Rda")
   summary(FFDN1)
 }
 
 SFFD<- round(coef(summary(FFDN1)),2)
-write.csv(SFFD, file= "Experiment 2/Models/TW_FFD.csv")
+write.csv(SFFD, file= "Experiment 1b/Models/TW_FFD.csv")
 
 
 # SFD: 
-if(!file.exists("Experiment 2/Models/SFDN1.Rda")){
+if(!file.exists("Experiment 1b/Models/SFDN1.Rda")){
   summary(SFDN1<-lmer(log(SFD_N1)~prev*deg+ (1|subj)+ (deg|item), REML = T, data=data))
-  save(SFDN1, file= "Experiment 2/Models/SFDN1.Rda")
+  save(SFDN1, file= "Experiment 1b/Models/SFDN1.Rda")
   summary(SFDN1)
 }else{
-  load("Experiment 2/Models/SFDN1.Rda")
+  load("Experiment 1b/Models/SFDN1.Rda")
   summary(SFDN1)
 }
 
 SSFD<- round(coef(summary(SFDN1)),2)
-write.csv(SSFD, file= "Experiment 2/Models/TW_SFD.csv")
+write.csv(SSFD, file= "Experiment 1b/Models/TW_SFD.csv")
 
 
 
 # GD:
-if(!file.exists("Experiment 2/Models/GDN1.Rda")){
+if(!file.exists("Experiment 1b/Models/GDN1.Rda")){
   summary(GDN1<-lmer(log(GD_N1)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
-  save(GDN1, file= "Experiment 2/Models/GDN1.Rda")
+  save(GDN1, file= "Experiment 1b/Models/GDN1.Rda")
   summary(GDN1)
 }else{
-  load("Experiment 2/Models/GDN1.Rda")
+  load("Experiment 1b/Models/GDN1.Rda")
   summary(GDN1)
 }
 
 SGD<- round(coef(summary(GDN1)),2)
-write.csv(SGD, file= "Experiment 2/Models/TW_GD.csv")
+write.csv(SGD, file= "Experiment 1b/Models/TW_GD.csv")
+
+
+
+#---------------------------------------------------#
+#       Post-hoc analyses on pre-target word        #
+#---------------------------------------------------#
+
+# FFD:
+if(!file.exists("Experiment 1b/Models/PoF_FFD.Rda")){
+  summary(PoF_FFD<- lmer(log(FFD_N)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
+  save(PoF_FFD, file= "Experiment 1b/Models/PoF_FFD.Rda")
+}else{
+  load("Experiment 1b/Models/PoF_FFD.Rda")
+  summary(PoF_FFD)
+}
+
+# SFD:
+if(!file.exists("Experiment 1b/Models/PoF_SFD.Rda")){
+  summary(PoF_SFD<- lmer(log(SFD_N)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
+  save(PoF_SFD, file= "Experiment 1b/Models/PoF_SFD.Rda")
+}else{
+  load("Experiment 1b/Models/PoF_SFD.Rda")
+  summary(PoF_SFD)
+}
+
+
+# GD:
+if(!file.exists("Experiment 1b/Models/PoF_GD.Rda")){
+  summary(PoF_GD<- lmer(log(GD_N)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
+  save(PoF_GD, file= "Experiment 1b/Models/PoF_GD.Rda")
+}else{
+  load("Experiment 1b/Models/PoF_GD.Rda")
+  summary(PoF_GD)
+}
 
 
 

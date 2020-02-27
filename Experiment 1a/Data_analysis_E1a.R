@@ -1,7 +1,7 @@
 
 # Martin R. Vasilev, 2018
 
-# EXPERIMENT 1:
+# EXPERIMENT 1a:
 
 rm(list=ls())
 
@@ -33,8 +33,8 @@ rm(list=ls())
 
 ### MEANS:
 
-load('Experiment 1/data/means.Rda')
-load('Experiment 1/data/data.Rda')
+load('Experiment 1a/data/means.Rda')
+load('Experiment 1a/data/data.Rda')
 
 df<- data.frame(c(mF$FFD_N1_M, mF$SFD_N1_M, mF$GD_N1_M, mF$TVT_N1_M),
                 c(mF$FFD_N1_SD, mF$SFD_N1_SD, mF$GD_N1_SD, mF$TVT_N1_SD),
@@ -85,11 +85,11 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
         legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
         colour=NA) + ggtitle("Experiment 1")
 
-ggsave("Experiment 1/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
-ggsave("Experiment 1/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
+ggsave("Experiment 1a/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
+ggsave("Experiment 1a/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
 
 E1plot<- Dplot
-save(E1plot, file= "Experiment 1/Plots/TW.Rda")
+save(E1plot, file= "Experiment 1a/Plots/TW.Rda")
 
 
 ### Preview costs (size):
@@ -162,7 +162,7 @@ contrasts(data$prev)
 
 
 ### COMPREHENSION ACCURACY:
-load("Experiment 1/data/quest_accuracy.Rda")
+load("Experiment 1a/data/quest_accuracy.Rda")
 
 q$deg<- as.factor(q$deg)
 contrasts(q$deg)<- c(1,-1)
@@ -173,14 +173,14 @@ q$prev<- factor(q$prev, levels= c("valid", "invalid", "phon", "orth"))
 contrasts(q$prev)<- inv.cmat
 contrasts(q$prev)
 
-if(!file.exists("Experiment 1/Models/G1.Rda")){
+if(!file.exists("Experiment 1a/Models/G1.Rda")){
   # does not converge with any random effects
   G1<- glmer(accuracy ~ deg* prev + (1|subject)+ (1|item), family= binomial, data= q,
              glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000)))
   save(G1, file= "Experiment 1/Models/G1.Rda")
   summary(G1)
 }else{
-  load("Experiment 1/Models/G1.Rda")
+  load("Experiment 1a/Models/G1.Rda")
   summary(G1)
 }
 max(abs(unname(coef(summary(G1))[2:8,3])))
@@ -190,17 +190,17 @@ max(abs(unname(coef(summary(G1))[2:8,3])))
 library(effects)
 
 # FFD:
-if(!file.exists("Experiment 1/Models/FFDN1.Rda")){
+if(!file.exists("Experiment 1a/Models/FFDN1.Rda")){
   # Does not converge with preview slopes and deg slope for items (variance too low)
   summary(FFDN1<- lmer(log(FFD_N1)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
-  save(FFDN1, file= "Experiment 1/Models/FFDN1.Rda")
+  save(FFDN1, file= "Experiment 1a/Models/FFDN1.Rda")
 }else{
-  load("Experiment 1/Models/FFDN1.Rda")
+  load("Experiment 1a/Models/FFDN1.Rda")
   summary(FFDN1)
 }
 
 (SFFD<- round(coef(summary(FFDN1)),2))
-write.csv(SFFD, "Experiment 1/Models/TW_FFD.csv")
+write.csv(SFFD, "Experiment 1a/Models/TW_FFD.csv")
 
 
 plot(effect('deg', FFDN1))
@@ -229,31 +229,63 @@ ggplot(PBInt,aes(y= FFD, x= deg, group= preview, shape= preview, color= preview)
 
 
 # SFD:
-if(!file.exists("Experiment 1/Models/SFDN1.Rda")){
+if(!file.exists("Experiment 1a/Models/SFDN1.Rda")){
   # Does not converge with a preview slope for items
   summary(SFDN1<- lmer(log(SFD_N1)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
-  save(SFDN1, file= "Experiment 1/Models/SFDN1.Rda")
+  save(SFDN1, file= "Experiment 1a/Models/SFDN1.Rda")
 }else{
-  load("Experiment 1/Models/SFDN1.Rda")
+  load("Experiment 1a/Models/SFDN1.Rda")
   summary(SFDN1)
 }
 
 (SSFD<- round(coef(summary(SFDN1)),2))
-write.csv(SSFD, "Experiment 1/Models/TW_SFD.csv")
+write.csv(SSFD, "Experiment 1a/Models/TW_SFD.csv")
 
 
 # GD:
-if(!file.exists("Experiment 1/Models/GDN1.Rda")){
+if(!file.exists("Experiment 1a/Models/GDN1.Rda")){
   summary(GDN1<-lmer(log(GD_N1)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
-  save(GDN1, file= "Experiment 1/Models/GDN1.Rda")
+  save(GDN1, file= "Experiment 1a/Models/GDN1.Rda")
 }else{
-  load("Experiment 1/Models/GDN1.Rda")
+  load("Experiment 1a/Models/GDN1.Rda")
   summary(GDN1)
 }
 
 (SGD<- round(coef(summary(GDN1)),2))
-write.csv(SGD, file= "Experiment 1/Models/TW_GD.csv")
+write.csv(SGD, file= "Experiment 1a/Models/TW_GD.csv")
 
+
+#---------------------------------------------------#
+#       Post-hoc analyses on pre-target word        #
+#---------------------------------------------------#
+
+# FFD:
+if(!file.exists("Experiment 1a/Models/PoF_FFD.Rda")){
+  summary(PoF_FFD<- lmer(log(FFD_N)~prev*deg+ (deg|subj)+ (deg|item), REML = T, data=data))
+  save(PoF_FFD, file= "Experiment 1a/Models/PoF_FFD.Rda")
+}else{
+  load("Experiment 1a/Models/PoF_FFD.Rda")
+  summary(PoF_FFD)
+}
+
+# SFD:
+if(!file.exists("Experiment 1a/Models/PoF_SFD.Rda")){
+  summary(PoF_SFD<- lmer(log(SFD_N)~prev*deg+ (deg|subj)+ (deg|item), REML = T, data=data))
+  save(PoF_SFD, file= "Experiment 1a/Models/PoF_SFD.Rda")
+}else{
+  load("Experiment 1a/Models/PoF_SFD.Rda")
+  summary(PoF_SFD)
+}
+
+
+# GD:
+if(!file.exists("Experiment 1a/Models/PoF_GD.Rda")){
+  summary(PoF_GD<- lmer(log(GD_N)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
+  save(PoF_GD, file= "Experiment 1a/Models/PoF_GD.Rda")
+}else{
+  load("Experiment 1a/Models/PoF_GD.Rda")
+  summary(PoF_GD)
+}
 
 
 
@@ -264,7 +296,7 @@ write.csv(SGD, file= "Experiment 1/Models/TW_GD.csv")
 #------------------------------------------------------
 # Sentence reading time as a function of degradation: #
 #------------------------------------------------------
-load("Experiment 1/data/t.Rda")
+load("Experiment 1a/data/t.Rda")
 
 library(reshape)
 DesRT<- melt(t, id=c('subj', 'item', 'cond', 'deg'), 
