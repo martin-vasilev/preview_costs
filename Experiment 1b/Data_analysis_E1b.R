@@ -1,6 +1,6 @@
 # Martin R. Vasilev, 2019
 
-# EXPERIMENT 2
+# EXPERIMENT 1b
 
 rm(list=ls())
 
@@ -30,8 +30,8 @@ rm(list=ls())
 # "dist_Bnd"=     Distance of the pre-boundary fixation from the boundary location (in letters) 
 
 
-load('Experiment 2/data/means.Rda')
-load('Experiment 2/data/data.Rda')
+load('Experiment 1b/data/means.Rda')
+load('Experiment 1b/data/data.Rda')
 
 df<- data.frame(c(mF$FFD_N1_M, mF$SFD_N1_M, mF$GD_N1_M, mF$TVT_N1_M),
                 c(mF$FFD_N1_SD, mF$SFD_N1_SD, mF$GD_N1_SD, mF$TVT_N1_SD),
@@ -85,16 +85,16 @@ ggsave("Experiment 2/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi
 ggsave("Experiment 2/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
 
 E2plot<- Dplot
-save(E2plot, file= "Experiment 2/Plots/TW.Rda")
+save(E2plot, file= "Experiment 1b/Plots/TW.Rda")
 
 #ggsave("Plots/TW.tiff", Dplot, width= 15, height=7, units= "in")
 
 library(ggpubr)
-load("Experiment 1/Plots/TW.Rda")
+load("Experiment 1a/Plots/TW.Rda")
 figure <- ggarrange(E1plot, E2plot, ncol = 1, nrow = 2,
                     common.legend = TRUE, legend = "bottom")
-ggsave("Experiment 2/Plots/Merged.pdf", figure, width= 14, height=16, units= "in")
-ggsave("Experiment 2/Plots/Merged.eps", figure, width= 12, height=16, units= "in", device = "eps")
+ggsave("Experiment 1b/Plots/Merged.pdf", figure, width= 14, height=16, units= "in")
+ggsave("Experiment 1b/Plots/Merged.eps", figure, width= 12, height=16, units= "in", device = "eps")
 
 
 
@@ -126,7 +126,7 @@ contrasts(data$prev)<- inv.cmat
 contrasts(data$prev)
 
 ### COMPREHENSION ACCURACY:
-load("Experiment 2/data/quest_accuracy.Rda")
+load("Experiment 1b/data/quest_accuracy.Rda")
 
 q$deg<- as.factor(q$deg)
 contrasts(q$deg)<- c(1,-1)
@@ -138,18 +138,26 @@ contrasts(q$prev)<- inv.cmat
 contrasts(q$prev)
 
 # Comprehension accuracy:
-if(!file.exists("Experiment 2/Models/G1.Rda")){
+if(!file.exists("Experiment 1b/Models/G1.Rda")){
 
   G1<- glmer(accuracy ~  prev*deg+ (1|subject)+ (1|item), family= binomial, data= q, 
              glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000)))
-  save(G1, file= "Experiment 2/Models/G1.Rda")
+  save(G1, file= "Experiment 1b/Models/G1.Rda")
   summary(G1)
   
   # 
-  summary(G1<- glmer(accuracy ~ prev*deg + (1|item), family= binomial, data= q))
+  #summary(G1<- glmer(accuracy ~ prev*deg + (1|item), family= binomial, data= q))
+  
+  ## post-hoc:
+  # check of valid vs invalid difference is significant after removing sub 32, 64
+  
+  q2<- subset(q, !is.element(subject, c(32,64, 60)))
+  summary(glmer(accuracy ~  prev*deg+ (1|subject)+ (1|item), family= binomial, data= q2, 
+        glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000))))
+  
   
 }else{
-  load("Experiment 2/Models/G1.Rda")
+  load("Experiment 1b/Models/G1.Rda")
   summary(G1)
 }
 max(abs(unname(coef(summary(G1))[2:8,3])))
@@ -162,6 +170,22 @@ mQ<- cast(DesQ, prev+deg ~ variable
               , function(x) c(M=signif(mean(x),3)
                               , SD= sd(x) ))
 
+mQ2<- cast(DesQ, prev ~ variable
+          , function(x) c(M=signif(mean(x),3)
+                          , SD= sd(x) ))
+
+mQ3<- cast(DesQ, prev+deg+subject ~ variable
+           , function(x) c(M=signif(mean(x),3)
+                           , SD= sd(x) ))
+
+mQ3v<- subset(mQ3, prev== 'valid' & deg== '0') # valid 0 deg cond
+mQ3v20<- subset(mQ3, prev== 'valid' & deg== '20') # valid 20 deg cond
+
+mQ3m<- subset(mQ3, prev== 'invalid' & deg== '0') # mask 0 deg cond
+mQ3m20<- subset(mQ3, prev== 'invalid' & deg== '20') # mask 20 deg cond
+
+
+min(mQ3v$accuracy_M)
 
 # FFD:
 if(!file.exists("Experiment 2/Models/FFDN1.Rda")){

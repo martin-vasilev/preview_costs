@@ -4,9 +4,9 @@ rm(list= ls())
 library(simr)
 
 
-######### EXPERIMENT 1
+######### EXPERIMENT 2
 
-load("Experiment 1/data/data.Rda")
+load("Experiment 1b/data/data.Rda")
 
 # set-up contrast coding:
 library(lme4)
@@ -100,7 +100,7 @@ nitem= 17
 # parameters:
 b <- coef(summary(FFD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(FFD_PB) # random effects
-s <- 0.28296 # residual sd
+s <- 0.29492 # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -129,7 +129,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(FFD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(FFD_Orth) # random effects
-s <- 0.28172  # residual sd
+s <- 0.30168 # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -159,7 +159,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(FFD_Deg))[,1] # fixed intercept and slope
 RE <- VarCorr(FFD_Orth) # random effects
-s <- 0.28325   # residual sd
+s <- 0.29693  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -196,7 +196,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(SFD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(SFD_PB) # random effects
-s <- 0.26094  # residual sd
+s <- 0.27956  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -225,7 +225,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(SFD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(SFD_Orth) # random effects
-s <- 0.26667  # residual sd
+s <- 0.28771  # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -255,7 +255,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(SFD_Deg))[,1] # fixed intercept and slope
 RE <- VarCorr(SFD_Deg) # random effects
-s <- 0.26613   # residual sd
+s <- 0.28256   # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -289,7 +289,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(GD_PB))[,1] # fixed intercept and slope
 RE <- VarCorr(GD_PB) # random effects
-s <- 0.31955  # residual sd
+s <- 0.33144   # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -318,7 +318,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(GD_Orth))[,1] # fixed intercept and slope
 RE <- VarCorr(GD_Orth) # random effects
-s <- 0.32632   # residual sd
+s <- 0.33646   # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
@@ -349,7 +349,7 @@ SimData<- NULL
 # parameters:
 b <- coef(summary(GD_Deg))[,1] # fixed intercept and slope
 RE <- VarCorr(GD_Deg) # random effects
-s <- 0.32196     # residual sd
+s <- 0.33164    # residual sd
 
 sub <- c(1:nsub)
 item<- c(1:nitem)
