@@ -25,13 +25,13 @@ data_dir= "D:/Data/E2DEG" # Martin
 # Comprehension accuracy: #
 ###########################
 
-#if(!file.exists("Experiment 3/data/Quest.Rda")){
+if(!file.exists("Experiment 2b/data/Quest.Rda")){
   Quest<- Question(data_list = data_dir, maxtrial = 138)
-  save(Quest, file= "Experiment 3b/data/Quest.Rda")
-  write.csv(Quest, "Experiment 3b/data/Quest.csv")
-#} else{
-#  load("Experiment 3/data/Quest.Rda")
-#}
+  save(Quest, file= "Experiment 2b/data/Quest.Rda")
+  write.csv(Quest, "Experiment 2b/data/Quest.csv")
+} else{
+  load("Experiment 2b/data/Quest.Rda")
+}
 
 
 library(reshape)
@@ -42,19 +42,23 @@ mQuest<- cast(DesQuest, sub ~ variable
                              , SD= sd(x) ))
 mQuest
 
+min(mQuest$accuracy_M)
+mean(mQuest$accuracy_M)
+sd(mQuest$accuracy_M)
+
 
 ################
 # Trial times: #
 ################
 
-#if(!file.exists("Experiment 3/data/Trial_time.Rda")){
+if(!file.exists("Experiment 2b/data/Trial_time.Rda")){
   
   Trialt<- trialTime(data_list = data_dir, maxtrial = 138)
-  save(Trialt, file= "Experiment 3b/data/Trial_time.Rda")
-  write.csv(Trialt, "Experiment 3b/data/Trial_time.csv")
-#}else{
-#  load("Experiment 3/data/Trial_time.Rda")
-#}
+  save(Trialt, file= "Experiment 2b/data/Trial_time.Rda")
+  write.csv(Trialt, "Experiment 2b/data/Trial_time.csv")
+}else{
+  load("Experiment 2b/data/Trial_time.Rda")
+}
 
 DesTime<- melt(Trialt, id=c('sub', 'item', 'cond'), 
                measure=c("duration_ms"), na.rm=TRUE)
@@ -68,12 +72,16 @@ mTime
 # Raw Fixations: #
 ##################
 
-#if(!file.exists("Experiment 3/preproc/raw_fix.Rda")){
+if(!file.exists("Experiment 2b/preproc/raw_fix.Rda")){
+  
   # extract raw data & merge it with da1 files:
-  raw_fix<- SingleLine(data_list = data_dir, ResX = 1024, ResY = 768, maxtrial = 138, tBlink = 150)
-  save(raw_fix, file= "Experiment 3b/preproc/raw_fix.Rda")
-  write.csv(raw_fix, file= "Experiment 3b/preproc/raw_fix.csv")
-#}
+  raw_fix<- SingleLine(data_list = data_dir, ResX = 1024, ResY = 768, maxtrial = 138, tBlink = 100,
+                       addNonFixatedWords = T)
+  save(raw_fix, file= "Experiment 2b/preproc/raw_fix.Rda")
+  write.csv(raw_fix, file= "Experiment 2b/preproc/raw_fix.csv")
+}else{
+  load("Experiment 2b/preproc/raw_fix.Rda")
+}
 
 
 ####################
