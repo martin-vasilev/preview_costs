@@ -25,17 +25,41 @@ data_dir= "D:/Data/E2DEG" # Martin
 # Comprehension accuracy: #
 ###########################
 
-if(!file.exists("Experiment 2b/data/Quest.Rda")){
-  Quest<- Question(data_list = data_dir, maxtrial = 138)
-  save(Quest, file= "Experiment 2b/data/Quest.Rda")
-  write.csv(Quest, "Experiment 2b/data/Quest.csv")
+if(!file.exists("Experiment 2b/data/Quest2b.Rda")){
+  Quest2b<- Question(data_list = data_dir, maxtrial = 138)
+  
+  for(i in 1:nrow(Quest2b)){
+    # degradation:
+    if(Quest2b$cond[i]<4){
+      Quest2b$deg[i]<- '0'
+    }else{
+      Quest2b$deg[i]<- '20'
+    }
+    
+    # preview:
+    if(is.element(Quest2b$cond[i], c(1,4))){
+      Quest2b$prev[i]<- 'valid'
+    }
+    
+    if(is.element(Quest2b$cond[i], c(2,5))){
+      Quest2b$prev[i]<- 'orth'
+    }
+    
+    if(is.element(Quest2b$cond[i], c(3,6))){
+      Quest2b$prev[i]<- 'mask'
+    }
+    
+  }
+  
+  save(Quest2b, file= "Experiment 2b/data/Quest2b.Rda")
+  write.csv(Quest2b, "Experiment 2b/data/Quest2b.csv")
 } else{
-  load("Experiment 2b/data/Quest.Rda")
+  load("Experiment 2b/data/Quest2b.Rda")
 }
 
 
 library(reshape)
-DesQuest<- melt(Quest, id=c('sub', 'item', 'cond'), 
+DesQuest<- melt(Quest2b, id=c('sub', 'item', 'cond'), 
                 measure=c("accuracy"), na.rm=TRUE)
 mQuest<- cast(DesQuest, sub ~ variable
               ,function(x) c(M=signif(mean(x),3)
@@ -51,16 +75,40 @@ sd(mQuest$accuracy_M)
 # Trial times: #
 ################
 
-if(!file.exists("Experiment 2b/data/Trial_time.Rda")){
+if(!file.exists("Experiment 2b/data/Trial_time2b.Rda")){
   
-  Trialt<- trialTime(data_list = data_dir, maxtrial = 138)
-  save(Trialt, file= "Experiment 2b/data/Trial_time.Rda")
-  write.csv(Trialt, "Experiment 2b/data/Trial_time.csv")
+  Trialt2b<- trialTime(data_list = data_dir, maxtrial = 138)
+  
+  for(i in 1:nrow(Trialt2b)){
+    # degradation:
+    if(Trialt2b$cond[i]<4){
+      Trialt2b$deg[i]<- '0'
+    }else{
+      Trialt2b$deg[i]<- '20'
+    }
+    
+    # preview:
+    if(is.element(Trialt2b$cond[i], c(1,4))){
+      Trialt2b$prev[i]<- 'valid'
+    }
+    
+    if(is.element(Trialt2b$cond[i], c(2,5))){
+      Trialt2b$prev[i]<- 'orth'
+    }
+    
+    if(is.element(Trialt2b$cond[i], c(3,6))){
+      Trialt2b$prev[i]<- 'mask'
+    }
+    
+  }
+  
+  save(Trialt2b, file= "Experiment 2b/data/Trial_time2b.Rda")
+  write.csv(Trialt2b, "Experiment 2b/data/Trial_time2b.csv")
 }else{
-  load("Experiment 2b/data/Trial_time.Rda")
+  load("Experiment 2b/data/Trial_time2b.Rda")
 }
 
-DesTime<- melt(Trialt, id=c('sub', 'item', 'cond'), 
+DesTime<- melt(Trialt2b, id=c('sub', 'item', 'cond'), 
                measure=c("duration_ms"), na.rm=TRUE)
 mTime<- cast(DesTime, cond ~ variable
              ,function(x) c(M=signif(mean(x),3)
@@ -100,9 +148,12 @@ write.csv(DC, file= 'Experiment 3b/preproc/DC.csv')
 ##############################
 
 # merge fixations shorter than 80 ms within 1 char of another fixation:
-rf<- cleanData(raw_fix = raw_fix, removeOutsideText = T, removeBlinks = T, combineNearbySmallFix =T,
-               combineMethod = 'char', combineDist = 1, removeSmallFix = T, smallFixCutoff = 80, 
+rf<- cleanData(raw_fix = raw_fix, removeOutsideText = F, removeBlinks = F, combineNearbySmallFix =T,
+               combineMethod = 'char', combineDist = 1, removeSmallFix = F, smallFixCutoff = 80, 
                removeOutliers = F)
+
+# remove short (non-merged fixations):
+rf<- subset(rf, fix_dur>=80)
 
 # calculate word FD measures
 FD<- wordMeasures(rf)
@@ -135,7 +186,7 @@ for(i in 1:nrow(FD)){
   
 }
 
-sent <- read.delim("Experiment 3b/Corpus/Corpus2.txt")
+sent <- read.delim("Experiment 2b/Corpus/Corpus2.txt")
 
 for(i in 1:nrow(sent)){
   s<- as.character(sent$Sentence[i])
@@ -168,6 +219,8 @@ for(i in 1:nrow(FD)){
   
 }
 
+FD<- FD[-which(FD$blinks_1stPass==1 |FD$blinks_2ndPass==1),]
+
 N<- subset(FD, N==1)
 N1<- subset(FD, N1==1)
 
@@ -179,11 +232,11 @@ N1<- N1[-out,]
 out2<- which(N$FFD>800 | N$SFD>800 |N$GD>1600)
 N<- N[-out2,]
 
-save(N, file= 'Experiment 3b/data/pre-target.Rda')
-write.csv(N, 'Experiment 3b/data/pre-target.csv')
+save(N, file= 'Experiment 2b/data/pre-target.Rda')
+write.csv(N, 'Experiment 2b/data/pre-target.csv')
 
-save(N1, file= 'Experiment 3b/data/target.Rda')
-write.csv(N1, 'Experiment 3b/data/target.csv')
+save(N1, file= 'Experiment 2b/data/target.Rda')
+write.csv(N1, 'Experiment 2b/data/target.csv')
 
 
 ###################################
@@ -239,7 +292,7 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
                                                                                                       colour=NA) +
-  ggtitle("Experiment 3b")
+  ggtitle("Experiment 2b")
 
 Dplot
 
