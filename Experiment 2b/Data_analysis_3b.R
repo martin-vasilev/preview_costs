@@ -11,16 +11,16 @@ load("D:/R/preview_costs/Experiment 3b/data/target.Rda")
 load("D:/R/preview_costs/Experiment 3b/data/pre-target.Rda")
 
 
-# Contrast coding:
-N1$deg<- as.factor(N1$deg)
-contrasts(N1$deg)<- c(1,-1)
-contrasts(N1$deg)
+#-------------------
+# Question Accuracy:
+#-------------------
 
-N1$prev<- as.factor(N1$prev)
-levels(N1$prev)<- c("invalid", "orth", "valid")
+load("Experiment 2b/data/Quest2b.Rda")
 
-N1$prev<- factor(N1$prev, levels= c("valid", "invalid", "orth"))
-contrasts(N1$prev)
+Quest2b$deg<- as.factor(Quest2b$deg)
+contrasts(Quest2b$deg)<- c(1,-1)
+contrasts(Quest2b$deg)
+
 
 cmat<- matrix(data = c(-1,1,0,0,1, -1), nrow=3, ncol=2,
               dimnames = list(c('valid', 'invalid', 'orth'),
@@ -32,6 +32,43 @@ inv.cmat<- fractions(t(ginv(cmat)))
 # copy row and column names over from cmat to make interpretation easier
 colnames(inv.cmat) <- colnames(cmat)
 rownames(inv.cmat)<- rownames(cmat)
+
+
+Quest2b$prev<- as.factor(Quest2b$prev)
+levels(Quest2b$prev)<- c("invalid", "orth", "valid") 
+levels(Quest2b$prev)
+Quest2b$prev<- factor(Quest2b$prev, levels= c("valid", "invalid", "orth"))
+contrasts(Quest2b$prev)<- inv.cmat
+contrasts(Quest2b$prev)
+
+# Comprehension accuracy:
+if(!file.exists("Experiment 2b/Models/G1.Rda")){
+  
+  G1<- glmer(accuracy ~  prev*deg+ (1|sub)+ (1|item), family= binomial, data= Quest2b)
+
+  save(G1, file= "Experiment 2b/Models/G1.Rda")
+  summary(G1)
+  
+}else{
+  load("Experiment 2b/Models/G1.Rda")
+  summary(G1)
+}
+max(abs(unname(coef(summary(G1))[2:6,3])))
+
+
+
+# Contrast coding:
+N1$deg<- as.factor(N1$deg)
+contrasts(N1$deg)<- c(1,-1)
+contrasts(N1$deg)
+
+N1$prev<- as.factor(N1$prev)
+levels(N1$prev)<- c("invalid", "orth", "valid")
+
+N1$prev<- factor(N1$prev, levels= c("valid", "invalid", "orth"))
+contrasts(N1$prev)
+
+
 contrasts(N1$prev)<- inv.cmat
 contrasts(N1$prev)
 
