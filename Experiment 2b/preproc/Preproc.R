@@ -71,51 +71,6 @@ mean(mQuest$accuracy_M)
 sd(mQuest$accuracy_M)
 
 
-################
-# Trial times: #
-################
-
-if(!file.exists("Experiment 2b/data/Trial_time2b.Rda")){
-  
-  Trialt2b<- trialTime(data_list = data_dir, maxtrial = 138)
-  
-  for(i in 1:nrow(Trialt2b)){
-    # degradation:
-    if(Trialt2b$cond[i]<4){
-      Trialt2b$deg[i]<- '0'
-    }else{
-      Trialt2b$deg[i]<- '20'
-    }
-    
-    # preview:
-    if(is.element(Trialt2b$cond[i], c(1,4))){
-      Trialt2b$prev[i]<- 'valid'
-    }
-    
-    if(is.element(Trialt2b$cond[i], c(2,5))){
-      Trialt2b$prev[i]<- 'orth'
-    }
-    
-    if(is.element(Trialt2b$cond[i], c(3,6))){
-      Trialt2b$prev[i]<- 'mask'
-    }
-    
-  }
-  
-  save(Trialt2b, file= "Experiment 2b/data/Trial_time2b.Rda")
-  write.csv(Trialt2b, "Experiment 2b/data/Trial_time2b.csv")
-}else{
-  load("Experiment 2b/data/Trial_time2b.Rda")
-}
-
-DesTime<- melt(Trialt2b, id=c('sub', 'item', 'deg'), 
-               measure=c("duration_ms"), na.rm=TRUE)
-mTime<- cast(DesTime, deg ~ variable
-             ,function(x) c(M=signif(mean(x),3)
-                            , SD= sd(x) ))
-mTime
-
-
 ##################
 # Raw Fixations: #
 ##################
@@ -277,6 +232,73 @@ mNfix<- cast(DesNfix, deg ~ variable
           ,function(x) c(M=signif(mean(x),3)
                          , SD= sd(x) ))
 
+#-------------------------------------
+#### Trial time:
+if(!file.exists("Experiment 2b/data/Trial_time2b.Rda")){
+  
+  load('Experiment 2b/data/raw_fix2b.Rda')
+  
+  Trialt2b<- trialTime(data_list = data_dir, maxtrial = 138)
+  
+  for(i in 1:nrow(Trialt2b)){
+    # degradation:
+    if(Trialt2b$cond[i]<4){
+      Trialt2b$deg[i]<- '0'
+    }else{
+      Trialt2b$deg[i]<- '20'
+    }
+    
+    # preview:
+    if(is.element(Trialt2b$cond[i], c(1,4))){
+      Trialt2b$prev[i]<- 'valid'
+    }
+    
+    if(is.element(Trialt2b$cond[i], c(2,5))){
+      Trialt2b$prev[i]<- 'orth'
+    }
+    
+    if(is.element(Trialt2b$cond[i], c(3,6))){
+      Trialt2b$prev[i]<- 'mask'
+    }
+    
+  }
+  
+  Trialt2b$keep<- 0
+  
+  for(i in 1:nrow(Trialt2b)){
+    a<- which(rf2b$sub== Trialt2b$sub[i] & rf2b$item== Trialt2b$item[i])
+    
+    if(length(a)>0){
+      Trialt2b$keep[i]<- 1
+    }
+  }
+  
+  table(Trialt2b$keep)
+  
+  Trialt2b<- subset(Trialt2b, keep==1)
+  
+  Trialt2b$keep<- NULL
+  
+  
+  save(Trialt2b, file= "Experiment 2b/data/Trial_time2b.Rda")
+  write.csv(Trialt2b, "Experiment 2b/data/Trial_time2b.csv")
+}else{
+  load("Experiment 2b/data/Trial_time2b.Rda")
+}
+
+DesTime<- melt(Trialt2b, id=c('sub', 'item', 'deg'), 
+               measure=c("duration_ms"), na.rm=TRUE)
+mTime<- cast(DesTime, deg ~ variable
+             ,function(x) c(M=signif(mean(x),3)
+                            , SD= sd(x) ))
+mTime
+
+
+
+
+
+
+##############################################################
 
 
 # remove trials with blinks:

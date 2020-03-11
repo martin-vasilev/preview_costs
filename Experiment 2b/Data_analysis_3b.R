@@ -81,6 +81,107 @@ summary(LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N1))
 summary(LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (deg|item), data= N1))
 
 
+#####################################################################
+# Global analyses:                                                  #
+#####################################################################
+
+library(reshape)
+library(lme4)
+
+#------------------------#
+# sentence reading time: #
+#------------------------#
+load("Experiment 2b/data/Trial_time2b.Rda")
+
+# descriptives
+DesTime<- melt(Trialt2b, id=c('sub', 'item', 'deg'), 
+               measure=c("duration_ms"), na.rm=TRUE)
+mTime<- cast(DesTime, deg ~ variable
+             ,function(x) c(M=signif(mean(x),3)
+                            , SD= sd(x) ))
+
+Trialt2b$deg<- as.factor(Trialt2b$deg)
+contrasts(Trialt2b$deg)<- c(1, -1)
+contrasts(Trialt2b$deg)
 
 
+if(!file.exists("Experiment 2b/Models/GL1.Rda")){
+  GL1<- lmer(log(duration_ms) ~ deg +(deg|sub)+ (1|item), data =Trialt2b, REML = T)
+  summary(GL1)
+  save(GL1, file= 'Experiment 2b/Models/GL1.Rda')
+}else{
+  load('Experiment 2b/Models/GL1.Rda')
+}
 
+
+#--------------------------#
+# Fixation duration (all): #
+#--------------------------#
+load("Experiment 2b/data/raw_fix2b.Rda")
+
+# descriptives
+DesFix<- melt(rf2b, id=c('sub', 'item', 'deg'), 
+               measure=c("fix_dur"), na.rm=TRUE)
+mFix<- cast(DesFix, deg ~ variable
+             ,function(x) c(M=signif(mean(x),3)
+                            , SD= sd(x) ))
+
+rf2b$deg<- as.factor(rf2b$deg)
+contrasts(rf2b$deg)<- c(1, -1)
+contrasts(rf2b$deg)
+
+
+if(!file.exists("Experiment 2b/Models/GL2.Rda")){
+  GL2<- lmer(log(fix_dur) ~ deg +(deg|sub)+ (1|item), data =rf2b, REML = T)
+  summary(GL2)
+  save(GL2, file= 'Experiment 2b/Models/GL2.Rda')
+}else{
+  load('Experiment 2b/Models/GL2.Rda')
+}
+
+
+#------------------#
+# Saccade length : #
+#------------------#
+
+# descriptives
+DesLen<- melt(rf2b, id=c('sub', 'item', 'deg'), 
+              measure=c("sacc_len"), na.rm=TRUE)
+mLen<- cast(DesLen, deg ~ variable
+            ,function(x) c(M=signif(mean(x),3)
+                           , SD= sd(x) ))
+
+
+if(!file.exists("Experiment 2b/Models/GL3.Rda")){
+  GL3<- lmer(sacc_len ~ deg +(1|sub)+ (1|item), data =rf2b, REML = T)
+  summary(GL3)
+  save(GL3, file= 'Experiment 2b/Models/GL3.Rda')
+}else{
+  load('Experiment 2b/Models/GL3.Rda')
+}
+
+
+#--------------------------#
+# number of fixations:     #
+#--------------------------#
+load("Experiment 2b/data/num_fix2b.Rda")
+
+# descriptives
+DesNFix<- melt(nFix2b, id=c('sub', 'item', 'deg'), 
+              measure=c("Nfix_all"), na.rm=TRUE)
+mNFix<- cast(DesNFix, deg ~ variable
+            ,function(x) c(M=signif(mean(x),3)
+                           , SD= sd(x) ))
+
+nFix2b$deg<- as.factor(nFix2b$deg)
+contrasts(nFix2b$deg)<- c(1, -1)
+contrasts(nFix2b$deg)
+
+
+if(!file.exists("Experiment 2b/Models/GL4.Rda")){
+  GL4<- lmer(Nfix_all ~ deg +(deg|sub)+ (1|item), data =nFix2b, REML = T)
+  summary(GL4)
+  save(GL4, file= 'Experiment 2b/Models/GL4.Rda')
+}else{
+  load('Experiment 2b/Models/GL4.Rda')
+}
