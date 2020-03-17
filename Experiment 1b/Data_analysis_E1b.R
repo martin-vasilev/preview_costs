@@ -430,3 +430,22 @@ Dplot<- ggplot(data= db, aes(x=Degradation, y= Mean, fill= Degradation, group=De
 
 ggsave("Experiment 1/Plots/Gen.png", Dplot, width= 12, height=5, units= "in", dpi=300)
 
+
+
+#------------------------------------------------------------------#
+#         Additional analyses requested by a Reviewer:             #
+#------------------------------------------------------------------#
+library(reshape2)
+
+DesProb<- melt(data, id=c('subj', 'item', 'prev', 'deg'), 
+               measure=c('Skip_N1','RegIN_N1', 'RegOUT_N1') , na.rm=TRUE)
+
+mProb<- cast(DesProb, prev+deg ~ variable
+             , function(x) c(M=signif(mean(x),3)
+                             , SD= sd(x) ))
+mProb$prev<- as.factor(mProb$prev)
+levels(mProb$prev)
+mProb$prev<- factor(mProb$prev, levels= c("valid", "phon", "orth", "invalid"))
+
+
+
