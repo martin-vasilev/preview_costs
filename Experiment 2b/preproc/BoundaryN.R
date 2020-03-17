@@ -24,11 +24,15 @@
 #' 
 #' @param end_flag end flag indicating the completion of the display change
 #' 
+#' @param tBlink check data samples before and after the boundary for data loss (e.g., blinks). Indicate how many ms
+#' to check on either side of the boundary
+#' 
 #' @include utility.R
 
 
 BoundaryN<- function(data_list= '', maxtrial= 999, boundary_loc= 'BOUNDARY', 
-                    start_flag= 'DISPLAY CHANGE STARTED', end_flag= 'DISPLAY CHANGE COMPLETED'){
+                    start_flag= 'DISPLAY CHANGE STARTED', end_flag= 'DISPLAY CHANGE COMPLETED',
+                    tBlink= 150){
   
   source("https://raw.githubusercontent.com/martin-vasilev/EMreading/master/R/utility.R")
   
@@ -219,6 +223,9 @@ BoundaryN<- function(data_list= '', maxtrial= 999, boundary_loc= 'BOUNDARY',
       }else{
         temp$hook<- NA
       }
+      
+      # check data around boundary for loss (i.e, blinks):
+      
       
       
       dat<- rbind(dat, temp)

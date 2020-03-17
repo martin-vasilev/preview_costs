@@ -330,7 +330,6 @@ if(!file.exists("Experiment 2b/preproc/DC.Rda")){
   load("Experiment 2b/preproc/DC.Rda")
 }
 
-
 ## remove trials that were already excluded due to blinks:
 
 DC$blink<- NA
