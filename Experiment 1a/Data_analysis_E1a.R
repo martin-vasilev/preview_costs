@@ -28,7 +28,13 @@ rm(list=ls())
 # "pRefixN1"=     Probability of re-fixating the target word (N+1)
 # "preBndFix"=    Duration of the fixation immediately before crossing the boundary
 # "preBndX"=      Location of the fixation immediately before crossing the boundary (in pixels)  
-# "dist_Bnd"=     Distance of the pre-boundary fixation from the boundary location (in letters) 
+# "dist_Bnd"=     Distance of the pre-boundary fixation from the boundary location (in letters)
+# "RegIN_N"=      Regression-in probability on the pre-target word (N)
+# "RegIN_N1"=     Regression-in probability on the target word (N+1)
+# "RegOUT_N"=     Regression-out probability on the pre-target word (N)
+# "RegOUT_N1"=    Regression-out probability on the target word (N+1)
+# "Skip_N"=       First-pass skipping of the pre-target word (N)
+# "Skip_N1"=      First-pass skipping of the target word (N+1)
 
 
 ### MEANS:
