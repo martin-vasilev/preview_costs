@@ -316,11 +316,11 @@ t$deg<- as.factor(t$deg)
 contrasts(t$deg)<- c(1, -1)
 contrasts(t$deg)
 
-if(!file.exists("Experiment 1/Models/GR1.Rda")){
+if(!file.exists("Experiment 1a/Models/GR1.Rda")){
   summary(GR1<- lmer(log(duration_ms)~deg+ (deg|subj)+ (1|item), REML = T, data=t))
-  save(GR1, file= "Experiment 1/Models/GR1.Rda")
+  save(GR1, file= "Experiment 1a/Models/GR1.Rda")
 } else{
-  load("Experiment 1/Models/GR1.Rda")
+  load("Experiment 1a/Models/GR1.Rda")
   summary(GR1)
 }
 
@@ -329,7 +329,7 @@ round(coef(summary(GR1)), 2)
 #----------------------
 # fixations duration: #
 #----------------------
-load("Experiment 1/data/raw_fix.Rda")
+load("Experiment 1a/data/raw_fix.Rda")
 
 library(reshape)
 DesFix<- melt(raw_fix, id=c('sub', 'item', 'cond', 'deg'), 
@@ -344,11 +344,11 @@ contrasts(raw_fix$deg)<- c(1, -1)
 contrasts(raw_fix$deg)
 
 
-if(!file.exists("Experiment 1/Models/GR2.Rda")){
+if(!file.exists("Experiment 1a/Models/GR2.Rda")){
   summary(GR2<- lmer(log(fix_dur)~deg+ (deg|sub)+ (1|item), REML = T, data=raw_fix))
-  save(GR2, file= "Experiment 1/Models/GR2.Rda")
+  save(GR2, file= "Experiment 1a/Models/GR2.Rda")
 } else{
-  load("Experiment 1/Models/GR2.Rda")
+  load("Experiment 1a/Models/GR2.Rda")
   summary(GR2)
 }
 
@@ -358,7 +358,7 @@ round(coef(summary(GR2)), 3)
 #-----------------------
 # number of fixations: #
 #-----------------------
-load("Experiment 1/data/FX.Rda")
+load("Experiment 1a/data/FX.Rda")
 
 DesFX<- melt(FX, id=c('sub', 'item', 'cond', 'deg'), 
               measure=c('nfix') , na.rm=TRUE)
@@ -372,11 +372,11 @@ contrasts(FX$deg)<- c(1, -1)
 contrasts(FX$deg)
 
 
-if(!file.exists("Experiment 1/Models/GR3.Rda")){
+if(!file.exists("Experiment 1a/Models/GR3.Rda")){
   summary(GR3<- lmer(nfix~deg+ (deg|sub)+ (1|item), REML = T, data=FX))
-  save(GR3, file= "Experiment 1/Models/GR3.Rda")
+  save(GR3, file= "Experiment 1a/Models/GR3.Rda")
 }else{
-  load("Experiment 1/Models/GR3.Rda")
+  load("Experiment 1a/Models/GR3.Rda")
   summary(GR3)
 }
 
@@ -399,11 +399,11 @@ raw_fix$deg<- as.factor(raw_fix$deg)
 contrasts(raw_fix$deg)<- c(1, -1)
 
 
-if(!file.exists("Experiment 1/Models/GR4.Rda")){
+if(!file.exists("Experiment 1a/Models/GR4.Rda")){
   summary(GR4<- lmer(sacc_len~deg+ (1|sub)+ (1|item), REML = T, data=raw_fix))
-  save(GR4, file= "Experiment 1/Models/GR4.Rda")
+  save(GR4, file= "Experiment 1a/Models/GR4.Rda")
 }else{
-  load("Experiment 1/Models/GR4.Rda")
+  load("Experiment 1a/Models/GR4.Rda")
   summary(GR4)
 }
 
@@ -449,7 +449,7 @@ Dplot<- ggplot(data= db, aes(x=Degradation, y= Mean, fill= Degradation, group=De
   legend.key = element_rect(colour = "#000000", size=1)) + geom_errorbar(mapping = aes(ymin=Mean-SE, ymax=Mean+SE),
   position=position_dodge(width=0.6), width=0.2, color= "#737373")
 
-ggsave("Experiment 1/Plots/Gen.png", Dplot, width= 12, height=5, units= "in", dpi=300)
+ggsave("Experiment 1a/Plots/Gen.png", Dplot, width= 12, height=5, units= "in", dpi=300)
 
 
 
@@ -469,3 +469,41 @@ levels(mProb$prev)
 mProb$prev<- factor(mProb$prev, levels= c("valid", "phon", "orth", "invalid"))
 
 
+##---------------------
+## statistical models :
+##---------------------
+
+#check coding
+contrasts(data$prev)
+contrasts(data$deg)
+
+
+# skipping:
+if(!file.exists("Experiment 1a/Models/PRM1.Rda")){
+  summary(PRM1<- glmer(Skip_N1 ~ prev*deg + (1|subj)+ (1|item), data = data, family= binomial,
+                       glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000))))
+  save(PRM1, file= "Experiment 1a/Models/PRM1.Rda")
+}else{
+  load("Experiment 1a/Models/PRM1.Rda")
+  summary(PRM1)
+}
+
+# regression-in:
+if(!file.exists("Experiment 1a/Models/PRM1.Rda")){
+  summary(PRM2<- glmer(RegIN_N1 ~ prev*deg + (1|subj)+ (1|item), data = data, family= binomial))
+  save(PRM2, file= "Experiment 1a/Models/PRM2.Rda")
+}else{
+  load("Experiment 1a/Models/PRM2.Rda")
+  summary(PRM2)
+}
+
+
+# regression-out:
+if(!file.exists("Experiment 1a/Models/PRM3.Rda")){
+  summary(PRM3<- glmer(RegOUT_N1 ~ prev*deg + (deg|subj)+ (1|item), data = data, family= binomial,
+                       glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000))))
+  save(PRM3, file= "Experiment 1a/Models/PRM3.Rda")
+}else{
+  load("Experiment 1a/Models/PRM3.Rda")
+  summary(PRM3)
+}
