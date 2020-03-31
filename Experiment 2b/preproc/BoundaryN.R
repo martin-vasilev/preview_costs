@@ -71,7 +71,7 @@ BoundaryN<- function(data_list= '', maxtrial= 999, boundary_loc= 'BOUNDARY',
       trialFile<- file[trial_db$ID[j]:trial_db$end[j]]
       
       temp<- data.frame(sub=NA, item= NA, cond=NA, seq= NA, Bnd_loc= NA, tCross=NA, tStarted=NA, tCompleted=NA, 
-                       tChange=NA, tActualChange= NA, prevFlag= NA, nextFlag= NA, tPrevFlag= NA, tNextFlag=NA,
+                       tChange=NA, prevFlag= NA, nextFlag= NA, tPrevFlag= NA, tNextFlag=NA,
                        tChangetoFixOnset= NA)
       temp$prevFlag<- NULL
       temp$tPrevFlag<- NULL
@@ -225,6 +225,30 @@ BoundaryN<- function(data_list= '', maxtrial= 999, boundary_loc= 'BOUNDARY',
       }
       
       # check data around boundary for loss (i.e, blinks):
+      
+      # location of boundary crossing in data file:
+      Bnd_st<- which(grepl(temp$tStarted, trialFile))[1]
+      Bnd_samples<- NULL
+      try(Bnd_samples<- trialFile[(Bnd_st- tBlink-2): (Bnd_st+ tBlink+2)])
+      
+      Bnd_samples<- Bnd_samples[!grepl("EFIX", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("SFIX", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("ESACC", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("SSACC", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("MSG", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("SBLINK", Bnd_samples)]
+      Bnd_samples<- Bnd_samples[!grepl("EBLINK", Bnd_samples)]
+      
+      Bnd_samples <-  as.data.frame(do.call( rbind, strsplit( Bnd_samples, '\t' ) ), stringsAsFactors= F) # V2 is xpos
+      Bnd_samples$V4= as.numeric(as.character(Bnd_samples$V4))
+      
+      
+      which_blink<- which(Bnd_samples$V4==0)
+      if(length(which_blink)>0){
+        temp$blink<- 1
+      }else{
+        temp$blink<- 0
+      }
       
       
       
