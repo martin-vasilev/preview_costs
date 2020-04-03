@@ -19,111 +19,57 @@ if('EMreading' %in% rownames(installed.packages())==FALSE){
 }
 
 
-data_dir= "D:/Data/E1DEG/" # Martin
+data_dir= "D:/Data/E1DEG" # Martin
 
 ###########################
 # Comprehension accuracy: #
 ###########################
 
-if(!file.exists("Experiment 2a/data/Quest.Rda")){
-  Quest<- Question(data_list = data_dir, maxtrial = 138)
+if(!file.exists("Experiment 2a/data/Quest2a.Rda")){
+  Quest2a<- Question(data_list = data_dir, maxtrial = 138)
   
-  # map conditions:
-  Quest$deg<- NULL
-  Quest$prev<- NULL
-  
-  for(i in 1:nrow(Quest)){
+  for(i in 1:nrow(Quest2a)){
     # degradation:
-    if(Quest$cond[i]<4){
-      Quest$deg[i]<- '0'
+    if(Quest2a$cond[i]<4){
+      Quest2a$deg[i]<- '0'
     }else{
-      Quest$deg[i]<- '20'
+      Quest2a$deg[i]<- '20'
     }
     
     # preview:
-    if(is.element(Quest$cond[i], c(1,4))){
-      Quest$prev[i]<- 'valid'
+    if(is.element(Quest2a$cond[i], c(1,4))){
+      Quest2a$prev[i]<- 'valid'
     }
     
-    if(is.element(Quest$cond[i], c(2,5))){
-      Quest$prev[i]<- 'orth'
+    if(is.element(Quest2a$cond[i], c(2,5))){
+      Quest2a$prev[i]<- 'orth'
     }
     
-    if(is.element(Quest$cond[i], c(3,6))){
-      Quest$prev[i]<- 'mask'
+    if(is.element(Quest2a$cond[i], c(3,6))){
+      Quest2a$prev[i]<- 'mask'
     }
     
   }
   
-  
-  
-  save(Quest, file= "Experiment 2a/data/Quest.Rda")
-  write.csv(Quest, "Experiment 2a/data/Quest.csv")
+  save(Quest2a, file= "Experiment 2a/data/Quest2a.Rda")
+  write.csv(Quest2a, "Experiment 2a/data/Quest2a.csv")
 } else{
-  load("Experiment 2a/data/Quest.Rda")
+  load("Experiment 2a/data/Quest2a.Rda")
 }
 
 
 library(reshape)
-DesQuest<- melt(Quest, id=c('sub', 'item', 'cond'), 
+DesQuest<- melt(Quest2a, id=c('sub', 'item', 'cond'), 
                 measure=c("accuracy"), na.rm=TRUE)
 mQuest<- cast(DesQuest, sub ~ variable
               ,function(x) c(M=signif(mean(x),3)
                              , SD= sd(x) ))
 mQuest
 
-range(mQuest$accuracy_M)
-
-
-################
-# Trial times: #
-################
-
-if(!file.exists("Experiment 2a/data/Trial_time.Rda")){
-  
-  Trialt<- trialTime(data_list = data_dir, maxtrial = 138)
-  
-  # map conditions:
-  Trialt$deg<- NULL
-  Trialt$prev<- NULL
-  
-  for(i in 1:nrow(Trialt)){
-    # degradation:
-    if(Trialt$cond[i]<4){
-      Trialt$deg[i]<- '0'
-    }else{
-      Trialt$deg[i]<- '20'
-    }
-    
-    # preview:
-    if(is.element(Trialt$cond[i], c(1,4))){
-      Trialt$prev[i]<- 'valid'
-    }
-    
-    if(is.element(Trialt$cond[i], c(2,5))){
-      Trialt$prev[i]<- 'orth'
-    }
-    
-    if(is.element(Trialt$cond[i], c(3,6))){
-      Trialt$prev[i]<- 'mask'
-    }
-    
-  }
-  
-  
-  
-  save(Trialt, file= "Experiment 2a/data/Trial_time.Rda")
-  write.csv(Trialt, "Experiment 2a/data/Trial_time.csv")
-}else{
-  load("Experiment 2a/data/Trial_time.Rda")
-}
-
-DesTime<- melt(Trialt, id=c('sub', 'item', 'cond'), 
-               measure=c("duration_ms"), na.rm=TRUE)
-mTime<- cast(DesTime, cond ~ variable
-             ,function(x) c(M=signif(mean(x),3)
-                            , SD= sd(x) ))
-mTime
+min(mQuest$accuracy_M)
+max(mQuest$accuracy_M)
+mean(mQuest$accuracy_M)
+sd(mQuest$accuracy_M)
 
 
 ##################
@@ -131,56 +77,16 @@ mTime
 ##################
 
 if(!file.exists("Experiment 2a/preproc/raw_fix.Rda")){
+  
   # extract raw data & merge it with da1 files:
   raw_fix<- SingleLine(data_list = data_dir, ResX = 1024, ResY = 768, maxtrial = 138, tBlink = 100,
                        addNonFixatedWords = T)
-  
-  # map conditions:
-  raw_fix$deg<- NULL
-  raw_fix$prev<- NULL
-  
-  for(i in 1:nrow(raw_fix)){
-    # degradation:
-    if(raw_fix$cond[i]<4){
-      raw_fix$deg[i]<- '0'
-    }else{
-      raw_fix$deg[i]<- '20'
-    }
-    
-    # preview:
-    if(is.element(raw_fix$cond[i], c(1,4))){
-      raw_fix$prev[i]<- 'valid'
-    }
-    
-    if(is.element(raw_fix$cond[i], c(2,5))){
-      raw_fix$prev[i]<- 'orth'
-    }
-    
-    if(is.element(raw_fix$cond[i], c(3,6))){
-      raw_fix$prev[i]<- 'mask'
-    }
-    
-  }
-  
-  
   save(raw_fix, file= "Experiment 2a/preproc/raw_fix.Rda")
   write.csv(raw_fix, file= "Experiment 2a/preproc/raw_fix.csv")
+}else{
+  load("Experiment 2a/preproc/raw_fix.Rda")
 }
 
-
-####################
-# Boundary change: #
-####################
-source('Experiment 2a/functions/Boundary.R')
-
- DC<- BoundaryN(data_list = data_dir, maxtrial = 138)
-
- outDC<- DC[which(DC$tChangetoFixOnset>7),]
-
- length(which(DC$tChangetoFixOnset>7))/nrow(DC)
-
- save(DC, file= 'Experiment 2a/preproc/DC.Rda')
- write.csv(DC, file= 'Experiment 2a/preproc/DC.csv')
 
 ##############################
 # Preprocessing of raw data: #
@@ -191,18 +97,10 @@ rf<- cleanData(raw_fix = raw_fix, removeOutsideText = F, removeBlinks = F, combi
                combineMethod = 'char', combineDist = 1, removeSmallFix = F, smallFixCutoff = 80, 
                removeOutliers = F)
 
-# Total merged fixations: 153 (0.09632 % of total) 
- 
-# remove fixations < 80 that did not get merged:
+# remove short (non-merged fixations):
 rf<- rf[-which(rf$fix_dur<80), ] 
-  
- 
-  
- 
- 
- 
- 
- 
+
+
 # calculate word FD measures
 FD<- wordMeasures(rf)
 FD$RS<- NULL
@@ -234,7 +132,7 @@ for(i in 1:nrow(FD)){
   
 }
 
-sent <- read.delim("Experiment 3b/Corpus/Corpus2.txt")
+sent <- read.delim("Experiment 2b/Corpus/Corpus2.txt")
 
 for(i in 1:nrow(sent)){
   s<- as.character(sent$Sentence[i])
@@ -267,37 +165,290 @@ for(i in 1:nrow(FD)){
   
 }
 
-# remove bad DC trials:
-#FD$out<- 0
-
-#for(i in 1:nrow(outDC)){
- # a<- which(FD$sub== DC$sub[i] & FD$item== DC$item[i] & FD$cond== DC$cond[i])
-#  FD$out[a]<- 1
-#}
-
-#FD<- subset(FD, out==0)
-#FD$out<- NULL
-
-
 N<- subset(FD, N==1)
 N1<- subset(FD, N1==1)
 
+### Clean rf for global measures analysis:
+rf<- rf[-which(rf$blink==1 | rf$prev_blink==1 | rf$after_blink==1), ]
+table(rf$blink); table(rf$prev_blink); table(rf$after_blink)
+
+rf$blink<- NULL; rf$prev_blink<- NULL; rf$after_blink<- NULL
+rf$hasText<- NULL
+
+rf<- rf[-which(rf$outOfBnds==1),]
+rf$outOfBnds<- NULL
+
+rf<- rf[-which(rf$fix_dur>800), ]
+
+rf$prev<- NA
+rf$deg<- NA
+
+for(i in 1:nrow(rf)){
+  # degradation:
+  if(rf$cond[i]<4){
+    rf$deg[i]<- '0'
+  }else{
+    rf$deg[i]<- '20'
+  }
+  
+  # preview:
+  if(is.element(rf$cond[i], c(1,4))){
+    rf$prev[i]<- 'valid'
+  }
+  
+  if(is.element(rf$cond[i], c(2,5))){
+    rf$prev[i]<- 'orth'
+  }
+  
+  if(is.element(rf$cond[i], c(3,6))){
+    rf$prev[i]<- 'mask'
+  }
+  
+}
+
+
+
+
+## save raw data:
+rf2a<- rf
+save(rf2a, file= 'Experiment 2a/data/raw_fix2a.Rda')
+write.csv(rf2a, 'Experiment 2a/data/raw_fix2a.csv')
+
+library(reshape)
+DesGen<- melt(rf2a, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+             measure=c("fix_dur", "sacc_len"), na.rm=TRUE)
+mG<- cast(DesGen, deg ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+nFix<- num_fix(rf2a)
+
+nFix2a<- nFix
+save(nFix2a, file= 'Experiment 2a/data/num_fix2a.Rda')
+write.csv(nFix2a, 'Experiment 2a/data/num_fix2a.csv')
+
+DesNfix<- melt(nFix2a, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+              measure=c("Nfix_all"), na.rm=TRUE)
+mNfix<- cast(DesNfix, deg ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+#-------------------------------------
+#### Trial time:
+if(!file.exists("Experiment 2a/data/Trial_time2a.Rda")){
+  
+  load('Experiment 2a/data/raw_fix2a.Rda')
+  
+  Trialt2a<- trialTime(data_list = data_dir, maxtrial = 138)
+  
+  for(i in 1:nrow(Trialt2a)){
+    # degradation:
+    if(Trialt2a$cond[i]<4){
+      Trialt2a$deg[i]<- '0'
+    }else{
+      Trialt2a$deg[i]<- '20'
+    }
+    
+    # preview:
+    if(is.element(Trialt2a$cond[i], c(1,4))){
+      Trialt2a$prev[i]<- 'valid'
+    }
+    
+    if(is.element(Trialt2a$cond[i], c(2,5))){
+      Trialt2a$prev[i]<- 'orth'
+    }
+    
+    if(is.element(Trialt2a$cond[i], c(3,6))){
+      Trialt2a$prev[i]<- 'mask'
+    }
+    
+  }
+  
+  Trialt2a$keep<- 0
+  
+  for(i in 1:nrow(Trialt2a)){
+    a<- which(rf2a$sub== Trialt2a$sub[i] & rf2a$item== Trialt2a$item[i])
+    
+    if(length(a)>0){
+      Trialt2a$keep[i]<- 1
+    }
+  }
+  
+  table(Trialt2a$keep)
+  
+  Trialt2a<- subset(Trialt2a, keep==1)
+  
+  Trialt2a$keep<- NULL
+  
+  
+  save(Trialt2a, file= "Experiment 2a/data/Trial_time2a.Rda")
+  write.csv(Trialt2a, "Experiment 2a/data/Trial_time2a.csv")
+}else{
+  load("Experiment 2a/data/Trial_time2a.Rda")
+}
+
+DesTime<- melt(Trialt2a, id=c('sub', 'item', 'deg'), 
+               measure=c("duration_ms"), na.rm=TRUE)
+mTime<- cast(DesTime, deg ~ variable
+             ,function(x) c(M=signif(mean(x),3)
+                            , SD= sd(x) ))
+mTime
+
+
+
+
+
+
+##############################################################
+# Target word pre-proc:
+
+# remove trials with blinks:
+blinksN<- which(N$blinks_1stPass==1)
+blinksN1<- which(N1$blinks_1stPass==1)
+
+B1<- (length(blinksN1)/ (138*60))*100
+
+N<- N[- blinksN,]
+N1<- N1[- blinksN1,]
+
+
+
 # target:
 out<- which(N1$FFD>800 | N1$SFD>800 |N1$GD>1600)
-if(length(out)>0){
-  N1<- N1[-out,]
-}
+N1<- N1[-out,]
 
 # pre-target:
 out2<- which(N$FFD>800 | N$SFD>800 |N$GD>1600)
 N<- N[-out2,]
 
+Outliers<- (length(out)/ (136*60))*100
 
-save(N, file= 'Experiment 3a/data/pre-target.Rda')
-write.csv(N, 'Experiment 3a/data/pre-target.csv')
 
-save(N1, file= 'Experiment 3a/data/target.Rda')
-write.csv(N1, 'Experiment 3a/data/target.csv')
+####################
+# Boundary change: #
+####################
+
+source("Experiment 2a/preproc/BoundaryN.R")
+
+if(!file.exists("Experiment 2a/preproc/DC.Rda")){
+  DC<- BoundaryN(data_list = data_dir, maxtrial = 138) 
+  save(DC, file= "Experiment 2a/preproc/DC.Rda")
+}else{
+  load("Experiment 2a/preproc/DC.Rda")
+}
+
+## remove trials that were already excluded due to blinks:
+
+DC$blink2<- NA
+
+for(i in 1:nrow(DC)){
+  a<- which(N1$sub== DC$sub[i] & N1$item== DC$item[i])
+  
+  if(length(a)>0){
+    DC$blink2[i]<- 0
+  }else{
+    DC$blink2[i]<- 1
+  }
+  
+  if(length(a)>1){
+    stop("lol")
+  }
+  
+}
+
+DCblink<- which(DC$blink==1 | DC$blink2==1)
+
+Blinks<- (length(DCblink)/(138*60))*100
+
+DC<- DC[-DCblink,]
+
+DCbad<- which(DC$tChangetoFixOnset-1>6)
+DC<- DC[-DCbad,]
+
+DChook<- which(DC$hook==1)
+
+DC<- DC[-DChook,]
+
+Changes<- ((length(DCbad)+length(DChook))/(138*60))*100 
+
+mean(DC$tChange)+ ((1/150)/2)*1000
+sd(DC$tChange)
+
+
+#### subset fixation data frames keeping only trials still in DC:
+N1$keep<- NA
+
+for(i in 1:nrow(N1)){
+  a<- which(DC$sub== N1$sub[i] & DC$item== N1$item[i])
+  
+  if(length(a)>0){
+    N1$keep[i]<- 1
+  }else{
+    N1$keep[i]<- 0
+  }
+  
+  if(length(a)>1){
+    stop("lol")
+  }
+  
+}
+
+table(N1$keep)
+N1<- subset(N1, keep==1)
+
+
+N$keep<- NA
+
+for(i in 1:nrow(N)){
+  a<- which(DC$sub== N$sub[i] & DC$item== N$item[i])
+  
+  if(length(a)>0){
+    N$keep[i]<- 1
+  }else{
+    N$keep[i]<- 0
+  }
+  
+  if(length(a)>1){
+    stop("lol")
+  }
+  
+}
+
+table(N$keep)
+N<- subset(N, keep==1)
+
+
+# clear unnecessary columns:
+
+N$blinks_1stPass<- NULL
+N1$blinks_1stPass<- NULL
+
+N$blinks_2ndPass<- NULL
+N1$blinks_2ndPass<- NULL
+
+N$word_line<- NULL
+N1$word_line<- NULL
+
+N$keep<- NULL
+N1$keep<- NULL
+
+N$N<- NULL
+N1$N<- NULL
+
+N$N1<- NULL
+N1$N1<- NULL
+
+N$line<- NULL
+N1$line<- NULL
+
+N_2a<- N
+N1_2a<- N1
+
+save(N_2a, file= 'Experiment 2a/data/pre-target.Rda')
+write.csv(N_2a, 'Experiment 2a/data/pre-target.csv')
+
+save(N1_2a, file= 'Experiment 2a/data/target.Rda')
+write.csv(N1_2a, 'Experiment 2a/data/target.csv')
 
 
 ###################################
@@ -353,27 +504,7 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
                                                                                                       colour=NA) +
-  ggtitle("Experiment 3a")
+  ggtitle("Experiment 2b")
 
 Dplot
-
-
-
-
-ms<- cast(DesN1, deg+prev+sub ~ variable
-          ,function(x) c(M=signif(mean(x),3)
-                         , SD= sd(x) ))
-
-v20<- subset(ms, prev=="valid" & deg=="20")
-v0<- subset(ms, prev=="valid" & deg=="0")
-
-v20$FFD_M - v0$FFD_M
-v20$SFD_M - v0$SFD_M
-v20$GD_M- v0$GD_M
-
-sf<- data.frame(sub= 1:nrow(v20), FFD= v20$FFD_M - v0$FFD_M, SFD= v20$SFD_M - v0$SFD_M, GD= v20$GD_M- v0$GD_M) 
-
-# v20$FFD_M[50:60] - v0$FFD_M[50:60]
-# v20$SFD_M[50:60] - v0$SFD_M[50:60]
-# v20$GD_M[50:60]- v0$GD_M[50:60]
 
