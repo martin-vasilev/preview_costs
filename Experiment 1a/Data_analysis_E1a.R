@@ -286,12 +286,17 @@ if(!file.exists("Experiment 1a/Models/PoF_SFD.Rda")){
 
 # GD:
 if(!file.exists("Experiment 1a/Models/PoF_GD.Rda")){
-  summary(PoF_GD<- lmer(log(GD_N)~prev*deg+ (1|subj)+ (1|item), REML = T, data=data))
+  summary(PoF_GD<- lmer(log(GD_N)~prev*deg+ (deg|subj)+ (1|item), REML = T, data=data))
   save(PoF_GD, file= "Experiment 1a/Models/PoF_GD.Rda")
 }else{
   load("Experiment 1a/Models/PoF_GD.Rda")
   summary(PoF_GD)
 }
+
+# write model results to csv:
+write.csv(round(coef(summary(PoF_FFD)),2), 'Experiment 1a/Models/PoF_FFD.csv')
+write.csv(round(coef(summary(PoF_SFD)),2), 'Experiment 1a/Models/PoF_SFD.csv')
+write.csv(round(coef(summary(PoF_GD)),2), 'Experiment 1a/Models/PoF_GD.csv')
 
 
 
@@ -487,6 +492,13 @@ if(!file.exists("Experiment 1a/Models/PRM1.Rda")){
   load("Experiment 1a/Models/PRM1.Rda")
   summary(PRM1)
 }
+
+(SPRM1<- round(coef(summary(PRM1)),2))
+rowS<- c('Intercept', "Invalid PV", "Orth PV", "Phon PV", "Deg",             
+                    "Invalid PV:Deg", "Orth PV:Deg", "Phon PV:Deg")
+rownames(SPRM1)<- rowS
+write.csv(SPRM1, 'Experiment 1a/Models/PR_skip.csv')
+
 
 # regression-in:
 if(!file.exists("Experiment 1a/Models/PRM1.Rda")){

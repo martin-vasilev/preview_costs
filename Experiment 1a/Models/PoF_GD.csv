@@ -1,0 +1,9 @@
+"","Estimate","Std. Error","t value"
+"(Intercept)",5.43,0.02,293.69
+"prev.PB",0.01,0.02,0.84
+"prev.Orth_PB",0,0.02,0.23
+"prev.Phon_PB",-0.02,0.02,-1.29
+"deg1",0.01,0.01,1.03
+"prev.PB:deg1",0,0.02,0.27
+"prev.Orth_PB:deg1",0,0.02,0.23
+"prev.Phon_PB:deg1",0.01,0.02,0.41
