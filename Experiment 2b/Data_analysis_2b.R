@@ -252,7 +252,6 @@ if(!file.exists("Experiment 2b/Models/PoF/POF_LM3.Rda")){
 
 
 # write model results to csv:
-
 write.csv(round(coef(summary(POF_LM1)),2), 'Experiment 2b/Models/PoF/PoF_FFD.csv')
 write.csv(round(coef(summary(POF_LM2)),2), 'Experiment 2b/Models/PoF/PoF_SFD.csv')
 write.csv(round(coef(summary(POF_LM3)),2), 'Experiment 2b/Models/PoF/PoF_GD.csv')
