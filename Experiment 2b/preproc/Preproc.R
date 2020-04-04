@@ -299,11 +299,16 @@ mTime
 
 
 ##############################################################
-
+# Target word pre-proc:
 
 # remove trials with blinks:
-N<- N[-which(N$blinks_1stPass==1 |N$blinks_2ndPass==1),]
-N1<- N1[-which(N1$blinks_1stPass==1 |N1$blinks_2ndPass==1),]
+blinksN<- which(N$blinks_1stPass==1)
+blinksN1<- which(N1$blinks_1stPass==1)
+
+B1<- (length(blinksN1)/ (138*60))*100
+
+N<- N[- blinksN,]
+N1<- N1[- blinksN1,]
 
 
 
@@ -315,6 +320,7 @@ N1<- N1[-out,]
 out2<- which(N$FFD>800 | N$SFD>800 |N$GD>1600)
 N<- N[-out2,]
 
+Outliers<- (length(out)/ (136*60))*100
 
 
 ####################
@@ -332,15 +338,15 @@ if(!file.exists("Experiment 2b/preproc/DC.Rda")){
 
 ## remove trials that were already excluded due to blinks:
 
-DC$blink<- NA
+DC$blink2<- NA
 
 for(i in 1:nrow(DC)){
   a<- which(N1$sub== DC$sub[i] & N1$item== DC$item[i])
   
   if(length(a)>0){
-    DC$blink[i]<- 0
+    DC$blink2[i]<- 0
   }else{
-    DC$blink[i]<- 1
+    DC$blink2[i]<- 1
   }
   
   if(length(a)>1){
@@ -349,10 +355,26 @@ for(i in 1:nrow(DC)){
   
 }
 
-DC<- subset(DC, blink==0)
+DCblink<- which(DC$blink==1 | DC$blink2==1)
 
-DC<- subset(DC, DC$tChangetoFixOnset-1<6)
+Blinks<- (length(DCblink)/(138*60))*100
 
+DC<- DC[-DCblink,]
+
+DCbad<- which(DC$tChangetoFixOnset-1>6)
+DC<- DC[-DCbad,]
+
+DChook<- which(DC$hook==1)
+
+DC<- DC[-DChook,]
+
+Changes<- ((length(DCbad)+length(DChook))/(138*60))*100 
+
+mean(DC$tChange)+ ((1/150)/2)*1000
+sd(DC$tChange)
+
+
+#### subset fixation data frames keeping only trials still in DC:
 N1$keep<- NA
 
 for(i in 1:nrow(N1)){
@@ -394,6 +416,29 @@ for(i in 1:nrow(N)){
 table(N$keep)
 N<- subset(N, keep==1)
 
+
+# clear unnecessary columns:
+
+N$blinks_1stPass<- NULL
+N1$blinks_1stPass<- NULL
+
+N$blinks_2ndPass<- NULL
+N1$blinks_2ndPass<- NULL
+
+N$word_line<- NULL
+N1$word_line<- NULL
+
+N$keep<- NULL
+N1$keep<- NULL
+
+N$N<- NULL
+N1$N<- NULL
+
+N$N1<- NULL
+N1$N1<- NULL
+
+N$line<- NULL
+N1$line<- NULL
 
 N_2b<- N
 N1_2b<- N1

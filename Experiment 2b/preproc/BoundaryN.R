@@ -192,7 +192,7 @@ BoundaryN<- function(data_list= '', maxtrial= 999, boundary_loc= 'BOUNDARY',
       }else{
         if(temp$nextFlag== "EFIX"){
           loc_flag= AfterBnd[nextEFIX[2]]
-          temp$nextLoc<- as.numeric(unlist(strsplit(loc_flag, '\t'))[2])
+          temp$nextLoc<- as.numeric(unlist(strsplit(loc_flag, '\t'))[4])
         }else{
           temp$nextLoc<- NA
         }
