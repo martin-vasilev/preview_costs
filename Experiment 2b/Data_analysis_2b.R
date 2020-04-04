@@ -7,8 +7,8 @@ library(MASS)
 
 # load data
 
-load("D:/R/preview_costs/Experiment 3b/data/target.Rda")
-load("D:/R/preview_costs/Experiment 3b/data/pre-target.Rda")
+load("D:/R/preview_costs/Experiment 2b/data/target.Rda")
+load("D:/R/preview_costs/Experiment 2b/data/pre-target.Rda")
 
 
 #-------------------
@@ -185,3 +185,24 @@ if(!file.exists("Experiment 2b/Models/GL4.Rda")){
 }else{
   load('Experiment 2b/Models/GL4.Rda')
 }
+
+
+
+########################################################################################################
+#                                            Post-hoc analyses                                         #
+########################################################################################################
+
+#-------------------#
+# Pre-target word   #
+#-------------------#
+
+library(reshape)
+DesN<- melt(N_2b, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+            measure=c("FFD", "SFD", "GD"), na.rm=TRUE)
+mN<- cast(DesN, deg+prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+
+
+

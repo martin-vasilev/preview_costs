@@ -339,3 +339,57 @@ mN<- cast(DesN, deg+prev ~ variable
                          , SD= sd(x) ))
 
 
+
+# Contrast coding:
+N_2a$deg<- as.factor(N_2a$deg)
+contrasts(N_2a$deg)<- c(1,-1)
+contrasts(N_2a$deg)
+
+N_2a$prev<- as.factor(N_2a$prev)
+levels(N_2a$prev)<- c("invalid", "orth", "valid")
+
+N_2a$prev<- factor(N_2a$prev, levels= c("valid", "invalid", "orth"))
+contrasts(N_2a$prev)
+
+
+contrasts(N_2a$prev)<- inv.cmat
+contrasts(N_2a$prev)
+contrasts(N_2a$deg)
+
+
+### FFD:
+if(!file.exists("Experiment 2a/Models/PoF/POF_LM1.Rda")){
+  summary(POF_LM1<- lmer(log(FFD)~ prev*deg +(deg|sub) + (deg|item), data= N_2a))
+  save(POF_LM1, file= "Experiment 2a/Models/PoF/POF_LM1.Rda")
+}else{
+  load("Experiment 2a/Models/PoF/POF_LM1.Rda")
+  summary(POF_LM1)
+}
+
+
+### SFD:
+if(!file.exists("Experiment 2a/Models/PoF/POF_LM2.Rda")){
+  summary(POF_LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N_2a))
+  save(POF_LM2, file= "Experiment 2a/Models/PoF/POF_LM2.Rda")
+}else{
+  load("Experiment 2a/Models/PoF/POF_LM2.Rda")
+  summary(POF_LM2)
+}
+
+
+### GD:
+if(!file.exists("Experiment 2a/Models/PoF/POF_LM3.Rda")){
+  summary(POF_LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (deg|item), data= N_2a))
+  save(POF_LM3, file= "Experiment 2a/Models/PoF/POF_LM3.Rda")
+}else{
+  load("Experiment 2a/Models/PoF/POF_LM3.Rda")
+  summary(POF_LM3)
+}
+
+
+# write model results to csv:
+
+write.csv(round(coef(summary(POF_LM1)),2), 'Experiment 2a/Models/PoF/PoF_FFD.csv')
+write.csv(round(coef(summary(POF_LM2)),2), 'Experiment 2a/Models/PoF/PoF_SFD.csv')
+write.csv(round(coef(summary(POF_LM3)),2), 'Experiment 2a/Models/PoF/PoF_GD.csv')
+
