@@ -95,15 +95,12 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
                                                                                                       colour=NA) +
-  ggtitle("Experiment 2b")
+  ggtitle("Experiment 2a")
 
 Dplot
 
 E1plot<- Dplot
 save(E1plot, file= "Experiment 2a/Plots/TW.Rda")
-
-
-
 
 
 #-------------------
@@ -323,3 +320,22 @@ if(!file.exists("Experiment 2a/Models/GL4.Rda")){
 }else{
   load('Experiment 2a/Models/GL4.Rda')
 }
+
+
+
+########################################################################################################
+#                                            Post-hoc analyses                                         #
+########################################################################################################
+
+#-------------------#
+# Pre-target word   #
+#-------------------#
+
+library(reshape)
+DesN<- melt(N_2a, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+             measure=c("FFD", "SFD", "GD"), na.rm=TRUE)
+mN<- cast(DesN, deg+prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+
