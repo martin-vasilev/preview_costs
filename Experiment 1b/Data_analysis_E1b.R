@@ -454,4 +454,30 @@ levels(mProb$prev)
 mProb$prev<- factor(mProb$prev, levels= c("valid", "phon", "orth", "invalid"))
 
 
+##---------------------
+## statistical models :
+##---------------------
+
+#check coding
+contrasts(data$prev)
+contrasts(data$deg)
+
+
+# skipping:
+if(!file.exists("Experiment 1b/Models/PRM1.Rda")){
+  summary(PRM1<- glmer(Skip_N1 ~ prev*deg + (deg|subj)+ (1|item), data = data, family= binomial,
+                       glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000))))
+  save(PRM1, file= "Experiment 1b/Models/PRM1.Rda")
+}else{
+  load("Experiment 1b/Models/PRM1.Rda")
+  summary(PRM1)
+}
+
+(SPRM1<- round(coef(summary(PRM1)),2))
+rowS<- c('Intercept', "Invalid PV", "Orth PV", "Phon PV", "Deg",             
+         "Invalid PV:Deg", "Orth PV:Deg", "Phon PV:Deg")
+rownames(SPRM1)<- rowS
+write.csv(SPRM1, 'Experiment 1b/Models/PR_skip.csv')
+
+
 
