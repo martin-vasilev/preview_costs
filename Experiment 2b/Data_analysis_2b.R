@@ -1,5 +1,34 @@
 
-rm(list= ls())
+# Martin R. Vasilev, 2020
+
+# EXPERIMENT 2a:
+
+rm(list=ls())
+
+
+### MEANING OF DATA COLUMNS:
+
+# "sub"=          Subject number
+# "item"=         Item number
+# "cond"=         Condition number
+# "seq" =         Trial sequence in the experiment
+# "word"=         Word number in the sentence
+# "WordID"        The target word string
+# "FFD"=          First fixation duration
+# "SFD"=          Single fixation duration
+# "GD"=           Gaze duration
+# "TVT"=          Total viewing time
+# "nfix1"=        Number of 1st-pass fixations
+# "nfix2"=        Number of 2nd-pass fixations
+# "nfixAll"=      Number of all fixations
+# regress=        A logica indicating whether there were regressive (2nd-pass) fixations (1= yes; 0= no)
+# "skip_1st"=     First-pass skipping probability
+# "skip_total"=   Total skipping probability
+# "prev"=         Preview condition
+# "deg"=          Degradation condition 
+# "regIN"         Regression-in probability
+# "regOUT"        Regression-out probability
+
 
 library(ggplot2)
 library(lme4)

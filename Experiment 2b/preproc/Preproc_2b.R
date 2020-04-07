@@ -507,3 +507,31 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
 
 Dplot
 
+
+
+### Add reg in & out:
+rm(list= ls())
+
+load("Experiment 2b/preproc/N1_old.Rda")
+load("Experiment 2b/data/raw_fix2b.Rda")
+
+source("Experiment 2b/preproc/RegINnOUT.R")
+
+R<- RegINnOUT(rf2b)
+
+N1_2b$regIN<- NA
+N1_2b$regOUT<- NA
+N1_2b$regOUT_all<- NA
+
+for(i in 1: nrow(N1_2b)){
+  a<- which(R$sub== N1_2b$sub[i] &R$item== N1_2b$item[i] & R$word== N1_2b$word[i])
+  
+  if(length(a)>0){
+    N1_2b$regIN[i]<- R$RegIn[a]
+    N1_2b$regOUT[i]<- R$RegOut[a]
+    N1_2b$regOUT_all[i]<- R$RegOut_all[a]
+  }
+}
+
+save(N1_2b, file= "Experiment 2b/data/target.Rda")
+write.csv(N1_2b, "Experiment 2b/data/target.csv")
