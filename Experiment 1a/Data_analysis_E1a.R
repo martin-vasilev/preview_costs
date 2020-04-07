@@ -501,9 +501,10 @@ write.csv(SPRM1, 'Experiment 1a/Models/PR_skip.csv')
 
 
 # regression-in:
-if(!file.exists("Experiment 1a/Models/PRM1.Rda")){
+if(!file.exists("Experiment 1a/Models/PRM2.Rda")){
   summary(PRM2<- glmer(RegIN_N1 ~ prev*deg + (1|subj)+ (1|item), data = data, family= binomial))
   save(PRM2, file= "Experiment 1a/Models/PRM2.Rda")
+  write.csv(round(coef(summary(PRM2)),2), 'Experiment 1a/Models/PR_regIN.csv')
 }else{
   load("Experiment 1a/Models/PRM2.Rda")
   summary(PRM2)
