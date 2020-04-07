@@ -26,6 +26,8 @@ rm(list=ls())
 # "skip_total"=   Total skipping probability
 # "prev"=         Preview condition
 # "deg"=          Degradation condition 
+# "regIN"         Regression-in probability
+# "regOUT"        Regression-out probability
 
 
 library(ggplot2)
