@@ -452,3 +452,29 @@ save(N1_2a, file= 'Experiment 2a/data/target.Rda')
 write.csv(N1_2a, 'Experiment 2a/data/target.csv')
 
 
+### Add reg in & out:
+rm(list= ls())
+
+load("Experiment 2a/preproc/N1_old.Rda")
+load("Experiment 2a/data/raw_fix2a.Rda")
+
+source("Experiment 2b/preproc/RegINnOUT.R")
+
+R<- RegINnOUT(rf2a)
+
+N1_2a$regIN<- NA
+N1_2a$regOUT<- NA
+N1_2a$regOUT_all<- NA
+
+for(i in 1: nrow(N1_2a)){
+  a<- which(R$sub== N1_2a$sub[i] &R$item== N1_2a$item[i] & R$word== N1_2a$word[i])
+  
+  if(length(a)>0){
+    N1_2a$regIN[i]<- R$RegIn[a]
+    N1_2a$regOUT[i]<- R$RegOut[a]
+    N1_2a$regOUT_all[i]<- R$RegOut_all[a]
+  }
+}
+
+save(N1_2a, file= "Experiment 2a/data/target.Rda")
+write.csv(N1_2a, "Experiment 2a/data/target.csv")

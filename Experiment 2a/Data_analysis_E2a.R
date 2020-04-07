@@ -393,3 +393,19 @@ write.csv(round(coef(summary(POF_LM1)),2), 'Experiment 2a/Models/PoF/PoF_FFD.csv
 write.csv(round(coef(summary(POF_LM2)),2), 'Experiment 2a/Models/PoF/PoF_SFD.csv')
 write.csv(round(coef(summary(POF_LM3)),2), 'Experiment 2a/Models/PoF/PoF_GD.csv')
 
+
+#---------------------#
+# Additional measures #
+#---------------------#
+
+### first-pass skipping:
+library(reshape)
+DesOther<- melt(N1_2a, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+            measure=c("skip_1st"), na.rm=TRUE)
+mO<- cast(DesOther, deg+prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+
+
+

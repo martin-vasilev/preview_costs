@@ -58,28 +58,28 @@ max(abs(unname(coef(summary(G1))[2:6,3])))
 
 
 # Contrast coding:
-N1$deg<- as.factor(N1$deg)
-contrasts(N1$deg)<- c(1,-1)
-contrasts(N1$deg)
+N1_2b$deg<- as.factor(N1_2b$deg)
+contrasts(N1_2b$deg)<- c(1,-1)
+contrasts(N1_2b$deg)
 
-N1$prev<- as.factor(N1$prev)
-levels(N1$prev)<- c("invalid", "orth", "valid")
+N1_2b$prev<- as.factor(N1_2b$prev)
+levels(N1_2b$prev)<- c("invalid", "orth", "valid")
 
-N1$prev<- factor(N1$prev, levels= c("valid", "invalid", "orth"))
-contrasts(N1$prev)
+N1_2b$prev<- factor(N1_2b$prev, levels= c("valid", "invalid", "orth"))
+contrasts(N1_2b$prev)
 
 
-contrasts(N1$prev)<- inv.cmat
-contrasts(N1$prev)
+contrasts(N1_2b$prev)<- inv.cmat
+contrasts(N1_2b$prev)
 
-contrasts(N1$deg)
+contrasts(N1_2b$deg)
 
-summary(LM1<- lmer(log(FFD)~ prev*deg +(deg+prev|sub) + (deg|item), data= N1))
+summary(LM1<- lmer(log(FFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
 
-summary(LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N1))
+summary(LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
 
-summary(LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (deg|item), data= N1))
-
+summary(LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
+# 
 
 #####################################################################
 # Global analyses:                                                  #
@@ -255,4 +255,18 @@ if(!file.exists("Experiment 2b/Models/PoF/POF_LM3.Rda")){
 write.csv(round(coef(summary(POF_LM1)),2), 'Experiment 2b/Models/PoF/PoF_FFD.csv')
 write.csv(round(coef(summary(POF_LM2)),2), 'Experiment 2b/Models/PoF/PoF_SFD.csv')
 write.csv(round(coef(summary(POF_LM3)),2), 'Experiment 2b/Models/PoF/PoF_GD.csv')
+
+#---------------------#
+# Additional measures #
+#---------------------#
+
+### first-pass skipping:
+library(reshape)
+DesOther<- melt(N1_2b, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+                measure=c("skip_1st"), na.rm=TRUE)
+mO<- cast(DesOther, deg+prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+
 
