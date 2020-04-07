@@ -292,10 +292,23 @@ write.csv(round(coef(summary(POF_LM3)),2), 'Experiment 2b/Models/PoF/PoF_GD.csv'
 ### first-pass skipping:
 library(reshape)
 DesOther<- melt(N1_2b, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
-                measure=c("skip_1st"), na.rm=TRUE)
+                measure=c("skip_1st", "regIN", "regOUT"), na.rm=TRUE)
 mO<- cast(DesOther, deg+prev ~ variable
           ,function(x) c(M=signif(mean(x),3)
                          , SD= sd(x) ))
 
 
+contrasts(N1_2b$prev)
+contrasts(N1_2b$deg)
 
+### Skipping:
+if(!file.exists("Experiment 2b/Models/Prob/Skip.Rda")){
+  summary(Skip<- glmer(skip_1st ~ prev*deg + (1|sub)+ (deg|item), 
+                       data = N1_2b, family = binomial))
+  
+  save(Skip, file= "Experiment 2b/Models/Prob/Skip.Rda")
+  write.csv(round(coef(summary(Skip)),2), 'Experiment 2b/Models/Prob/Skip.csv')
+}else{
+  load("Experiment 2b/Models/Prob/Skip.Rda")
+  summary(Skip)
+}
