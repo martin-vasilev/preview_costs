@@ -423,4 +423,15 @@ if(!file.exists("Experiment 2a/Models/Prob/Skip.Rda")){
 }
 
 
+### Reg in:
+if(!file.exists("Experiment 2a/Models/Prob/RegIN.Rda")){
+  summary(RegIN<- glmer(regIN ~ prev*deg + (deg|sub)+ (1|item), 
+                       data = N1_2a, family = binomial))
+  
+  save(RegIN, file= "Experiment 2a/Models/Prob/RegIN.Rda")
+  write.csv(round(coef(summary(RegIN)),2), 'Experiment 2a/Models/Prob/RegIN.csv')
+}else{
+  load("Experiment 2a/Models/Prob/RegIN.Rda")
+  summary(RegIN)
+}
 
