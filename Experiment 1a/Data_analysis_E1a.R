@@ -516,6 +516,7 @@ if(!file.exists("Experiment 1a/Models/PRM3.Rda")){
   summary(PRM3<- glmer(RegOUT_N1 ~ prev*deg + (deg|subj)+ (1|item), data = data, family= binomial,
                        glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000))))
   save(PRM3, file= "Experiment 1a/Models/PRM3.Rda")
+  write.csv(round(coef(summary(PRM3)),2), 'Experiment 1a/Models/PR_regOUT.csv')
 }else{
   load("Experiment 1a/Models/PRM3.Rda")
   summary(PRM3)
