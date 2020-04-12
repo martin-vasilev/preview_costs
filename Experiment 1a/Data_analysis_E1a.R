@@ -74,7 +74,8 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                      axis.line = element_line(colour = "black", size=1),
                      panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
   geom_line(size=2)+ scale_y_continuous(limits = c(210, 320))+
-  geom_point(size=7)+ 
+  geom_point(size=6)+
+  scale_shape_manual(values=c(15, 17))+
   xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
   theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
         legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
@@ -89,10 +90,10 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
   facet_grid(.~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
         strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
         legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
-        colour=NA) + ggtitle("Experiment 1")
+        colour=NA) + ggtitle("Experiment 1a\n[all words degraded]")
 
 ggsave("Experiment 1a/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
-ggsave("Experiment 1a/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
+ggsave("Experiment 1a/Plots/TW.pdf", Dplot, width= 12, height=9, units= "in")
 
 E1plot<- Dplot
 save(E1plot, file= "Experiment 1a/Plots/TW.Rda")
@@ -483,6 +484,8 @@ contrasts(data$prev)
 contrasts(data$deg)
 
 
+library(effects)
+
 # skipping:
 if(!file.exists("Experiment 1a/Models/PRM1.Rda")){
   summary(PRM1<- glmer(Skip_N1 ~ prev*deg + (1|subj)+ (1|item), data = data, family= binomial,
@@ -498,6 +501,19 @@ rowS<- c('Intercept', "Invalid PV", "Orth PV", "Phon PV", "Deg",
                     "Invalid PV:Deg", "Orth PV:Deg", "Phon PV:Deg")
 rownames(SPRM1)<- rowS
 write.csv(SPRM1, 'Experiment 1a/Models/PR_skip.csv')
+
+effect('prev', PRM1) # main effect of orth. PV
+plot(effect('prev:deg', PRM1)) # main effect of orth. PV
+
+library(emmeans)
+
+emmeans(PRM1, pairwise ~ prev*deg)
+# valid,0 - invalid,0      0.4923 0.240 Inf  2.053  0.4460
+# valid,20 - invalid,20   -0.2076 0.212 Inf -0.977  0.9777 
+
+# valid,0 - invalid,20    -0.0805 0.211 Inf -0.381  0.9999
+# invalid,0 - valid,20    -0.3652 0.241 Inf -1.518  0.7981
+
 
 
 # regression-in:

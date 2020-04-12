@@ -71,7 +71,8 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                        axis.line = element_line(colour = "black", size=1),
                        panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
   geom_line(size=2)+ scale_y_continuous(limits = c(210, 320))+
-  geom_point(size=7)+ 
+  geom_point(size=6)+ 
+  scale_shape_manual(values=c(15, 17))+
   xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
   theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
         legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
@@ -86,9 +87,9 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
   facet_grid(.~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
-                                 colour=NA) + ggtitle("Experiment 2")
+                                 colour=NA) + ggtitle("Experiment 1b\n[target and rest of sentence degraded]")
 ggsave("Experiment 1b/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
-ggsave("Experiment 1b/Plots/TW.pdf", Dplot, width= 12, height=8, units= "in")
+ggsave("Experiment 1b/Plots/TW.pdf", Dplot, width= 12, height=9, units= "in")
 
 E2plot<- Dplot
 save(E2plot, file= "Experiment 1b/Plots/TW.Rda")
@@ -489,3 +490,15 @@ if(!file.exists("Experiment 1b/Models/PRM2.Rda")){
   load("Experiment 1b/Models/PRM2.Rda")
   summary(PRM2)
 }
+
+
+# regression-out:
+if(!file.exists("Experiment 1b/Models/PRM3.Rda")){
+  summary(PRM3<- glmer(RegOUT_N1 ~ prev*deg + (1|subj)+ (1|item), data = data, family= binomial))
+  save(PRM3, file= "Experiment 1b/Models/PRM3.Rda")
+  write.csv(round(coef(summary(PRM3)),2), 'Experiment 1b/Models/PR_regOUT.csv')
+}else{
+  load("Experiment 1b/Models/PRM3.Rda")
+  summary(PRM3)
+}
+
