@@ -1,17 +1,17 @@
 
 # Martin R. Vasilev, 2019
 
-# statistical comparison of Experiment 1 and Experiment 2
+# statistical comparison of Experiment 1a and Experiment 1b
 
 rm(list=ls())
 
 # load Experiment 1 data:
-load('Experiment 1/data/data.Rda')
+load('Experiment 1a/data/data.Rda')
 datE1<- data; rm(data)
 datE1$Experiment<- 1
 
 # load Experiment 2 data:
-load('Experiment 2/data/data.Rda')
+load('Experiment 1b/data/data.Rda')
 datE2<- data; rm(data)
 datE2$bnd<- NULL
 datE2$Experiment<- 2
@@ -48,41 +48,41 @@ contrasts(dat$prev)
 contrasts(dat$deg)
 
 ## FFD:
-if(!file.exists('Experiment 2/Models/Comb_FFD.Rda')){
+if(!file.exists('Experiment 1b/Models/Comb_FFD.Rda')){
   summary(Comb_FFD<- lmer(log(FFD_N1)~prev*deg*Experiment+ (deg|subj)+ (deg|item), REML = T, data=dat))
-  save(Comb_FFD, file= 'Experiment 2/Models/Comb_FFD.Rda')
+  save(Comb_FFD, file= 'Experiment 1b/Models/Comb_FFD.Rda')
 }else{
-  load('Experiment 2/Models/Comb_FFD.Rda')
+  load('Experiment 1b/Models/Comb_FFD.Rda')
 }
 summary(Comb_FFD)
 
 SFFD<- round(coef(summary(Comb_FFD)),3)
-write.csv(SFFD, "Experiment 2/Models/2exp_FFD.csv")
+write.csv(SFFD, "Experiment 1b/Models/2exp_FFD.csv")
 
 
 ## SFD:
-if(!file.exists('Experiment 2/Models/Comb_SFD.Rda')){
+if(!file.exists('Experiment 1b/Models/Comb_SFD.Rda')){
   summary(Comb_SFD<- lmer(log(SFD_N1)~prev*deg*Experiment+ (deg|subj)+ (1|item), REML = T, data=dat))
-  save(Comb_SFD, file= 'Experiment 2/Models/Comb_SFD.Rda')
+  save(Comb_SFD, file= 'Experiment 1b/Models/Comb_SFD.Rda')
 }else{
-  load('Experiment 2/Models/Comb_SFD.Rda')
+  load('Experiment 1b/Models/Comb_SFD.Rda')
 }
 summary(Comb_SFD)
 
 SSFD<- round(coef(summary(Comb_SFD)),3)
-write.csv(SSFD, "Experiment 2/Models/2exp_SFD.csv")
+write.csv(SSFD, "Experiment 1b/Models/2exp_SFD.csv")
 
 ## GD:
-if(!file.exists('Experiment 2/Models/Comb_GD.Rda')){
+if(!file.exists('Experiment 1b/Models/Comb_GD.Rda')){
   summary(Comb_GD<- lmer(log(GD_N1)~prev*deg*Experiment+ (deg|subj)+ (deg|item), REML = T, data=dat))
-  save(Comb_GD, file= 'Experiment 2/Models/Comb_GD.Rda')
+  save(Comb_GD, file= 'Experiment 1b/Models/Comb_GD.Rda')
 }else{
-  load('Experiment 2/Models/Comb_GD.Rda')
+  load('Experiment 1b/Models/Comb_GD.Rda')
 }
 summary(Comb_GD)
 
 SGD<- round(coef(summary(Comb_GD)),3)
-write.csv(SGD, "Experiment 2/Models/2exp_GD.csv")
+write.csv(SGD, "Experiment 1b/Models/2exp_GD.csv")
 
 
 library(effects)
