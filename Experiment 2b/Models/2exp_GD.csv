@@ -1,0 +1,13 @@
+"","Estimate","Std. Error","t value"
+"(Intercept)",5.591,0.013,431.116
+"prev.PB",0.12,0.008,14.818
+"prev.Orth_PB",0.068,0.008,8.373
+"deg1",-0.021,0.004,-5.793
+"Experiment1",0.022,0.003,6.58
+"prev.PB:deg1",0.054,0.008,6.676
+"prev.Orth_PB:deg1",0.03,0.008,3.734
+"prev.PB:Experiment1",0,0.008,-0.059
+"prev.Orth_PB:Experiment1",0.006,0.008,0.79
+"deg1:Experiment1",-0.023,0.003,-6.976
+"prev.PB:deg1:Experiment1",-0.005,0.008,-0.667
+"prev.Orth_PB:deg1:Experiment1",-0.007,0.008,-0.89
