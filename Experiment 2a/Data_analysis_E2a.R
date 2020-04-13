@@ -80,8 +80,9 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
   theme_bw(24) + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
                        axis.line = element_line(colour = "black", size=1),
                        panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
-  geom_line(size=2)+ #scale_y_continuous(limits = c(210, 320))+
-  geom_point(size=5)+ 
+  geom_line(size=2)+ scale_y_continuous(limits = c(210, 330), breaks = c(225, 250, 275, 300, 325))+
+  geom_point(size=6)+ 
+  scale_shape_manual(values=c(15, 17))+
   xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
   theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
         legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
@@ -97,7 +98,7 @@ Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
                                  strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
                                  legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
                                                                                                       colour=NA) +
-  ggtitle("Experiment 2a")
+  ggtitle("Experiment 2a\n[all words degraded]")
 
 Dplot
 
@@ -433,5 +434,18 @@ if(!file.exists("Experiment 2a/Models/Prob/RegIN.Rda")){
 }else{
   load("Experiment 2a/Models/Prob/RegIN.Rda")
   summary(RegIN)
+}
+
+
+### Reg out:
+if(!file.exists("Experiment 2a/Models/Prob/RegOUT.Rda")){
+  summary(RegOUT<- glmer(regOUT ~ prev*deg + (1|sub)+ (deg|item), 
+                        data = N1_2a, family = binomial))
+  
+  save(RegOUT, file= "Experiment 2a/Models/Prob/RegOUT.Rda")
+  write.csv(round(coef(summary(RegOUT)),2), 'Experiment 2a/Models/Prob/RegOUT.csv')
+}else{
+  load("Experiment 2a/Models/Prob/RegOUT.Rda")
+  summary(RegOUT)
 }
 

@@ -1,0 +1,7 @@
+"","Estimate","Std. Error","z value","Pr(>|z|)"
+"(Intercept)",-1.66,0.11,-15.4,0
+"prev.PB",0.5,0.09,5.6,0
+"prev.Orth_PB",0.4,0.09,4.56,0
+"deg1",0.05,0.05,1,0.32
+"prev.PB:deg1",0.32,0.09,3.6,0
+"prev.Orth_PB:deg1",0.32,0.09,3.62,0

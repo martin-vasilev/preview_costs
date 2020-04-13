@@ -1,7 +1,7 @@
 
 # Martin R. Vasilev, 2020
 
-# EXPERIMENT 2a:
+# EXPERIMENT 2b:
 
 rm(list=ls())
 
@@ -38,6 +38,84 @@ library(MASS)
 
 load("D:/R/preview_costs/Experiment 2b/data/target.Rda")
 load("D:/R/preview_costs/Experiment 2b/data/pre-target.Rda")
+
+
+#-------------------#
+# Target word plot  #
+#-------------------#
+
+###################################
+
+library(reshape)
+DesN1<- melt(N1_2b, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+             measure=c("FFD", "SFD", "GD"), na.rm=TRUE)
+mF<- cast(DesN1, deg+prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
+df<- data.frame(c(mF$FFD_M, mF$SFD_M, mF$GD_M),
+                c(mF$FFD_SD, mF$SFD_SD, mF$GD_SD),
+                c(rep(mF$prev,3)), c(rep(mF$deg,3)),
+                c(rep('FFD', 6), rep('SFD', 6), rep('GD', 6)))
+colnames(df)<- c('Mean', 'SD', 'Preview', 'Degradation', 'Measure')
+df$SE<- df$SD/sqrt(length(unique(N1_2b$sub)))
+
+df$Preview<- as.factor(df$Preview)
+df$Preview<- factor(df$Preview, levels= c("valid", 'orth', 'mask'))
+#levels(df$Preview)<- c("valid", 'phon', 'orth', 'mask')
+df$Measure<- as.factor(df$Measure)
+df$Measure<- factor(df$Measure, levels= c('FFD', 'SFD', 'GD'))
+levels(df$Degradation)<- c(" 0 %", " 20 %")
+
+
+### graph:
+library(ggplot2)
+limits <- aes(ymax = df$Mean + df$SE, ymin=df$Mean - df$SE)
+
+
+Dplot<- ggplot(data= df, aes(x=Preview, y= Mean, color=Degradation,
+                             fill= Degradation, group=Degradation, shape=Degradation,
+                             linetype=Degradation, ymax = Mean + SE, ymin= Mean - SE))+ 
+  #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
+  scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
+  theme_bw(24) + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
+                       axis.line = element_line(colour = "black", size=1),
+                       panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
+  geom_line(size=2)+ scale_y_continuous(limits = c(210, 330), breaks = c(225, 250, 275, 300, 325))+
+  geom_point(size=6)+ 
+  scale_shape_manual(values=c(15, 17))+
+  xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
+  theme(legend.position=c(0.15, 0.85), legend.title=element_text(size=26, face="bold", family="serif"),
+        legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
+        legend.key.height=unit(1,"cm"), strip.text=element_text(size=26, family="serif"),
+        title=element_text(size=26, family="serif"),
+        axis.title.x = element_text(size=26, face="bold", family="serif"), 
+        axis.title.y = element_text(size=26, face="bold", family="serif"), 
+        axis.text=element_text(size=26, family="serif"), 
+        panel.border = element_rect(linetype = "solid", colour = "black"), 
+        legend.key = element_rect(colour = "#000000", size=1),
+        plot.title = element_text(hjust = 0.5))+
+  facet_grid(.~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
+                                 strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
+                                 legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
+                                 colour=NA) + ggtitle("Experiment 2b\n[target and rest of sentence degraded]")
+ggsave("Experiment 2b/Plots/TW.png", Dplot, width= 14, height=8, units= "in", dpi=200)
+ggsave("Experiment 2b/Plots/TW.pdf", Dplot, width= 12, height=9, units= "in")
+
+E2plot<- Dplot
+save(E2plot, file= "Experiment 2b/Plots/TW.Rda")
+
+#ggsave("Plots/TW.tiff", Dplot, width= 15, height=7, units= "in")
+
+library(ggpubr)
+load("Experiment 2a/Plots/TW.Rda")
+figure <- ggarrange(E1plot, E2plot, ncol = 1, nrow = 2,
+                    common.legend = TRUE, legend = "bottom")
+ggsave("Experiment 2b/Plots/Merged.pdf", figure, width= 14, height=16, units= "in")
+ggsave("Experiment 2b/Plots/Merged.eps", figure, width= 12, height=16, units= "in", device = "eps")
+
+
+
 
 
 #-------------------
@@ -103,12 +181,57 @@ contrasts(N1_2b$prev)
 
 contrasts(N1_2b$deg)
 
-summary(LM1<- lmer(log(FFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
 
-summary(LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
 
-summary(LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
-# 
+
+### FFD:
+
+if(!file.exists("Experiment 2b/Models/LM1.Rda")){
+  summary(LM1<- lmer(log(FFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
+  
+  save(LM1, file= "Experiment 2b/Models/LM1.Rda")
+  summary(LM1)
+}else{
+  load("Experiment 2b/Models/LM1.Rda")
+  summary(LM1)
+}
+
+S_LM1<- round(coef(summary(LM1)),2)
+
+
+### SFD:
+if(!file.exists("Experiment 2b/Models/LM2.Rda")){
+  summary(LM2<- lmer(log(SFD)~ prev*deg +(deg|sub) + (deg|item), data= N1_2b))
+  
+  save(LM2, file= "Experiment 2b/Models/LM2.Rda")
+  summary(LM2)
+}else{
+  load("Experiment 2b/Models/LM2.Rda")
+  summary(LM2)
+}
+
+S_LM2<- round(coef(summary(LM2)),2)
+
+### GD:
+if(!file.exists("Experiment 2b/Models/LM3.Rda")){
+  summary(LM3<- lmer(log(GD)~ prev*deg +(deg|sub) + (1|item), data= N1_2b))
+  
+  save(LM3, file= "Experiment 2b/Models/LM3.Rda")
+  summary(LM3)
+}else{
+  load("Experiment 2b/Models/LM3.Rda")
+  summary(LM3)
+}
+
+S_LM3<- round(coef(summary(LM3)),2)
+
+# write model results to csv:
+write.csv(S_LM1, 'Experiment 2b/Models/FFD.csv')
+write.csv(S_LM2, 'Experiment 2b/Models/SFD.csv')
+write.csv(S_LM3, 'Experiment 2b/Models/GD.csv')
+
+
+ 
 
 #####################################################################
 # Global analyses:                                                  #
@@ -325,3 +448,17 @@ if(!file.exists("Experiment 2b/Models/Prob/RegIN.Rda")){
   load("Experiment 2b/Models/Prob/RegIN.Rda")
   summary(RegIN)
 }
+
+
+### Reg out:
+if(!file.exists("Experiment 2b/Models/Prob/RegOUT.Rda")){
+  summary(RegOUT<- glmer(regOUT ~ prev*deg + (deg|sub)+ (deg|item), 
+                         data = N1_2b, family = binomial))
+  
+  save(RegOUT, file= "Experiment 2b/Models/Prob/RegOUT.Rda")
+  write.csv(round(coef(summary(RegOUT)),2), 'Experiment 2b/Models/Prob/RegOUT.csv')
+}else{
+  load("Experiment 2b/Models/Prob/RegOUT.Rda")
+  summary(RegOUT)
+}
+
