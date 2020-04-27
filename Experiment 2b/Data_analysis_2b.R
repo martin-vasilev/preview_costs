@@ -436,6 +436,12 @@ if(!file.exists("Experiment 2b/Models/Prob/Skip.Rda")){
   summary(Skip)
 }
 
+library(effects)
+
+effect('deg', Skip)
+effect('prev', Skip)
+
+effect('prev:deg', Skip)
 
 ### Reg in:
 if(!file.exists("Experiment 2b/Models/Prob/RegIN.Rda")){
@@ -448,6 +454,9 @@ if(!file.exists("Experiment 2b/Models/Prob/RegIN.Rda")){
   load("Experiment 2b/Models/Prob/RegIN.Rda")
   summary(RegIN)
 }
+
+effect('deg', RegIN)
+effect('prev:deg', RegIN)
 
 
 ### Reg out:
@@ -462,3 +471,5 @@ if(!file.exists("Experiment 2b/Models/Prob/RegOUT.Rda")){
   summary(RegOUT)
 }
 
+effect('prev', RegOUT)
+effect('prev:deg', RegOUT)

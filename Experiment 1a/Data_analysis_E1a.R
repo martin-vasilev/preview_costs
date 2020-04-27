@@ -504,16 +504,7 @@ write.csv(SPRM1, 'Experiment 1a/Models/PR_skip.csv')
 
 effect('prev', PRM1) # main effect of orth. PV
 plot(effect('prev:deg', PRM1)) # main effect of orth. PV
-
-library(emmeans)
-
-emmeans(PRM1, pairwise ~ prev*deg)
-# valid,0 - invalid,0      0.4923 0.240 Inf  2.053  0.4460
-# valid,20 - invalid,20   -0.2076 0.212 Inf -0.977  0.9777 
-
-# valid,0 - invalid,20    -0.0805 0.211 Inf -0.381  0.9999
-# invalid,0 - valid,20    -0.3652 0.241 Inf -1.518  0.7981
-
+effect('prev:deg', PRM1)
 
 
 # regression-in:
@@ -526,6 +517,8 @@ if(!file.exists("Experiment 1a/Models/PRM2.Rda")){
   summary(PRM2)
 }
 
+effect('deg', PRM2)
+
 
 # regression-out:
 if(!file.exists("Experiment 1a/Models/PRM3.Rda")){
@@ -537,3 +530,7 @@ if(!file.exists("Experiment 1a/Models/PRM3.Rda")){
   load("Experiment 1a/Models/PRM3.Rda")
   summary(PRM3)
 }
+
+
+effect('prev', PRM3)
+effect('deg', PRM3)

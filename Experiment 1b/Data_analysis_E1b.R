@@ -474,6 +474,10 @@ if(!file.exists("Experiment 1b/Models/PRM1.Rda")){
   summary(PRM1)
 }
 
+library(effects)
+
+effect('deg', PRM1)
+
 (SPRM1<- round(coef(summary(PRM1)),2))
 rowS<- c('Intercept', "Invalid PV", "Orth PV", "Phon PV", "Deg",             
          "Invalid PV:Deg", "Orth PV:Deg", "Phon PV:Deg")
@@ -502,3 +506,6 @@ if(!file.exists("Experiment 1b/Models/PRM3.Rda")){
   summary(PRM3)
 }
 
+effect('prev', PRM3)
+effect('deg', PRM3)
+effect('prev:deg', PRM3)

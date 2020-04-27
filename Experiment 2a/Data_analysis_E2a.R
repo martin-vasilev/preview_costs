@@ -112,6 +112,12 @@ save(E1plot, file= "Experiment 2a/Plots/TW.Rda")
 
 load("Experiment 2a/data/Quest2a.Rda")
 
+DesQ<- melt(Quest2a, id=c('sub', 'item', 'cond', 'deg', 'prev'), 
+             measure=c("accuracy"), na.rm=TRUE)
+mQ<- cast(DesQ, prev ~ variable
+          ,function(x) c(M=signif(mean(x),3)
+                         , SD= sd(x) ))
+
 Quest2a$deg<- as.factor(Quest2a$deg)
 contrasts(Quest2a$deg)<- c(1,-1)
 contrasts(Quest2a$deg)
@@ -139,7 +145,7 @@ contrasts(Quest2a$prev)
 # Comprehension accuracy:
 if(!file.exists("Experiment 2a/Models/G1.Rda")){
   
-  G1<- glmer(accuracy ~  prev*deg+ (1|sub)+ (1|item), family= binomial, data= Quest2a)
+  G1<- glmer(accuracy ~  prev*deg+ (1|sub)+ (deg|item), family= binomial, data= Quest2a)
   
   save(G1, file= "Experiment 2a/Models/G1.Rda")
   summary(G1)
@@ -148,8 +154,10 @@ if(!file.exists("Experiment 2a/Models/G1.Rda")){
   load("Experiment 2a/Models/G1.Rda")
   summary(G1)
 }
-max(abs(unname(coef(summary(G1))[2:6,3])))
+max(abs(unname(coef(summary(G1))[3:6,3])))
 
+library(effects)
+effect('prev', G1)
 
 
 # Contrast coding:
@@ -183,6 +191,8 @@ if(!file.exists("Experiment 2a/Models/LM1.Rda")){
 
 S_LM1<- round(coef(summary(LM1)),2)
 
+library(effects)
+effect('prev:deg', LM1)
 
 ### SFD:
 if(!file.exists("Experiment 2a/Models/LM2.Rda")){
@@ -196,6 +206,7 @@ if(!file.exists("Experiment 2a/Models/LM2.Rda")){
 }
 
 S_LM2<- round(coef(summary(LM2)),2)
+effect('prev:deg', LM2)
 
 ### GD:
 if(!file.exists("Experiment 2a/Models/LM3.Rda")){
@@ -209,9 +220,10 @@ if(!file.exists("Experiment 2a/Models/LM3.Rda")){
 }
 
 S_LM3<- round(coef(summary(LM3)),2)
+effect('prev:deg', LM3)
+
 
 # write model results to csv:
-
 write.csv(S_LM1, 'Experiment 2a/Models/FFD.csv')
 write.csv(S_LM2, 'Experiment 2a/Models/SFD.csv')
 write.csv(S_LM3, 'Experiment 2a/Models/GD.csv')
@@ -248,6 +260,7 @@ if(!file.exists("Experiment 2a/Models/GL1.Rda")){
   save(GL1, file= 'Experiment 2a/Models/GL1.Rda')
 }else{
   load('Experiment 2a/Models/GL1.Rda')
+  summary(GL1)
 }
 
 
@@ -296,6 +309,7 @@ if(!file.exists("Experiment 2a/Models/GL3.Rda")){
   save(GL3, file= 'Experiment 2a/Models/GL3.Rda')
 }else{
   load('Experiment 2a/Models/GL3.Rda')
+  summary(GL3)
 }
 
 
@@ -322,6 +336,7 @@ if(!file.exists("Experiment 2a/Models/GL4.Rda")){
   save(GL4, file= 'Experiment 2a/Models/GL4.Rda')
 }else{
   load('Experiment 2a/Models/GL4.Rda')
+  summary(GL4)
 }
 
 
@@ -423,6 +438,10 @@ if(!file.exists("Experiment 2a/Models/Prob/Skip.Rda")){
   summary(Skip)
 }
 
+library(effects)
+
+effect('prev', Skip)
+
 
 ### Reg in:
 if(!file.exists("Experiment 2a/Models/Prob/RegIN.Rda")){
@@ -435,6 +454,9 @@ if(!file.exists("Experiment 2a/Models/Prob/RegIN.Rda")){
   load("Experiment 2a/Models/Prob/RegIN.Rda")
   summary(RegIN)
 }
+
+effect('deg', RegIN)
+
 
 
 ### Reg out:
@@ -449,3 +471,7 @@ if(!file.exists("Experiment 2a/Models/Prob/RegOUT.Rda")){
   summary(RegOUT)
 }
 
+effect('prev', RegOUT)
+effect('deg', RegOUT)
+
+effect('prev:deg', RegOUT)

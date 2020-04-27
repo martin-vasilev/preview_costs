@@ -1,13 +1,13 @@
 "","Estimate","Std. Error","t value"
-"(Intercept)",5.548,0.013,440.109
-"prev.PB",0.118,0.008,14.898
-"prev.Orth_PB",0.06,0.008,7.59
-"deg1",-0.024,0.004,-6.872
-"Experiment1",0.019,0.003,5.926
-"prev.PB:deg1",0.052,0.008,6.488
-"prev.Orth_PB:deg1",0.028,0.008,3.595
-"prev.PB:Experiment1",0.002,0.008,0.253
-"prev.Orth_PB:Experiment1",0.01,0.008,1.275
-"deg1:Experiment1",-0.021,0.003,-6.444
-"prev.PB:deg1:Experiment1",-0.012,0.008,-1.453
-"prev.Orth_PB:deg1:Experiment1",-0.004,0.008,-0.562
+"(Intercept)",5.55,0.01,440.11
+"prev.PB",0.12,0.01,14.9
+"prev.Orth_PB",0.06,0.01,7.59
+"deg1",-0.02,0,-6.87
+"Experiment1",0.02,0,5.93
+"prev.PB:deg1",0.05,0.01,6.49
+"prev.Orth_PB:deg1",0.03,0.01,3.6
+"prev.PB:Experiment1",0,0.01,0.25
+"prev.Orth_PB:Experiment1",0.01,0.01,1.27
+"deg1:Experiment1",-0.02,0,-6.44
+"prev.PB:deg1:Experiment1",-0.01,0.01,-1.45
+"prev.Orth_PB:deg1:Experiment1",0,0.01,-0.56

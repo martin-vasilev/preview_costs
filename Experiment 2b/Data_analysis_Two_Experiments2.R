@@ -60,7 +60,7 @@ if(!file.exists('Experiment 2b/Models/Comb_FFD.Rda')){
 }
 summary(Comb_FFD)
 
-SFFD<- round(coef(summary(Comb_FFD)),3)
+SFFD<- round(coef(summary(Comb_FFD)),2)
 write.csv(SFFD, "Experiment 2b/Models/2exp_FFD.csv")
 
 
@@ -73,7 +73,7 @@ if(!file.exists('Experiment 2b/Models/Comb_SFD.Rda')){
 }
 summary(Comb_SFD)
 
-SSFD<- round(coef(summary(Comb_SFD)),3)
+SSFD<- round(coef(summary(Comb_SFD)),2)
 write.csv(SSFD, "Experiment 2b/Models/2exp_SFD.csv")
 
 ## GD:
@@ -85,7 +85,7 @@ if(!file.exists('Experiment 2b/Models/Comb_GD.Rda')){
 }
 summary(Comb_GD)
 
-SGD<- round(coef(summary(Comb_GD)),3)
+SGD<- round(coef(summary(Comb_GD)),2)
 write.csv(SGD, "Experiment 2b/Models/2exp_GD.csv")
 
 
