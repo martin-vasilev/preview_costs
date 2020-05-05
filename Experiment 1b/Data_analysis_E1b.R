@@ -509,3 +509,111 @@ if(!file.exists("Experiment 1b/Models/PRM3.Rda")){
 effect('prev', PRM3)
 effect('deg', PRM3)
 effect('prev:deg', PRM3)
+
+
+###---------------------------------------------
+### Additional analysis requested by Reviewer 4:
+###---------------------------------------------
+
+which_subs<- c(8,9,13,15,19,22,23,49,60)
+
+# map subjects who were NOT aware by degradation changes (1= aware, 0= not aware):
+data$DC_deg<- ifelse(is.element(data$subj, which_subs), 1, 0)
+
+
+# calculate means:
+library(reshape2)
+DesDF2<- melt(data, id=c('subj', 'item', 'cond', 'prev', 'deg', 'DC_deg'), 
+            measure=c("FFD_N1", "SFD_N1", "GD_N1") , na.rm=TRUE)
+
+mF2<- cast(DesDF2, prev+deg+DC_deg ~ variable
+          , function(x) c(M=signif(mean(x),3)
+                          , SD= sd(x) ))
+
+df2<- rbind(mF2[,c(1:3)], mF2[,c(1:3)], mF2[,c(1:3)])
+df2$Mean<- c(mF2$FFD_N1_M, mF2$SFD_N1_M, mF2$GD_N1_M)
+df2$SD<- c(mF2$FFD_N1_SD, mF2$SFD_N1_SD, mF2$GD_N1_SD)
+df2$Measure<- c(rep("FFD", 16), rep("SFD", 16), rep("GD", 16))
+df2$SE<- NA
+df2$SE[which(df2$DC_deg==0)]<- df2$SD[which(df2$DC_deg==0)]/sqrt(length(unique(data$subj))- length(which_subs))
+df2$SE[which(df2$DC_deg==1)]<- df2$SD[which(df2$DC_deg==1)]/sqrt(length(which_subs))
+
+
+colnames(df2)<- c("Preview", "Degradation", "DC_deg", "Mean", "SD", "Measure", "SE")
+
+df2$Preview<- as.factor(df2$Preview)
+df2$Preview<- factor(df2$Preview, levels= c("valid", 'phon', 'orth', 'invalid'))
+levels(df2$Preview)<- c("valid", 'phon', 'orth', 'mask')
+df2$Measure<- as.factor(df2$Measure)
+df2$Measure<- factor(df2$Measure, levels= c('FFD', 'SFD', 'GD'))
+
+df2$Degradation<- as.factor(df2$Degradation)
+levels(df2$Degradation)<- c(" 0 %", " 20 %")
+
+df2$DC_deg<- as.factor(df2$DC_deg)
+levels(df2$DC_deg)<- c("noticed degradation", "did not notice degradation")
+
+
+
+### graph:
+library(ggplot2)
+limits <- aes(ymax = df2$Mean + df2$SE, ymin=df2$Mean - df2$SE)
+
+
+DCplot<- ggplot(data= df2, aes(x=Preview, y= Mean, color=Degradation,
+                             fill= Degradation, group=Degradation, shape=Degradation,
+                             linetype=Degradation, ymax = Mean + SE, ymin= Mean - SE))+ 
+  #scale_y_continuous(breaks=c(200, 250, 300, 350, 400, 450))+
+  scale_fill_brewer(palette="Dark2")+ scale_colour_brewer(palette="Dark2")+
+  theme_bw(24) + theme(panel.grid.major = element_line(colour = "#E3E5E6", size=0.7), 
+                       axis.line = element_line(colour = "black", size=1),
+                       panel.border = element_rect(colour = "black", size=1.5, fill = NA))+
+  geom_line(size=2)+ scale_y_continuous(limits = c(210, 360))+
+  geom_point(size=6)+ 
+  scale_shape_manual(values=c(15, 17))+
+  xlab("Parafoveal preview of word N+1\n")+ ylab("Mean fixation duration")+ 
+  theme(legend.position=c(0.15, 0.88), legend.title=element_text(size=26, face="bold", family="serif"),
+        legend.text=element_text(size=26,family="serif"),legend.key.width=unit(2,"cm"),
+        legend.key.height=unit(1,"cm"), strip.text=element_text(size=26, family="serif"),
+        title=element_text(size=26, family="serif"),
+        axis.title.x = element_text(size=26, face="bold", family="serif"), 
+        axis.title.y = element_text(size=26, face="bold", family="serif"), 
+        axis.text=element_text(size=26, family="serif"), 
+        panel.border = element_rect(linetype = "solid", colour = "black"), 
+        legend.key = element_rect(colour = "#000000", size=1),
+        plot.title = element_text(hjust = 0.5))+
+  facet_grid(DC_deg ~ Measure) + theme(strip.text.x = element_text(size = 22,  face="bold",family="serif"),
+                                 strip.background = element_rect(fill="#F5F7F7", colour="black", size=1.5),
+                                 legend.key = element_rect(colour = "#000000", size=1)) + geom_ribbon(alpha=0.10, 
+                                                                                                      colour=NA) + ggtitle("Experiment 1b\n[target and rest of sentence degraded]")
+
+DCplot
+
+
+ggsave(filename = "Experiment 1b/Plots/R4_plot.pdf", width = 12, height = 12)
+
+
+### statistical analysis
+
+library(lme4)
+
+contrasts(data$deg)
+contrasts(data$prev)
+
+data$DC_deg<- as.factor(data$DC_deg)
+contrasts(data$DC_deg)<- c(1, -1)
+contrasts(data$DC_deg)
+
+if(!file.exists("Experiment 1b/Models/R4_LM.Rda")){
+ 
+  #save(FFDN1, file= "Experiment 1b/Models/FFDN1.Rda")
+}
+
+summary(R4_LM<- lmer(log(FFD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+
+summary(R4_LM<- lmer(log(SFD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+
+summary(R4_LM<- lmer(log(GD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+
+
+

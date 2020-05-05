@@ -60,6 +60,13 @@ if(!file.exists('Experiment 2b/Models/Comb_FFD.Rda')){
 }
 summary(Comb_FFD)
 
+library(effects)
+
+effect('deg', Comb_FFD)
+effect('Experiment', Comb_FFD)
+effect('deg:Experiment', Comb_FFD)
+
+
 SFFD<- round(coef(summary(Comb_FFD)),2)
 write.csv(SFFD, "Experiment 2b/Models/2exp_FFD.csv")
 

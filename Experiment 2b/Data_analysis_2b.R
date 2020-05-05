@@ -21,7 +21,7 @@ rm(list=ls())
 # "nfix1"=        Number of 1st-pass fixations
 # "nfix2"=        Number of 2nd-pass fixations
 # "nfixAll"=      Number of all fixations
-# regress=        A logica indicating whether there were regressive (2nd-pass) fixations (1= yes; 0= no)
+# regress=        A logical indicating whether there were regressive (2nd-pass) fixations (1= yes; 0= no)
 # "skip_1st"=     First-pass skipping probability
 # "skip_total"=   Total skipping probability
 # "prev"=         Preview condition
@@ -198,6 +198,9 @@ if(!file.exists("Experiment 2b/Models/LM1.Rda")){
 
 S_LM1<- round(coef(summary(LM1)),2)
 
+library(effects)
+effect('prev:deg', LM1)
+
 
 ### SFD:
 if(!file.exists("Experiment 2b/Models/LM2.Rda")){
@@ -263,6 +266,7 @@ if(!file.exists("Experiment 2b/Models/GL1.Rda")){
   save(GL1, file= 'Experiment 2b/Models/GL1.Rda')
 }else{
   load('Experiment 2b/Models/GL1.Rda')
+  summary(GL1)
 }
 
 
@@ -289,8 +293,12 @@ if(!file.exists("Experiment 2b/Models/GL2.Rda")){
   save(GL2, file= 'Experiment 2b/Models/GL2.Rda')
 }else{
   load('Experiment 2b/Models/GL2.Rda')
+  summary(GL2)
 }
 
+library(effects)
+
+effect('deg', GL2)
 
 #------------------#
 # Saccade length : #
@@ -310,7 +318,10 @@ if(!file.exists("Experiment 2b/Models/GL3.Rda")){
   save(GL3, file= 'Experiment 2b/Models/GL3.Rda')
 }else{
   load('Experiment 2b/Models/GL3.Rda')
+  summary(GL3)
 }
+
+effect('deg', GL3)
 
 
 #--------------------------#
@@ -336,6 +347,7 @@ if(!file.exists("Experiment 2b/Models/GL4.Rda")){
   save(GL4, file= 'Experiment 2b/Models/GL4.Rda')
 }else{
   load('Experiment 2b/Models/GL4.Rda')
+  summary(GL4)
 }
 
 
