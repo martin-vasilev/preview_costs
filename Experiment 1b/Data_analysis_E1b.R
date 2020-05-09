@@ -604,16 +604,12 @@ data$DC_deg<- as.factor(data$DC_deg)
 contrasts(data$DC_deg)<- c(1, -1)
 contrasts(data$DC_deg)
 
-if(!file.exists("Experiment 1b/Models/R4_LM.Rda")){
- 
-  #save(FFDN1, file= "Experiment 1b/Models/FFDN1.Rda")
-}
 
-summary(R4_LM<- lmer(log(FFD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+summary(R4_LM<- lmer(log(FFD_N1)~prev*deg*DC_deg+ (deg|subj)+ (1|item), REML = T, data=data))
 
-summary(R4_LM<- lmer(log(SFD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+summary(R4_LM<- lmer(log(SFD_N1)~prev*deg*DC_deg+ (deg|subj)+ (deg|item), REML = T, data=data))
 
-summary(R4_LM<- lmer(log(GD_N1)~prev*deg*DC_deg+ (1|subj)+ (1|item), REML = T, data=data))
+summary(R4_LM<- lmer(log(GD_N1)~prev*deg*DC_deg+ (deg|subj)+ (1|item), REML = T, data=data))
 
 
 

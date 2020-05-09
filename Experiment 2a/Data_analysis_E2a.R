@@ -106,6 +106,55 @@ E1plot<- Dplot
 save(E1plot, file= "Experiment 2a/Plots/TW.Rda")
 
 
+
+
+### Preview costs (size):
+dfN<- mF[, c('deg', 'prev', 'FFD_M', 'SFD_M', 'GD_M')]
+dfN<- subset(dfN, prev== "mask")
+
+# FFD cost:
+(FFDc<- dfN$FFD_M[1]-dfN$FFD_M[2])
+
+# SFD cost:
+(SFDc<- dfN$SFD_M[1]-dfN$SFD_M[2])
+
+# GD cost:
+(GDc<- dfN$GD_M[1]-dfN$GD_M[2])
+
+### Preview benefit (size):
+dfB<- mF[, c('deg', 'prev', 'FFD_M', 'SFD_M', 'GD_M')]
+dfB<- subset(dfB, prev== "valid")
+
+## FFD benefit:
+(FFDb<- dfB$FFD_M[2]- dfB$FFD_M[1])
+
+## SFD benefit:
+(SFDb<- dfB$SFD_M[2]- dfB$SFD_M[1])
+
+## GD benefit:
+(GDb<- dfB$GD_M[2]- dfB$GD_M[1])
+
+
+# Percentage cost:
+
+# FFD:
+(FFDpc<- (FFDc/(dfN$FFD_M[1] - dfB$FFD_M[1]))*100)
+
+# SFD:
+(SFDpc<- (SFDc/(dfN$SFD_M[1] - dfB$SFD_M[1]))*100)
+
+# GD:
+(GDpc<- (GDc/(dfN$GD_M[1] - dfB$GD_M[1]))*100)
+
+mean(c(FFDpc, SFDpc, GDpc))
+sd(c(FFDpc, SFDpc, GDpc))
+
+# two experiments (original + replication):
+mean(c(FFDpc, SFDpc, GDpc, 28.57143, 45.45455, 23.68421))
+sd(c(FFDpc, SFDpc, GDpc, 28.57143, 45.45455, 23.68421))
+
+range(c(FFDpc, SFDpc, GDpc, 28.57143, 45.45455, 23.68421))
+
 #-------------------
 # Question Accuracy:
 #-------------------
